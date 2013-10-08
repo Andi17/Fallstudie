@@ -1,9 +1,10 @@
 package Optionen;
 
 public class Optionen {
-	private static String jdbcurl = "jdbc:mysql://localhost/leistungkonzept";
-	private static String jdbcuser = "root";
-	private static String jdbcpw = "hermann";
+	private final static String jdbcurl = "jdbc:mysql://localhost/leistungkonzept";
+	private final static String jdbcuser = "root";
+	private final static String jdbcpw = "hermann";
+	private final static String webserverURL = "http://localhost:8888/WSExample/simple";
 
 	public static String getJdbcuser() {
 		return jdbcuser;
@@ -17,4 +18,7 @@ public class Optionen {
 		return jdbcurl;
 	}
 
+	public static String getWebserverURL() {
+		return webserverURL;
+	}
 }

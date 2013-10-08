@@ -1,22 +1,23 @@
 package Webservice;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
-import java.util.Hashtable;
 import java.util.List;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 import javax.xml.ws.Endpoint;
 
+import jdbc.JdbcAccess;
+
 import Benutzerverwaltung.Rechte;
+import Optionen.Optionen;
 import Stricheln.Stricheln;
 import Zugriffsschicht.Statistik;
 import Zugriffsschicht.Strichbezeichnung;
 import Zugriffsschicht.StrichbezeichnungListe;
-import Zugriffsschicht.ZugriffDB;
 
 /* 
  * Aus dieser *.java-Datei wurden die *.class-Dateien mit folgender Anweisung generiert:
@@ -31,11 +32,15 @@ import Zugriffsschicht.ZugriffDB;
  */
 @WebService
 public class Webservice {
-	private ZugriffDB Zugriff;
-
-	private void start() {
-		Zugriff = new ZugriffDB();
-		Zugriff.CheckAccess();
+	private JdbcAccess dbZugriff;
+	
+	public Webservice() {
+		try {
+			dbZugriff = new JdbcAccess(Optionen.getJdbcurl(), Optionen.getJdbcuser(),
+					Optionen.getJdbcpw());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@WebMethod
@@ -43,7 +48,7 @@ public class Webservice {
 		/*
 		 * return true wenn login geklappt hat
 		 */
-		Rechte recht = new Rechte(Zugriff.getDb());
+		Rechte recht = new Rechte(dbZugriff);
 		return recht.vorgangMoeglich(Benutzername, Passwort, 1);
 	}
 
@@ -55,7 +60,7 @@ public class Webservice {
 		 * int(2)->Statistikfenster
 		 */
 		int[] ret = null;
-		Rechte recht = new Rechte(Zugriff.getDb());
+		Rechte recht = new Rechte(dbZugriff);
 		if (recht.vorgangMoeglich(Benutzer, Passwort, 2)) {
 			ret = recht.erlaubteAnzeigen();
 		}
@@ -70,7 +75,7 @@ public class Webservice {
 		 * List<Statistik> Der Server sucht die OE des Benutzers und gibt alle
 		 * Statistiken dazu aus.
 		 */
-		Rechte recht = new Rechte(Zugriff.getDb());
+		Rechte recht = new Rechte(dbZugriff);
 		if (recht.vorgangMoeglich(Benutzer, Passwort, 3)) {
 
 		}
@@ -85,10 +90,10 @@ public class Webservice {
 		 * und bezeichnung sofern Zustand vorhanden ist.
 		 */
 		List<Strichbezeichnung> ret = new ArrayList<Strichbezeichnung>();
-		Rechte recht = new Rechte(Zugriff.getDb());
+		Rechte recht = new Rechte(dbZugriff);
 		if (recht.vorgangMoeglich(Benutzer, Passwort, 4)) {
 			StrichbezeichnungListe Liste = new StrichbezeichnungListe(
-					Zugriff.getDb());
+					dbZugriff);
 			ret = Liste.getallemoeglichenStricharten();
 		}
 		return ret;
@@ -106,9 +111,9 @@ public class Webservice {
 		 * follgender Gründe: -Keine Rechte zum schreiben -Datenbank offline
 		 * -Andere Fehler
 		 */
-		Rechte recht = new Rechte(Zugriff.getDb());
+		Rechte recht = new Rechte(dbZugriff);
 		if (recht.vorgangMoeglich(Benutzer, Passwort, 5)) {
-			Stricheln Strich = new Stricheln(Zugriff.getDb());
+			Stricheln Strich = new Stricheln(dbZugriff);
 			if (Strich.schreibeStrichInBW(Benutzer, Datum, Strichart,
 					Strichzahl)) {
 				return true;
@@ -215,9 +220,8 @@ public class Webservice {
 	public static void main(String[] args) {
 
 		Webservice ws = new Webservice();
-		ws.start();
 		Endpoint ep = Endpoint.publish(
-				"http://localhost:8888/WSExample/simple", ws);
+				Optionen.getWebserverURL(), ws);
 		// Hier wartet der Server
 		System.out.println("web service server running ... press key to stop");
 
