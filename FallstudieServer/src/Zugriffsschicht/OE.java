@@ -17,6 +17,9 @@ public class OE {
 	public OE(JdbcAccess db) {
 		this.db = db;
 	}
+	/*
+	 * Komentar zum überprüfen von github
+	 */
 
 	public OE(int idOE, JdbcAccess db) {
 		ResultSet resultSet;

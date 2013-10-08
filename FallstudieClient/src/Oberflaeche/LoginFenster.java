@@ -1,4 +1,4 @@
-package Oberfläche;
+package Oberflaeche;
 
 import java.awt.EventQueue;
 
