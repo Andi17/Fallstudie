@@ -12,7 +12,7 @@ import javax.xml.ws.Endpoint;
 
 import jdbc.JdbcAccess;
 
-import Benutzerverwaltung.Rechte;
+import RightsManagement.Rechte;
 import Optionen.Optionen;
 import Stricheln.Stricheln;
 import Zugriffsschicht.Statistik;
@@ -47,6 +47,7 @@ public class Webservice {
 	public boolean login(String Benutzername, String Passwort) {
 		/*
 		 * return true wenn login geklappt hat
+		 * eventuell char zurückgeben, dann aber noch recht.login() ändern oder vorgangMoeglich()
 		 */
 		Rechte recht = new Rechte(dbZugriff);
 		return recht.vorgangMoeglich(Benutzername, Passwort, 1);

@@ -1,4 +1,4 @@
-package Berechtigungsverwaltung;
+package Benutzerverwaltung;
 
 public class Benutzerverwaltung {
 
