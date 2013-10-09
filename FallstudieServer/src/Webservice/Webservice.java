@@ -213,15 +213,24 @@ public class Webservice {
 		 */
 		return false;
 	}
+	
+	private void dbZugriffBeenden(){
+		try {
+			dbZugriff.disconnect();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 	/**
 	 * Den Service mittels in Java 6 enthaltenen HTTP-Server veröffentlichen
 	 */
 	public static void main(String[] args) {
 
-		Webservice ws = new Webservice();
-		Endpoint ep = Endpoint.publish(
-				Optionen.getWebserverURL(), ws);
+		Webservice webservice = new Webservice();
+		Endpoint endpoint = Endpoint.publish(
+				Optionen.getWebserverURL(), webservice);
 		// Hier wartet der Server
 		System.out.println("web service server running ... press key to stop");
 
@@ -230,7 +239,8 @@ public class Webservice {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		ep.stop();
+		endpoint.stop();
+		webservice.dbZugriffBeenden();
 		System.out.println("Web service Server stopped");
 	}
 

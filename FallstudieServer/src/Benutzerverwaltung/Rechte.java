@@ -108,7 +108,6 @@ public class Rechte {
 			}
 		}
 		return ret;
-
 	}
 
 	public boolean vorgangMoeglich(String Benutzername, String Passwort,
@@ -117,24 +116,25 @@ public class Rechte {
 		 * überprüfung ob login gültig ist rechte suchen vergleichen ob Vorgang
 		 * mit erhaltenen rechten möglich ist.
 		 */
-		boolean ret = false;
 		if (login(Benutzername, Passwort)) {
 			if (Vorgang == 1) {
 				return true;
 			}
-			int[] Rechte = this.getRechte(Benutzername);
-			int[] Rechtemoeglich = this.getRechtemoeglich(Vorgang);
-			if (Rechte != null && Rechtemoeglich != null) {
-				for (int i = 0; i < Rechte.length; i++) {
-					for (int a = 0; a < Rechtemoeglich.length; a++) {
-						if (Rechte[i] == Rechtemoeglich[a]) {
-							return true;
+			else {
+				int[] Rechte = this.getRechte(Benutzername);
+				int[] Rechtemoeglich = this.getRechtemoeglich(Vorgang);
+				if (Rechte != null && Rechtemoeglich != null) {
+					for (int i = 0; i < Rechte.length; i++) {
+						for (int a = 0; a < Rechtemoeglich.length; a++) {
+							if (Rechte[i] == Rechtemoeglich[a]) {
+								return true;
+							}
 						}
 					}
 				}
-			}
+			}	
 		}
-		return ret;
+		return false;
 	}
 
 	public int[] erlaubteAnzeigen() {
