@@ -13,11 +13,12 @@ import javax.xml.ws.Endpoint;
 import jdbc.JdbcAccess;
 
 import RightsManagement.Rechte;
+import Benutzerverwaltung.Benutzerverwaltung;
 import Optionen.Optionen;
 import Stricheln.Stricheln;
 import Zugriffsschicht.Statistik;
-import Zugriffsschicht.Strichbezeichnung;
-import Zugriffsschicht.StrichbezeichnungListe;
+import Zugriffsschicht.Strichart;
+import Zugriffsschicht.Zugriffschicht;
 
 /* 
  * Aus dieser *.java-Datei wurden die *.class-Dateien mit folgender Anweisung generiert:
@@ -32,12 +33,20 @@ import Zugriffsschicht.StrichbezeichnungListe;
  */
 @WebService
 public class Webservice {
-	private JdbcAccess dbZugriff;
+	
+	
+	private JdbcAccess jdbc;
+	private Zugriffschicht dbZugriff;
+	private Rechte rightsManagement;
+	private Benutzerverwaltung benutzerverwaltung;
+	private Stricheln stricheln;
 	
 	public Webservice() {
 		try {
-			dbZugriff = new JdbcAccess(Optionen.getJdbcurl(), Optionen.getJdbcuser(),
+			jdbc = new JdbcAccess(Optionen.getJdbcurl(), Optionen.getJdbcuser(),
 					Optionen.getJdbcpw());
+			dbZugriff = new Zugriffschicht(jdbc);
+			rightsManagement = new Rechte(jdbc, dbZugriff);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -46,56 +55,54 @@ public class Webservice {
 	@WebMethod
 	public boolean login(String Benutzername, String Passwort) {
 		/*
-		 * return true wenn login geklappt hat
+		 * return true wenn login geklappt hat (erstmal so lassen)
 		 * eventuell char zurückgeben, dann aber noch recht.login() ändern oder vorgangMoeglich()
 		 */
-		Rechte recht = new Rechte(dbZugriff);
-		return recht.vorgangMoeglich(Benutzername, Passwort, 1);
+		return rightsManagement.vorgangMoeglich(Benutzername, Passwort, 1);
 	}
 
+	//Gibt ein Array aus char zurück, je nachdem welche Fenster angezeigt werden sollen.
 	@WebMethod
-	public int[] anzeige(String Benutzer, String Passwort) {
+	public char[] anzeige(String Benutzer, String Passwort) {
 		/*
-		 * int(0)->Stichelfenster 
-		 * int(1)->Benutzerverwaltung
-		 * int(2)->Statistikfenster
+		 * 'd'->Dash/Strichelfenster 
+		 * 'b'->Adminrechte
+		 * 's'->Statistikfenster
+		 * 
 		 */
-		int[] ret = null;
-		Rechte recht = new Rechte(dbZugriff);
-		if (recht.vorgangMoeglich(Benutzer, Passwort, 2)) {
-			ret = recht.erlaubteAnzeigen();
+		char[] ret = null;
+		if (rightsManagement.vorgangMoeglich(Benutzer, Passwort, 2)) {
+			ret = rightsManagement.erlaubteAnzeigen();
 		}
 		return ret;
 	}
 
+	//Statistik erst einmal nur Grundfunktionalität. Muss noch erweitert werden.
 	@WebMethod
-	public List<Statistik> getStatistik(String Benutzer, String Passwort) {
+	public List<Statistik> getStatistik(String Benutzer, String Passwort, int kalendarwoche, int jahr) {
 		/*
 		 * TODO : Anstatt String[] als übergabewert die Klasse Statistik
-		 * übergeben. (Serialisierbar?) bei mehreren Statistiken :
+		 * übergeben. bei mehreren Statistiken :
 		 * List<Statistik> Der Server sucht die OE des Benutzers und gibt alle
 		 * Statistiken dazu aus.
 		 */
-		Rechte recht = new Rechte(dbZugriff);
-		if (recht.vorgangMoeglich(Benutzer, Passwort, 3)) {
+		if (rightsManagement.vorgangMoeglich(Benutzer, Passwort, 3)) {
 
 		}
 		return null;
 	}
 
+	
 	@WebMethod
-	public List<Strichbezeichnung> getStricheln(String Benutzer, String Passwort) {
+	public List<Strichart> getStrichelArt(String Benutzer, String Passwort) {
 		/*
 		 * rückgabe der verschiedenen Strichelmöglichkeiten. Eventuell übergabe
 		 * einer Strichelklasse( siehe statistik) Rückgabe von Strichelart(DB)
 		 * und bezeichnung sofern Zustand vorhanden ist.
 		 */
-		List<Strichbezeichnung> ret = new ArrayList<Strichbezeichnung>();
-		Rechte recht = new Rechte(dbZugriff);
-		if (recht.vorgangMoeglich(Benutzer, Passwort, 4)) {
-			StrichbezeichnungListe Liste = new StrichbezeichnungListe(
-					dbZugriff);
-			ret = Liste.getallemoeglichenStricharten();
+		List<Strichart> ret = new ArrayList<Strichart>();
+		if (rightsManagement.vorgangMoeglich(Benutzer, Passwort, 4)) {
+			ret = dbZugriff.getAlleMoeglichenStricharten();
 		}
 		return ret;
 	}
@@ -112,9 +119,8 @@ public class Webservice {
 		 * follgender Gründe: -Keine Rechte zum schreiben -Datenbank offline
 		 * -Andere Fehler
 		 */
-		Rechte recht = new Rechte(dbZugriff);
-		if (recht.vorgangMoeglich(Benutzer, Passwort, 5)) {
-			Stricheln Strich = new Stricheln(dbZugriff);
+		if (rightsManagement.vorgangMoeglich(Benutzer, Passwort, 5)) {
+			Stricheln Strich = new Stricheln(jdbc);
 			if (Strich.schreibeStrichInBW(Benutzer, Datum, Strichart,
 					Strichzahl)) {
 				return true;
@@ -123,6 +129,8 @@ public class Webservice {
 		return false;
 	}
 
+	//das wär dann doch nur eine Methode für den admin??
+	//das mit dem alle benutzer einer einheit haben wir ja in Zugriffschicht
 	@WebMethod
 	public String[] getBenutzer(String Benutzer, String Passwort) {
 		/*
@@ -133,8 +141,9 @@ public class Webservice {
 		return null;
 	}
 
+	//Methode nur für Admin.
 	@WebMethod
-	public boolean sendBenutzer(String Benutzer, String Passwort,
+	public boolean benutzerErstellen(String Benutzer, String Passwort,
 			int idBenutzer, String Benutzername, String BenutzerPasswort,
 			int idOE) {
 		/*
@@ -159,6 +168,7 @@ public class Webservice {
 		return false;
 	}
 
+	//Methode für Admin? oder wie soll die identifizierung ablaufen?
 	@WebMethod
 	public boolean sendPasswortzuruecksetzen(String Benutzer, String Passwort,
 			int idBenutzer) {
@@ -170,6 +180,7 @@ public class Webservice {
 		return false;
 	}
 
+	//Wie wärs wenn wir die Organisationseinheit einfach beim Login mit übergeben?
 	@WebMethod
 	public String[] getOE(String Benutzer, String Passwort) {
 		/*
@@ -180,6 +191,7 @@ public class Webservice {
 		return null;
 	}
 
+	//Methode für admin.
 	@WebMethod
 	public boolean sendOE(String Benutzer, String Passwort, int idOE,
 			int UeberOE, String OEbezeichnung, int Inhaberberechtigung,
@@ -192,6 +204,7 @@ public class Webservice {
 		return false;
 	}
 
+	//was ist mit zustand gemeint? braucht man idStrichart überhaupt? eig reicht ja strichart
 	@WebMethod
 	public String[] getStrichelarten(String Benutzer, String Passwort) {
 		/*
@@ -202,6 +215,7 @@ public class Webservice {
 		return null;
 	}
 
+	
 	@WebMethod
 	public boolean sendStrichelart(String Benutzer, String Passwort,
 			int idStrichart, String Strichbezeichnung, int StrichZustand) {
@@ -215,11 +229,11 @@ public class Webservice {
 		return false;
 	}
 	
+	//beendet den Access auf die Datenbank
 	private void dbZugriffBeenden(){
 		try {
-			dbZugriff.disconnect();
+			jdbc.disconnect();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

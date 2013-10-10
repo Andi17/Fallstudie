@@ -7,7 +7,7 @@ import java.util.Date;
 
 import jdbc.JdbcAccess;
 
-public class WocheBenutzer {
+public class Arbeitsschritte {
 	private JdbcAccess db;
 	private int idBW;
 	private int idBenutzer;
@@ -16,11 +16,11 @@ public class WocheBenutzer {
 	private int idStrichart;
 	private int Strichzahl;
 
-	public WocheBenutzer(JdbcAccess db) {
+	public Arbeitsschritte(JdbcAccess db) {
 		this.db = db;
 	}
 
-	public WocheBenutzer(int idBW, JdbcAccess db) {
+	public Arbeitsschritte(int idBW, JdbcAccess db) {
 		ResultSet resultSet;
 		try {
 			resultSet = db
@@ -40,7 +40,7 @@ public class WocheBenutzer {
 		this.db = db;
 	}
 
-	public WocheBenutzer(int Benutzer, int idOE, Date Datum, int idStrichart,
+	public Arbeitsschritte(int Benutzer, int idOE, Date Datum, int idStrichart,
 			int Strichzahl, JdbcAccess db) {
 		this.idBenutzer = Benutzer;
 		this.idOE = idOE;

@@ -1,9 +1,11 @@
 package Stricheln;
 
 import java.util.Date;
+import java.util.List;
 
 import Zugriffsschicht.Benutzer;
-import Zugriffsschicht.WocheBenutzer;
+import Zugriffsschicht.Strichart;
+import Zugriffsschicht.Arbeitsschritte;
 import jdbc.JdbcAccess;
 
 public class Stricheln {
@@ -14,7 +16,7 @@ public class Stricheln {
 		this.db = db;
 	}
 
-	public int[] getmoeglicheStrichart() {
+	public List<Strichart> getmoeglicheStrichart() {
 		/*
 		 * Rückgabe aller Stricharten die anzeigbar sind
 		 */
@@ -36,7 +38,7 @@ public class Stricheln {
 		Benutzer Ben = new Benutzer(db);
 		Ben.getBenutzerfromBenutzername(Benutzername);
 
-		WocheBenutzer WB = new WocheBenutzer(Ben.getIdBenutzer(),
+		Arbeitsschritte WB = new Arbeitsschritte(Ben.getIdBenutzer(),
 				Ben.getAktuelleOE(), Datum, Strichart, Strichzahl, db);
 
 		return false;

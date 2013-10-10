@@ -2,18 +2,19 @@ package RightsManagement;
 
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
 
 import jdbc.JdbcAccess;
 import Zugriffsschicht.Benutzer;
 import Zugriffsschicht.Berechtigung;
-import Zugriffsschicht.BerechtigungListe;
-import Zugriffsschicht.OE;
-import Zugriffsschicht.OEListe;
+import Zugriffsschicht.OrgaEinheit;
+import Zugriffsschicht.Zugriffschicht;
 
 public class Rechte {
 	private JdbcAccess db;
+	private Zugriffschicht dbZugriff;
 
-	public Rechte(JdbcAccess db) {
+	public Rechte(JdbcAccess db, Zugriffschicht dbZugriff) {
 		this.db = db;
 	}
 
@@ -40,24 +41,22 @@ public class Rechte {
 		Ben.getBenutzerfromBenutzername(Benutzername);
 		int IdBenutzer = Ben.getIdBenutzer();
 		boolean zuruekok = true;
-		OEListe Org = new OEListe(db);
-		Collection<OE> b = Org.getOEzuInhaber(IdBenutzer);
+		List<OrgaEinheit> b = dbZugriff.getOEzuInhaber(IdBenutzer);
 		int[] retb = null;
 		if (b == null || b.isEmpty()) {
 			zuruekok = false;
 		} else {
 			retb = new int[b.size()];
 			int zaehlerb = 0;
-			for (OE B : b) {
+			for (OrgaEinheit B : b) {
 				retb[zaehlerb] = B.getInhaberberechtigung();
 				zaehlerb++;
 			}
 		}
 
-		BerechtigungListe List = new BerechtigungListe(db);
 		Collection<Berechtigung> a = new LinkedList<>();
 		int[] reta = null;
-		a = List.getBerechtigungzuIdBenutzer(IdBenutzer);
+		a = dbZugriff.getBerechtigungzuIdBenutzer(IdBenutzer);
 		if (a == null || a.isEmpty()) {
 			zuruekok = false;
 		} else {
@@ -95,8 +94,7 @@ public class Rechte {
 		 * gibt alle Rechte zum Webservice zurück.
 		 */
 		int[] ret = null;
-		BerechtigungListe Berlist = new BerechtigungListe(db);
-		LinkedList<Berechtigung> a = Berlist
+		List<Berechtigung> a = dbZugriff
 				.getBerechtigungzuIdWebservice(Vorgang);
 		if (a == null || a.isEmpty()) {
 		} else {
@@ -137,7 +135,7 @@ public class Rechte {
 		return false;
 	}
 
-	public int[] erlaubteAnzeigen() {
+	public char[] erlaubteAnzeigen() {
 		// TODO Auto-generated method stub
 		return null;
 	}

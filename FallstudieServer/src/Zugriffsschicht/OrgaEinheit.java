@@ -5,31 +5,32 @@ import java.sql.SQLException;
 
 import jdbc.JdbcAccess;
 
-public class OE {
+public class OrgaEinheit {
 	private JdbcAccess db;
-	private int idOE;
-	private int idUeberOE;
-	private String OEbez;
-	private int idInhaber;
-	private int idInhaberberechtigung;
+	private int idOrgaEinheit;
+	private int idUeberOrgaEinheit;
+	private String OrgaEinheitBez;
+	private int idLeiter;
+	private int idLeiterBerechtigung;
 	private int Zustand;
+	private int idMitarbeiterBerechtigung;
 
-	public OE(JdbcAccess db) {
+	public OrgaEinheit(JdbcAccess db) {
 		this.db = db;
 	}
 
-	public OE(int idOE, JdbcAccess db) {
+	public OrgaEinheit(int idOE, JdbcAccess db) {
 		ResultSet resultSet;
 		try {
 			resultSet = db
 					.executeQueryStatement("SELECT * FROM oe WHERE idOE = '"
 							+ idOE + "'");
 			resultSet.next();
-			this.idOE = resultSet.getInt("idOE");
-			this.idUeberOE = resultSet.getInt("idUeberOE");
-			this.OEbez = resultSet.getString("OEbez");
-			this.idInhaber = resultSet.getInt("idInhaber");
-			this.idInhaberberechtigung = resultSet
+			this.idOrgaEinheit = resultSet.getInt("idOE");
+			this.idUeberOrgaEinheit = resultSet.getInt("idUeberOE");
+			this.OrgaEinheitBez = resultSet.getString("OEbez");
+			this.idLeiter = resultSet.getInt("idInhaber");
+			this.idLeiterBerechtigung = resultSet
 					.getInt("idInhaberberechtigung");
 			this.Zustand = resultSet.getInt("Zustand");
 			resultSet.close();
@@ -39,14 +40,14 @@ public class OE {
 		this.db = db;
 	}
 
-	public OE(int idOE, int idUeberOE, String OEbez, int idInhaber,
+	public OrgaEinheit(int idOE, int idUeberOE, String OEbez, int idInhaber,
 			int idInhaberberechtigung, int zustand, JdbcAccess db) {
 
-		this.idOE = idOE;
-		this.idUeberOE = idUeberOE;
-		this.OEbez = OEbez;
-		this.idInhaber = idInhaber;
-		this.idInhaberberechtigung = idInhaberberechtigung;
+		this.idOrgaEinheit = idOE;
+		this.idUeberOrgaEinheit = idUeberOE;
+		this.OrgaEinheitBez = OEbez;
+		this.idLeiter = idInhaber;
+		this.idLeiterBerechtigung = idInhaberberechtigung;
 		this.Zustand = zustand;
 		this.db = db;
 	}
@@ -62,11 +63,11 @@ public class OE {
 					.executeQueryStatement("SELECT * FROM oe WHERE idInhaber = '"
 							+ IdInhaber + "'");
 			resultSet.next();
-			this.idOE = resultSet.getInt("idOE");
-			this.idUeberOE = resultSet.getInt("idUeberOE");
-			this.OEbez = resultSet.getString("OEbez");
-			this.idInhaber = resultSet.getInt("idInhaber");
-			this.idInhaberberechtigung = resultSet
+			this.idOrgaEinheit = resultSet.getInt("idOE");
+			this.idUeberOrgaEinheit = resultSet.getInt("idUeberOE");
+			this.OrgaEinheitBez = resultSet.getString("OEbez");
+			this.idLeiter = resultSet.getInt("idInhaber");
+			this.idLeiterBerechtigung = resultSet
 					.getInt("idInhaberberechtigung");
 			this.Zustand = resultSet.getInt("Zustand");
 			resultSet.close();
@@ -78,23 +79,23 @@ public class OE {
 	}
 
 	public int getIDOE() {
-		return idOE;
+		return idOrgaEinheit;
 	}
 
 	public int getUeberOE() {
-		return idUeberOE;
+		return idUeberOrgaEinheit;
 	}
 
 	public String getOEBezeichnung() {
-		return OEbez;
+		return OrgaEinheitBez;
 	}
 
 	public int getInhaber() {
-		return idInhaber;
+		return idLeiter;
 	}
 
 	public int getInhaberberechtigung() {
-		return idInhaberberechtigung;
+		return idLeiterBerechtigung;
 	}
 
 	public int getZustand() {
@@ -102,23 +103,23 @@ public class OE {
 	}
 
 	public int setIDOE() {
-		return this.idOE;
+		return this.idOrgaEinheit;
 	}
 
 	public int setUeberOE() {
-		return this.idUeberOE;
+		return this.idUeberOrgaEinheit;
 	}
 
 	public String setOEBezeichnung() {
-		return this.OEbez;
+		return this.OrgaEinheitBez;
 	}
 
 	public int setInhaber() {
-		return this.idInhaber;
+		return this.idLeiter;
 	}
 
 	public int setInhaberberechtigung() {
-		return this.idInhaberberechtigung;
+		return this.idLeiterBerechtigung;
 	}
 
 	public int setZustand() {

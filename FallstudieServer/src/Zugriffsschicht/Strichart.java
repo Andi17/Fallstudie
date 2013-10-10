@@ -5,17 +5,17 @@ import java.sql.SQLException;
 
 import jdbc.JdbcAccess;
 
-public class Strichbezeichnung {
+public class Strichart {
 	private JdbcAccess db;
 	private int idStrichart;
 	private String Strichbez;
 	private int Zustand;
 
-	public Strichbezeichnung(JdbcAccess db) {
+	public Strichart(JdbcAccess db) {
 		this.db = db;
 	}
 
-	public Strichbezeichnung(int idStrichart, String Strichbez, int Zustand,
+	public Strichart(int idStrichart, String Strichbez, int Zustand,
 			JdbcAccess db) {
 		this.idStrichart = idStrichart;
 		this.Strichbez = Strichbez;
