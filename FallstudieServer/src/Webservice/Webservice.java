@@ -2,8 +2,6 @@ package Webservice;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.jws.WebMethod;
@@ -14,10 +12,14 @@ import jdbc.JdbcAccess;
 
 import RightsManagement.Rechte;
 import Benutzerverwaltung.Benutzerverwaltung;
+import Benutzerverwaltung.OrgaEinheitVerwaltung;
+import Benutzerverwaltung.StrichArtVerwaltung;
 import Optionen.Optionen;
+import Statistikausgabe.Statistikausgabe;
 import Stricheln.Stricheln;
+import Zugriffsschicht.Benutzer;
+import Zugriffsschicht.OrgaEinheit;
 import Zugriffsschicht.Statistik;
-import Zugriffsschicht.Strichart;
 import Zugriffsschicht.Zugriffschicht;
 
 /* 
@@ -34,205 +36,173 @@ import Zugriffsschicht.Zugriffschicht;
 @WebService
 public class Webservice {
 	
-	
-	private JdbcAccess jdbc;
 	private Zugriffschicht dbZugriff;
 	private Rechte rightsManagement;
-	private Benutzerverwaltung benutzerverwaltung;
+	private Benutzerverwaltung benutzerVerwaltung;
 	private Stricheln stricheln;
+	private Statistikausgabe statistikausgabe;
+	private OrgaEinheitVerwaltung orgaEinheitVerwaltung;
+	private StrichArtVerwaltung strichArtVerwaltung;
 	
 	public Webservice() {
 		try {
-			jdbc = new JdbcAccess(Optionen.getJdbcurl(), Optionen.getJdbcuser(),
+			JdbcAccess jdbc = new JdbcAccess(Optionen.getJdbcurl(), Optionen.getJdbcuser(),
 					Optionen.getJdbcpw());
 			dbZugriff = new Zugriffschicht(jdbc);
 			rightsManagement = new Rechte(jdbc, dbZugriff);
+			stricheln = new Stricheln(dbZugriff);
+			statistikausgabe = new Statistikausgabe(dbZugriff);
+			orgaEinheitVerwaltung = new OrgaEinheitVerwaltung(dbZugriff);
+			strichArtVerwaltung = new StrichArtVerwaltung(dbZugriff);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
+	//alle Anforderungen aus 4.1 werden hierüber abgedeckt.
+	//Speichert Striche entweder für letzte oder diese Woche in die Datenbank.
+	//Gibt true zurück wenn erfolgreich.
 	@WebMethod
-	public boolean login(String Benutzername, String Passwort) {
-		/*
-		 * return true wenn login geklappt hat (erstmal so lassen)
-		 * eventuell char zurückgeben, dann aber noch recht.login() ändern oder vorgangMoeglich()
-		 */
-		return rightsManagement.vorgangMoeglich(Benutzername, Passwort, 1);
+	public boolean stricheln(String benutzer, String passwort,
+			int strichart, int strichzahl, boolean aktuelleWoche) {
+		if (rightsManagement.vorgangMoeglich(benutzer, passwort, 5)) {
+			return stricheln.schreibeStrichInDatenbank(benutzer, strichart, aktuelleWoche,
+					strichzahl);
+		}else return false;
 	}
 
-	//Gibt ein Array aus char zurück, je nachdem welche Fenster angezeigt werden sollen.
+	//Methode nur für Admin. Anforderung 4.2.1: Erstellt neuen Benutzer.
+	//gibt true zurück wenn alles geklappt hat.
 	@WebMethod
-	public char[] anzeige(String Benutzer, String Passwort) {
-		/*
-		 * 'd'->Dash/Strichelfenster 
-		 * 'b'->Adminrechte
-		 * 's'->Statistikfenster
-		 * 
-		 */
-		char[] ret = null;
-		if (rightsManagement.vorgangMoeglich(Benutzer, Passwort, 2)) {
-			ret = rightsManagement.erlaubteAnzeigen();
-		}
-		return ret;
+	public boolean benutzerErstellen(String benutzer, String passwort,
+			String benutzername, String neuerBenutzerPasswort, int idOE) {
+		if(rightsManagement.vorgangMoeglich(benutzer, passwort, 0))
+		return benutzerVerwaltung.benutzerErstellen(benutzername, neuerBenutzerPasswort, idOE);
+		else return false;
 	}
 
-	//Statistik erst einmal nur Grundfunktionalität. Muss noch erweitert werden.
+	//Anforderung 4.2.2: Löscht den Benutzer mit der entsprechenden ID aus der Datenbank.
 	@WebMethod
-	public List<Statistik> getStatistik(String Benutzer, String Passwort, int kalendarwoche, int jahr) {
+	public boolean benutzerLoeschen(String benutzer, String passwort, String zuLoeschenderBenutzer){
+		if(rightsManagement.vorgangMoeglich(benutzer, passwort, 0))
+			return benutzerVerwaltung.benutzerLoeschen(zuLoeschenderBenutzer);
+			else return false;
+	}
+
+	//Anforderung 4.2.3: Ändert den Benutzer mit der entsprechenden ID zu der entsprechenden Organisationseinheit.
+	@WebMethod
+	public boolean benutzerOrgaEinheitAendern(String benutzer, String passwort, 
+			String benutzername, String orgaEinheit){
+		if(rightsManagement.vorgangMoeglich(benutzer, passwort, 0))
+			return benutzerVerwaltung.orgaEinheitAendern(benutzername, orgaEinheit);
+			else return false;
+	}
+
+	//Anforderung 4.2.4: Anmelden, bzw. Überprüfen des Benutzernamens und Passwort.
+	//Gibt true zurück wenn login geklappt hat, wahrscheinlich ändern wir es noch zum char
+	//dann kann der grund mit zurück gegeben werden.
+	@WebMethod
+	public boolean login(String benutzer, String passwort) {
+		return rightsManagement.vorgangMoeglich(benutzer, passwort, 1);
+	}
+
+	//Anforderung 4.2.5: Setzt das Passwort zurück. 
+	@WebMethod
+	public boolean neuesPasswortSetzen(String benutzer, String passwort,
+			String betroffenerBenutzer, String neuesPasswort) {
+		if(rightsManagement.vorgangMoeglich(benutzer, passwort, 0))
+			return benutzerVerwaltung.setPasswort(betroffenerBenutzer, neuesPasswort);
+			else return false;
+	}
+
+	//Anforderung 4.2.6: Sperrt den Benutzer. Kein Rückgabewert.
+	@WebMethod
+	public void passwortSperren(String benutzername) {
+			benutzerVerwaltung.passwortSperren(benutzername);
+	}
+
+	//Anforderung 4.4.2: Einsicht Gruppenleiter in seine Gruppe
+	//Anforderung 4.4.4: Einsicht für bestimmten Zeitraum
+	//Anforderung 4.4.5: Leiter einer Organisationseinheit kann Daten in der Ebene unter ihm sehen.
+	//Methode bis jetzt erst einmal nur Grundfunktionalität. Muss noch erweitert werden oder neue Methode.
+	@WebMethod
+	public List<Statistik> getStatistik(String benutzer, String passwort, int kalendarwoche, int jahr) {
 		/*
 		 * TODO : Anstatt String[] als übergabewert die Klasse Statistik
 		 * übergeben. bei mehreren Statistiken :
 		 * List<Statistik> Der Server sucht die OE des Benutzers und gibt alle
 		 * Statistiken dazu aus.
 		 */
-		if (rightsManagement.vorgangMoeglich(Benutzer, Passwort, 3)) {
-
+		if (rightsManagement.vorgangMoeglich(benutzer, passwort, 3)) {
+			return statistikausgabe.getStatistik(benutzer, kalendarwoche, jahr);
 		}
 		return null;
 	}
 
-	
+	//Gibt ein Array aus char zurück, je nachdem welche Fenster angezeigt werden sollen.
 	@WebMethod
-	public List<Strichart> getStrichelArt(String Benutzer, String Passwort) {
+	public char[] anzeige(String benutzer, String passwort) {
 		/*
-		 * rückgabe der verschiedenen Strichelmöglichkeiten. Eventuell übergabe
-		 * einer Strichelklasse( siehe statistik) Rückgabe von Strichelart(DB)
-		 * und bezeichnung sofern Zustand vorhanden ist.
-		 */
-		List<Strichart> ret = new ArrayList<Strichart>();
-		if (rightsManagement.vorgangMoeglich(Benutzer, Passwort, 4)) {
-			ret = dbZugriff.getAlleMoeglichenStricharten();
-		}
-		return ret;
-	}
-
-	@WebMethod
-	public boolean sendStricheln(String Benutzer, String Passwort,
-			int Strichart, int Strichzahl, Date Datum) {
-		/*
-		 * Datum eventuell anderes Format. Wenn datum null -> Systemwert
-		 * verwenden
+		 * 'd'->Dash/Strichelfenster 
+		 * 'b'->Adminrechte
+		 * 's'->Statistikfenster
 		 * 
-		 * Wird für jede strichart seperat aufgerufen. Rückgabe ist entweder
-		 * true für geklappt oder false für fehlgeschlagen Fehlgeschlagen wegen
-		 * follgender Gründe: -Keine Rechte zum schreiben -Datenbank offline
-		 * -Andere Fehler
 		 */
-		if (rightsManagement.vorgangMoeglich(Benutzer, Passwort, 5)) {
-			Stricheln Strich = new Stricheln(jdbc);
-			if (Strich.schreibeStrichInBW(Benutzer, Datum, Strichart,
-					Strichzahl)) {
-				return true;
-			}
+		if (rightsManagement.vorgangMoeglich(benutzer, passwort, 2)) {
+			return rightsManagement.erlaubteAnzeigen();
 		}
-		return false;
+		else return null;
 	}
 
-	//das wär dann doch nur eine Methode für den admin??
-	//das mit dem alle benutzer einer einheit haben wir ja in Zugriffschicht
+	//Gibt eine Liste von allen möglichen Stricharten zurück.
 	@WebMethod
-	public String[] getBenutzer(String Benutzer, String Passwort) {
-		/*
-		 * rückgabe der verschiedenen Benutzer. Eventuell übergabe einer
-		 * Benutzerklasse( siehe statistik) Rückgabe von idBenutzer(DB),
-		 * Benutzername, aktuelle OE.
-		 */
-		return null;
+	public List<String> getStrichelArten(String benutzer, String passwort) {
+		if (rightsManagement.vorgangMoeglich(benutzer, passwort, 4)) {
+			return stricheln.getMoeglicheStricharten();
+		}
+		else return null;
+	}
+	
+	//Gibt eine Liste mit allen Benutzern zurück.
+	@WebMethod
+	public List<Benutzer> getBenutzer(String benutzer, String passwort) {
+		if(rightsManagement.vorgangMoeglich(benutzer, passwort, 0))
+			return benutzerVerwaltung.getAlleBenutzer();
+		else return null;
 	}
 
-	//Methode nur für Admin.
+	//Gibt eine Liste mit allen Organisationseinheiten zurück.
 	@WebMethod
-	public boolean benutzerErstellen(String Benutzer, String Passwort,
-			int idBenutzer, String Benutzername, String BenutzerPasswort,
-			int idOE) {
-		/*
-		 * Wenn idBenutzer = null -> neuanlage Wenn idBenutzer = existiert ->
-		 * update Wird für jeden Benutzer seperat aufgerufen. Passwort (wenn
-		 * null) bei neuanlage auf Default:"TODO : Was für ein Dafaultwert?"
-		 * Rückgabe ist entweder true für geklappt oder false für fehlgeschlagen
-		 * Fehlgeschlagen wegen follgender Gründe: -Keine Rechte zum schreiben
-		 * -Datenbank offline -Andere Fehler -Kein Datensatz vorhanden
-		 */
-		return false;
+	public List<OrgaEinheit> getOrgaEinheit(String benutzer, String passwort) {
+		if(rightsManagement.vorgangMoeglich(benutzer, passwort, 0))
+			return orgaEinheitVerwaltung.getAlleOrgaEinheiten();
+		else return null;
 	}
 
+	//Organisationseinheit hinzufügen.
 	@WebMethod
-	public boolean sendNeuesPasswort(String Benutzer, String Passwort,
-			String NeuesPasswort) {
-		/*
-		 * Rückgabe ist entweder true für geklappt oder false für fehlgeschlagen
-		 * Fehlgeschlagen wegen follgender Gründe: -Keine Rechte zum schreiben
-		 * -Datenbank offline -Andere Fehler
-		 */
-		return false;
-	}
-
-	//Methode für Admin? oder wie soll die identifizierung ablaufen?
-	@WebMethod
-	public boolean sendPasswortzuruecksetzen(String Benutzer, String Passwort,
-			int idBenutzer) {
-		/*
-		 * Rückgabe ist entweder true für geklappt oder false für fehlgeschlagen
-		 * Fehlgeschlagen wegen follgender Gründe: -Keine Rechte zum schreiben
-		 * -Datenbank offline -Andere Fehler
-		 */
-		return false;
-	}
-
-	//Wie wärs wenn wir die Organisationseinheit einfach beim Login mit übergeben?
-	@WebMethod
-	public String[] getOE(String Benutzer, String Passwort) {
-		/*
-		 * rückgabe der verschiedenen OEs. Eventuell übergabe einer OEklasse(
-		 * siehe statistik) Rückgabe von idOE(DB), OEname, aktueller Inhaber und
-		 * Zustand.
-		 */
-		return null;
-	}
-
-	//Methode für admin.
-	@WebMethod
-	public boolean sendOE(String Benutzer, String Passwort, int idOE,
+	public boolean OrgaEinheitErstellen(String benutzer, String passwort,
 			int UeberOE, String OEbezeichnung, int Inhaberberechtigung,
 			int idInhaber, int Zustand) {
-		/*
-		 * Rückgabe ist entweder true für geklappt oder false für fehlgeschlagen
-		 * Fehlgeschlagen wegen follgender Gründe: -Keine Rechte zum schreiben
-		 * -Datenbank offline -Andere Fehler
-		 */
-		return false;
+		if(rightsManagement.vorgangMoeglich(benutzer, passwort, 0))
+			return orgaEinheitVerwaltung.neueOrgaEinheit(UeberOE, OEbezeichnung, 
+					Inhaberberechtigung, idInhaber, Zustand);
+		else return false;
 	}
 
-	//was ist mit zustand gemeint? braucht man idStrichart überhaupt? eig reicht ja strichart
+	//Anforderung 4.2.10: Eine neue Strichbezeichnung hinzufügen.
 	@WebMethod
-	public String[] getStrichelarten(String Benutzer, String Passwort) {
-		/*
-		 * rückgabe der verschiedenen Stricharten. Eventuell übergabe einer
-		 * Strichklasse( siehe statistik) Rückgabe von idStrichart(DB),
-		 * Strichname(DB) und Zustand(DB).
-		 */
-		return null;
-	}
-
-	
-	@WebMethod
-	public boolean sendStrichelart(String Benutzer, String Passwort,
-			int idStrichart, String Strichbezeichnung, int StrichZustand) {
-		/*
-		 * Wenn idStrichart = null -> neuanlage des Datensatzes Wenn idStrichart
-		 * = existierender wert -> Datensatz updaten Rückgabe ist entweder true
-		 * für geklappt oder false für fehlgeschlagen Fehlgeschlagen wegen
-		 * follgender Gründe: -Kein DB-eintrag mit der id -Keine Rechte zum
-		 * schreiben -Datenbank offline -Andere Fehler
-		 */
-		return false;
+	public boolean neueStrichelart(String benutzer, String passwort,
+			String strichbezeichnung) {
+		if(rightsManagement.vorgangMoeglich(benutzer, passwort, 0))
+			return strichArtVerwaltung.strichArtHinzufuegen(strichbezeichnung);
+		else return false;
 	}
 	
 	//beendet den Access auf die Datenbank
 	private void dbZugriffBeenden(){
 		try {
-			jdbc.disconnect();
+			dbZugriff.disconnect();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

@@ -1,24 +1,25 @@
 package Stricheln;
 
-import java.util.Date;
 import java.util.List;
 
-import Zugriffsschicht.Benutzer;
 import Zugriffsschicht.Strichart;
-import Zugriffsschicht.Arbeitsschritte;
-import jdbc.JdbcAccess;
+import Zugriffsschicht.Zugriffschicht;
 
 public class Stricheln {
 
-	private JdbcAccess db;
+	private Zugriffschicht dbZugriff;
 
-	public Stricheln(JdbcAccess db) {
-		this.db = db;
+	public Stricheln(Zugriffschicht dbZugriff) {
+		this.dbZugriff = dbZugriff;
 	}
 
-	public List<Strichart> getmoeglicheStrichart() {
+	public List<String> getMoeglicheStricharten() {
 		/*
 		 * Rückgabe aller Stricharten die anzeigbar sind
+		 *//*
+		 * rückgabe der verschiedenen Strichelmöglichkeiten. Eventuell übergabe
+		 * einer Strichelklasse( siehe statistik) Rückgabe von Strichelart(DB)
+		 * und bezeichnung sofern Zustand vorhanden ist.
 		 */
 		return null;
 	}
@@ -30,17 +31,11 @@ public class Stricheln {
 		return null;
 	}
 
-	public boolean schreibeStrichInBW(String Benutzername, Date Datum,
-			int Strichart, int Strichzahl) {
-		/*
-		 * Strich in die Datenbank schreiben.
-		 */
-		Benutzer Ben = new Benutzer(db);
-		Ben.getBenutzerfromBenutzername(Benutzername);
-
-		Arbeitsschritte WB = new Arbeitsschritte(Ben.getIdBenutzer(),
-				Ben.getAktuelleOE(), Datum, Strichart, Strichzahl, db);
-
+	//gibt true zurück wenn erfolgreich, speichert strich in datenbank
+	public boolean schreibeStrichInDatenbank(String Benutzername, int Strichart, 
+			boolean aktuelleWoche, int jahr) {
+		
+		
 		return false;
 	}
 

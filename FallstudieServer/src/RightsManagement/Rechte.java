@@ -10,6 +10,8 @@ import Zugriffsschicht.Berechtigung;
 import Zugriffsschicht.OrgaEinheit;
 import Zugriffsschicht.Zugriffschicht;
 
+//Anforderung 4.2.8 wird hier realisiert.
+
 public class Rechte {
 	private JdbcAccess db;
 	private Zugriffschicht dbZugriff;

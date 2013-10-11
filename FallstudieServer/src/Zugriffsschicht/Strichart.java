@@ -9,17 +9,17 @@ public class Strichart {
 	private JdbcAccess db;
 	private int idStrichart;
 	private String Strichbez;
-	private int Zustand;
+	private boolean zustand;
 
 	public Strichart(JdbcAccess db) {
 		this.db = db;
 	}
 
-	public Strichart(int idStrichart, String Strichbez, int Zustand,
+	public Strichart(int idStrichart, String Strichbez, boolean zustand,
 			JdbcAccess db) {
 		this.idStrichart = idStrichart;
 		this.Strichbez = Strichbez;
-		this.Zustand = Zustand;
+		this.zustand = zustand;
 		this.db = db;
 	}
 
@@ -39,12 +39,12 @@ public class Strichart {
 		Strichbez = strichbez;
 	}
 
-	public int getZustand() {
-		return Zustand;
+	public boolean getZustand() {
+		return zustand;
 	}
 
-	public void setZustand(int zustand) {
-		Zustand = zustand;
+	public void setZustand(boolean zustand) {
+		this.zustand = zustand;
 	}
 
 }

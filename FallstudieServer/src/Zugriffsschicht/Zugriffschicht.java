@@ -24,23 +24,21 @@ public class Zugriffschicht{
 		return null;
 	}
 	
-	public List<Strichart> getAlleMoeglichenStricharten() {
+	public List<String> getAlleMoeglichenStricharten() {
 		ResultSet resultSet;
-		List<Strichart> a = new ArrayList<Strichart>();
+		List<String> listeStricharten = new ArrayList<String>();
 		try {
 			resultSet = db
-					.executeQueryStatement("SELECT * FROM strichbezeichnung WHERE Zustand = 1");
+					.executeQueryStatement("SELECT * FROM strichbezeichnung WHERE Zustand = true");
 			while (resultSet.next()) {
-				a.add(new Strichart(resultSet.getInt("idStrichart"),
-						resultSet.getString("Strichbez"), resultSet
-								.getInt("Zustand"), db));
+				listeStricharten.add(resultSet.getString("Strichbezeichnung"));
 			}
 			resultSet.close();
 		} catch (SQLException e) {
 			System.out.println(e);
 			return null;
 		}
-		return a;
+		return listeStricharten;
 	}
 	
 	public List<Berechtigung> getBerechtigungzuIdBenutzer(int IdBenutzer) {
@@ -124,6 +122,10 @@ public class Zugriffschicht{
 			System.out.println(e);
 		}
 		return ret;
+	}
+	
+	public void disconnect() throws SQLException{
+		db.disconnect();
 	}
 
 }
