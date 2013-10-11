@@ -25,7 +25,7 @@ public class Zugriffschicht{
 		try{
 			ResultSet resultSet;
 			resultSet = db
-					.executeQueryStatement("SELECT * FROM benutzer WHERE Benutzername = '"
+					.executeQueryStatement("SELECT * FROM Benutzer WHERE Benutzername = '"
 							+ Benutzername + "'");
 			resultSet.next();
 			rueckgabe = new Benutzer(resultSet, db);
@@ -51,7 +51,7 @@ public class Zugriffschicht{
 		ResultSet resultSet;
 		List<Benutzer> rueckgabe = new ArrayList<Benutzer>();
 		try {
-			resultSet = db.executeQueryStatement("SELECT * FROM benutzer");
+			resultSet = db.executeQueryStatement("SELECT * FROM Benutzer");
 			while (resultSet.next()) {
 				rueckgabe.add(new Benutzer(resultSet, db));
 			}
@@ -80,16 +80,35 @@ public class Zugriffschicht{
 		return listeStricharten;
 	}
 	
-	public List<Berechtigung> getBerechtigungzuIdBenutzer(int IdBenutzer) {
+	/*
+	 * Berechtigung
+	 */
+	public Berechtigung getBerechtigungzuidBerechtigung(int idBerechtigung){
+		Berechtigung rueckgabe = null;
+		ResultSet resultSet;
+		try {
+			resultSet = db
+					.executeQueryStatement("SELECT * FROM Berechtigung WHERE idBerechtigung = '"
+							+ idBerechtigung + "'");
+			resultSet.next();
+			rueckgabe = new Berechtigung(resultSet, db);
+			resultSet.close();
+		}
+		catch(SQLException e){
+			
+		}
+		return rueckgabe;
+	}
+	
+	public List<Berechtigung> getBerechtigungzuLeitername(Benutzer Leiter) {
 		ResultSet resultSet;
 		List<Berechtigung> a = new ArrayList<Berechtigung>();
 		try {
 			resultSet = db
-					.executeQueryStatement("SELECT * FROM benutzer_berechtigung a, berechtigung b WHERE a.idBerechtigung = b.idBerechtigung AND a.idBenutzer = '"
-							+ IdBenutzer + "'");
+					.executeQueryStatement("SELECT b.* FROM OrgaEinheiten a, Berechtigung b WHERE a.idLeiterBerechtigung = b.idBerechtigung AND a.Leitername = '"
+							+ Leiter.getBenutzername() + "'");
 			while (resultSet.next()) {
-				a.add(new Berechtigung(resultSet.getInt("idBerechtigung"),
-						resultSet.getString("Berechtigungbez"), db));
+				a.add(new Berechtigung(resultSet, db));
 			}
 			resultSet.close();
 		} catch (SQLException e) {
@@ -99,17 +118,15 @@ public class Zugriffschicht{
 		return a;
 	}
 	
-	public List<Berechtigung> getBerechtigungzuIdWebservice(
-			int IdWebservice) {
+	public List<Berechtigung> getBerechtigungzuIdWebservice(int IdWebservice) {
 		ResultSet resultSet;
 		List<Berechtigung> a = new ArrayList<Berechtigung>();
 		try {
 			resultSet = db
-					.executeQueryStatement("SELECT b.* FROM berechtigung_webservice a, berechtigung b WHERE a.idBerechtigung = b.idBerechtigung AND a.idWebservice = '"
+					.executeQueryStatement("SELECT b.* FROM Berechtigung_Webmethode a, Berechtigung b WHERE a.idBerechtigung = b.idBerechtigung AND a.idWebmethode = '"
 							+ IdWebservice + "'");
 			while (resultSet.next()) {
-				a.add(new Berechtigung(resultSet.getInt("idBerechtigung"),
-						resultSet.getString("Berechtigungbez"), db));
+				a.add(new Berechtigung(resultSet, db));
 			}
 			resultSet.close();
 		} catch (SQLException e) {

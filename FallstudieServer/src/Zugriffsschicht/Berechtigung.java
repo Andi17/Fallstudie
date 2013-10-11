@@ -17,26 +17,10 @@ public class Berechtigung {
 		this.db = db;
 	}
 
-	public Berechtigung(int idBerechtigung, JdbcAccess db) {
+	public Berechtigung(ResultSet resultSet, JdbcAccess db) throws SQLException {
 		this.db = db;
-		ResultSet resultSet;
-		try {
-			resultSet = db
-					.executeQueryStatement("SELECT * FROM Berechtigung WHERE idBerechtigung = '"
-							+ idBerechtigung + "'");
-			resultSet.next();
-			this.idBerechtigung = resultSet.getInt("idBerechtigung");
-			this.Berechtigungbez = resultSet.getString("Berechtigungbez");
-			resultSet.close();
-		} catch (SQLException e) {
-			System.out.println(e);
-		}
-	}
-
-	public Berechtigung(int IdBerechtigung, String Bezeichnung, JdbcAccess db) {
-		this.idBerechtigung = IdBerechtigung;
-		this.Berechtigungbez = Bezeichnung;
-		this.db = db;
+		this.idBerechtigung = resultSet.getInt("idBerechtigung");
+		this.Berechtigungbez = resultSet.getString("Berechtigungbez");
 	}
 
 	public int getIdBerechtigung() {
@@ -47,12 +31,12 @@ public class Berechtigung {
 		this.idBerechtigung = idBerechtigung;
 	}
 
-	public String getBezeichnung() {
+	public String getBerechtigungbez() {
 		return Berechtigungbez;
 	}
 
-	public void setBezeichnung(String Berichtigungbez) {
-		this.Berechtigungbez = Berechtigungbez;
+	public void setBerechtigungbez(String berechtigungbez) {
+		Berechtigungbez = berechtigungbez;
 	}
 
 }

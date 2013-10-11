@@ -69,11 +69,5 @@ public class Benutzer {
 		this.AktuelleOE = aktuelleOE;
 	}
 
-	public boolean writeBenutzerDB() {
-		/*
-		 * Aktuelles objekt in die Datenbank schreiben. wenn idBenutzer = null
-		 * -> Insert wenn idBenutzer != null -> update
-		 */
-		return false;
-	}
+	
 }
