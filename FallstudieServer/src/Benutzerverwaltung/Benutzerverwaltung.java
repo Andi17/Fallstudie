@@ -19,7 +19,7 @@ public class Benutzerverwaltung {
 	public boolean benutzerErstellen(String benutzername, String passwort,
 			int oeEinheit) {
 
-		Benutzer neu = dbZugriff.neuerbenutzerErstellen(benutzername, passwort,
+		Benutzer neu = dbZugriff.neuerBenutzerErstellen(benutzername, passwort,
 				oeEinheit, Optionen.isInitialbelegungbenutzergesperrt());
 		if (neu == null) {
 			return false;
@@ -39,8 +39,7 @@ public class Benutzerverwaltung {
 
 	// Rückgabe der verschiedenen Benutzer in einer Liste.
 	public List<Benutzer> getAlleBenutzer() {
-		List<Benutzer> alleBenutzerListe = dbZugriff
-				.AlleBenutzerListeAusgeben();
+		List<Benutzer> alleBenutzerListe = dbZugriff.getAlleBenutzer();
 		return alleBenutzerListe;
 	}
 
