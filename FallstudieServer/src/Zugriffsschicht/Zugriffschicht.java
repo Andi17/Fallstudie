@@ -224,14 +224,30 @@ public class Zugriffschicht {
 	/*
 	 * Strichart
 	 */
-	public List<String> getAlleMoeglichenStricharten() {
+	public List<Strichart> getAlleMoeglichenStricharten() {
 		ResultSet resultSet;
-		List<String> listeStricharten = new ArrayList<String>();
+		List<Strichart> listeStricharten = new ArrayList<Strichart>();
 		try {
 			resultSet = db
-					.executeQueryStatement("SELECT * FROM strichbezeichnung WHERE Zustand = true");
+					.executeQueryStatement("SELECT * FROM Stricharten WHERE Zustand = true");
 			while (resultSet.next()) {
-				listeStricharten.add(resultSet.getString("Strichbezeichnung"));
+				listeStricharten.add(new Strichart(resultSet, db));
+			}
+			resultSet.close();
+		} catch (SQLException e) {
+			System.out.println(e);
+			return null;
+		}
+		return listeStricharten;
+	}
+	public List<Strichart> getAlleStricharten() {
+		ResultSet resultSet;
+		List<Strichart> listeStricharten = new ArrayList<Strichart>();
+		try {
+			resultSet = db
+					.executeQueryStatement("SELECT * FROM Stricharten");
+			while (resultSet.next()) {
+				listeStricharten.add(new Strichart(resultSet, db));
 			}
 			resultSet.close();
 		} catch (SQLException e) {
@@ -241,48 +257,9 @@ public class Zugriffschicht {
 		return listeStricharten;
 	}
 
-	public List<Berechtigung> getBerechtigungzuIdWebservice(int IdWebservice) {
-		ResultSet resultSet;
-		List<Berechtigung> a = new ArrayList<Berechtigung>();
-		try {
-			resultSet = db
-					.executeQueryStatement("SELECT b.* FROM Berechtigung_Webmethode a, Berechtigung b WHERE a.idBerechtigung = b.idBerechtigung AND a.idWebmethode = '"
-							+ IdWebservice + "'");
-			while (resultSet.next()) {
-				a.add(new Berechtigung(resultSet, db));
-			}
-			resultSet.close();
-		} catch (SQLException e) {
-			System.out.println(e);
-			return null;
-		}
-		return a;
-	}
+	
 
-	public List<OrgaEinheit> getOEzuInhaber(int IdInhaber) {
-		/*
-		 * Organisationseinheitsdaten werden durch Identifikationsnummer idOE
-		 * ermittelt.
-		 */
-		List<OrgaEinheit> ret = new ArrayList<OrgaEinheit>();
-		ResultSet resultSet;
-		try {
-			resultSet = db
-					.executeQueryStatement("SELECT * FROM oe WHERE idInhaber = '"
-							+ IdInhaber + "'");
-			while (resultSet.next()) {
-				ret.add(new OrgaEinheit(resultSet.getInt("idOE"), resultSet
-						.getInt("idUeberOE"), resultSet.getString("OEbez"),
-						resultSet.getInt("idInhaber"), resultSet
-								.getInt("idInhaberberechtigung"), resultSet
-								.getInt("Zustand"), db));
-			}
-			resultSet.close();
-		} catch (SQLException e) {
-			System.out.println(e);
-		}
-		return ret;
-	}
+	
 
 	public void disconnect() throws SQLException {
 		db.disconnect();
