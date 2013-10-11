@@ -1,12 +1,17 @@
 package Optionen;
 
 public class Optionen {
+	private final static boolean initialbelegungBenutzerGesperrt = false;
 	private final static String jdbcurl = "jdbc:mysql://localhost/Elastico";
 	private final static String jdbcuser = "root";
 	private final static String jdbcpw = "hermann";
 	private final static String webserverURL = "http://localhost:8888/WSExample/simple";
-	//Anforderung 4.3.1: Speicherdauer soll konfigurierbar sein.
+	// Anforderung 4.3.1: Speicherdauer soll konfigurierbar sein.
 	private static int speicherdauer;
+
+	public static boolean isInitialbelegungbenutzergesperrt() {
+		return initialbelegungBenutzerGesperrt;
+	}
 
 	public static String getJdbcuser() {
 		return jdbcuser;
