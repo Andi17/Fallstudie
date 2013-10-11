@@ -1,7 +1,7 @@
 package Optionen;
 
 public class Optionen {
-	private final static String jdbcurl = "jdbc:mysql://localhost/leistungkonzept";
+	private final static String jdbcurl = "jdbc:mysql://localhost/Elastico";
 	private final static String jdbcuser = "root";
 	private final static String jdbcpw = "hermann";
 	private final static String webserverURL = "http://localhost:8888/WSExample/simple";
