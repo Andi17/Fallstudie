@@ -11,44 +11,30 @@ import jdbc.JdbcAccess;
 
 public class Benutzer {
 	private JdbcAccess db;
-	private int IdBenutzer;
 	private String Benutzername;
 	private String Passwort;
 	private int AktuelleOE;
+	private boolean Gesperrt;
 
 	public Benutzer(JdbcAccess db) {
 		this.db = db;
 	}
 
-	public Benutzer(int idBenutzer, JdbcAccess db) {
+	public Benutzer(ResultSet resultSet, JdbcAccess db) throws SQLException {
 		this.db = db;
-		ResultSet resultSet;
-		try {
-			resultSet = db
-					.executeQueryStatement("SELECT * FROM benutzer WHERE idBenutzer = '"
-							+ idBenutzer + "'");
-			resultSet.next();
-			this.IdBenutzer = resultSet.getInt("IdBenutzer");
-			this.Benutzername = resultSet.getString("Benutzername");
-			this.Passwort = resultSet.getString("Passwort");
-			this.AktuelleOE = resultSet.getInt("AktuelleOE");
-			resultSet.close();
-		} catch (SQLException e) {
-			System.out.println(e);
-		}
+		this.Benutzername = resultSet.getString("Benutzername");
+		this.Passwort = resultSet.getString("Passwort");
+		this.AktuelleOE = resultSet.getInt("AktuelleOE");
+		this.Gesperrt = resultSet.getBoolean("Gesperrt");
 	}
 
-	public Benutzer(int idBenutzer, String Benutzername, String Passwort,
-			int aktuelleOE, JdbcAccess db) {
+	public Benutzer(String Benutzername, String Passwort, int aktuelleOE,
+			boolean Gesperrt, JdbcAccess db) {
 		this.db = db;
-		this.IdBenutzer = idBenutzer;
 		this.Benutzername = Benutzername;
 		this.Passwort = Passwort;
 		this.AktuelleOE = aktuelleOE;
-	}
-
-	public int getIdBenutzer() {
-		return IdBenutzer;
+		this.Gesperrt = Gesperrt;
 	}
 
 	public String getBenutzername() {
@@ -63,8 +49,12 @@ public class Benutzer {
 		return AktuelleOE;
 	}
 
-	public void setIdBenutzer(int idBenutzer) {
-		this.IdBenutzer = idBenutzer;
+	public boolean isGesperrt() {
+		return Gesperrt;
+	}
+
+	public void setGesperrt(boolean gesperrt) {
+		Gesperrt = gesperrt;
 	}
 
 	public void setBenutzername(String benutzername) {
@@ -85,27 +75,5 @@ public class Benutzer {
 		 * -> Insert wenn idBenutzer != null -> update
 		 */
 		return false;
-	}
-
-	public boolean getBenutzerfromBenutzername(String Benutzername) {
-		/*
-		 * benutzerdaten werden durch Benutzername ermittelt.
-		 */
-		ResultSet resultSet;
-		try {
-			resultSet = db
-					.executeQueryStatement("SELECT * FROM benutzer WHERE Benutzername = '"
-							+ Benutzername + "'");
-			resultSet.next();
-			this.IdBenutzer = resultSet.getInt("IdBenutzer");
-			this.Benutzername = resultSet.getString("Benutzername");
-			this.Passwort = resultSet.getString("Passwort");
-			this.AktuelleOE = resultSet.getInt("AktuelleOE");
-			resultSet.close();
-		} catch (SQLException e) {
-			System.out.println(e);
-			return false;
-		}
-		return true;
 	}
 }

@@ -14,14 +14,53 @@ public class Zugriffschicht{
 	public Zugriffschicht(JdbcAccess db){
 		this.db = db;
 	}
-	
-	public Benutzer getBenutzer(int idBenutzer){
-		return null;
+	/*
+	 *                BENUTZER
+	 */
+	public Benutzer getBenutzer(){
+		return new Benutzer(db);
+	}
+	public Benutzer getBenutzervonBenutzername(String Benutzername){
+		Benutzer rueckgabe = null;
+		try{
+			ResultSet resultSet;
+			resultSet = db
+					.executeQueryStatement("SELECT * FROM benutzer WHERE Benutzername = '"
+							+ Benutzername + "'");
+			resultSet.next();
+			rueckgabe = new Benutzer(resultSet, db);
+			resultSet.close();
+		}
+		catch(SQLException e){
+		}
+		return rueckgabe;
 	}
 	
-	public Benutzer benutzerErstellen(String Benutzer, String Passwort,
-			OrgaEinheit orgranisationseinheit){
-		return null;
+	public Benutzer neuerbenutzerErstellen(String Benutzername, String Passwort,
+			int idOrgaEinheit, boolean Gesperrt){
+		Benutzer rueckgabe = null;
+		rueckgabe = new Benutzer(Benutzername,Passwort,idOrgaEinheit,Gesperrt,db);
+		if(rueckgabe.writeBenutzerDB()){
+			return rueckgabe;
+		}
+		else{
+			return null;
+		}
+	}
+	public List<Benutzer> AlleBenutzerListeAusgeben() {
+		ResultSet resultSet;
+		List<Benutzer> rueckgabe = new ArrayList<Benutzer>();
+		try {
+			resultSet = db.executeQueryStatement("SELECT * FROM benutzer");
+			while (resultSet.next()) {
+				rueckgabe.add(new Benutzer(resultSet, db));
+			}
+			resultSet.close();
+		} catch (SQLException e) {
+			System.out.println(e);
+			return null;
+		}
+		return rueckgabe;
 	}
 	
 	public List<String> getAlleMoeglichenStricharten() {
@@ -80,24 +119,7 @@ public class Zugriffschicht{
 		return a;
 	}
 	
-	public List<Benutzer> BenutzerListeAusgeben() {
-		ResultSet resultSet;
-		List<Benutzer> a = new ArrayList<Benutzer>();
-		try {
-			resultSet = db.executeQueryStatement("SELECT * FROM benutzer");
-			while (resultSet.next()) {
-				a.add(new Benutzer(resultSet.getInt("idBenutzer"), resultSet
-						.getString("Benutzername"), resultSet
-						.getString("Passwort"), resultSet.getInt("AktuelleOE"),
-						db));
-			}
-			resultSet.close();
-		} catch (SQLException e) {
-			System.out.println(e);
-			return null;
-		}
-		return a;
-	}
+
 	
 	public List<OrgaEinheit> getOEzuInhaber(int IdInhaber) {
 		/*
