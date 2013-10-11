@@ -36,7 +36,7 @@ public class Benutzer {
 	private void werteSetzen(ResultSet resultSet) throws SQLException{
 		this.Benutzername = resultSet.getString("Benutzername");
 		this.Passwort = resultSet.getString("Passwort");
-		this.idOrgaEinheit = resultSet.getInt("AktuelleOE");
+		this.idOrgaEinheit = resultSet.getInt("idOrgaEinheit");
 		this.Gesperrt = resultSet.getBoolean("Gesperrt");
 	}
 	public String getBenutzername() {

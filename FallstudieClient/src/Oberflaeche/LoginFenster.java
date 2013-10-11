@@ -90,12 +90,6 @@ public class LoginFenster implements ActionListener{
 
             if(port.login(txtName.getText(), txtPasswort.getText())){
             	System.out.println("eingeloggt :D");
-            	System.out.println("Test Arraylist:");
-            	List<Strichbezeichnung> a = port.getStricheln(txtName.getText(), txtPasswort.getText());
-            	for(Strichbezeichnung s : a){
-                	System.out.println("Strichart: "+s.getIdStrichart()+" : "+s.getStrichbez());
-            	}
-
             }
             else{
             	System.out.println("ging wohl nicht");

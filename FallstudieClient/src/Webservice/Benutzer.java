@@ -18,7 +18,7 @@ import javax.xml.bind.annotation.XmlType;
  *       &lt;sequence>
  *         &lt;element name="aktuelleOE" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="benutzername" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="idBenutzer" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="gesperrt" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
  *         &lt;element name="passwort" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
@@ -32,14 +32,14 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "benutzer", propOrder = {
     "aktuelleOE",
     "benutzername",
-    "idBenutzer",
+    "gesperrt",
     "passwort"
 })
 public class Benutzer {
 
     protected int aktuelleOE;
     protected String benutzername;
-    protected int idBenutzer;
+    protected boolean gesperrt;
     protected String passwort;
 
     /**
@@ -83,19 +83,19 @@ public class Benutzer {
     }
 
     /**
-     * Gets the value of the idBenutzer property.
+     * Gets the value of the gesperrt property.
      * 
      */
-    public int getIdBenutzer() {
-        return idBenutzer;
+    public boolean isGesperrt() {
+        return gesperrt;
     }
 
     /**
-     * Sets the value of the idBenutzer property.
+     * Sets the value of the gesperrt property.
      * 
      */
-    public void setIdBenutzer(int value) {
-        this.idBenutzer = value;
+    public void setGesperrt(boolean value) {
+        this.gesperrt = value;
     }
 
     /**

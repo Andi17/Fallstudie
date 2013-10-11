@@ -48,6 +48,7 @@ public class Webservice {
 		try {
 			JdbcAccess jdbc = new JdbcAccess(Optionen.getJdbcurl(),
 					Optionen.getJdbcuser(), Optionen.getJdbcpw());
+			jdbc.connect();
 			dbZugriff = new Zugriffschicht(jdbc);
 			rightsManagement = new Rechte(jdbc, dbZugriff);
 			stricheln = new Stricheln(dbZugriff);
