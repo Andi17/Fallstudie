@@ -14,5 +14,9 @@ private Zugriffschicht dbZugriff;
 	public boolean strichArtHinzufuegen(String strichbezeichnung){
 		return false;
 	}
+	
+	public boolean strichArtBezeichnungAendern(String bezeichnungAlt, String bezeichnungNeu){
+		return false;
+	}
 
 }

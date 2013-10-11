@@ -25,12 +25,8 @@ public class Benutzerverwaltung {
 		return null;
 	}
 	
+	//Rückgabe der verschiedenen Benutzer in einer Liste.
 	public List<Benutzer> getAlleBenutzer(){
-		/*
-		 * rückgabe der verschiedenen Benutzer. Eventuell übergabe einer
-		 * Benutzerklasse( siehe statistik) Rückgabe von idBenutzer(DB),
-		 * Benutzername, aktuelle OE.
-		 */
 		return null;
 	}
 	
@@ -49,6 +45,7 @@ public class Benutzerverwaltung {
 		return false;
 	}
 	
+	//Sperrt das Passwort.
 	public void passwortSperren(String benutzername){
 		
 	}

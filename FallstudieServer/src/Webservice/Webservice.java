@@ -35,7 +35,7 @@ import Zugriffsschicht.Zugriffschicht;
  */
 @WebService
 public class Webservice {
-	
+
 	private Zugriffschicht dbZugriff;
 	private Rechte rightsManagement;
 	private Benutzerverwaltung benutzerVerwaltung;
@@ -43,11 +43,11 @@ public class Webservice {
 	private Statistikausgabe statistikausgabe;
 	private OrgaEinheitVerwaltung orgaEinheitVerwaltung;
 	private StrichArtVerwaltung strichArtVerwaltung;
-	
+
 	public Webservice() {
 		try {
-			JdbcAccess jdbc = new JdbcAccess(Optionen.getJdbcurl(), Optionen.getJdbcuser(),
-					Optionen.getJdbcpw());
+			JdbcAccess jdbc = new JdbcAccess(Optionen.getJdbcurl(),
+					Optionen.getJdbcuser(), Optionen.getJdbcpw());
 			dbZugriff = new Zugriffschicht(jdbc);
 			rightsManagement = new Rechte(jdbc, dbZugriff);
 			stricheln = new Stricheln(dbZugriff);
@@ -59,79 +59,94 @@ public class Webservice {
 		}
 	}
 
-	//alle Anforderungen aus 4.1 werden hierüber abgedeckt.
-	//Speichert Striche entweder für letzte oder diese Woche in die Datenbank.
-	//Gibt true zurück wenn erfolgreich.
+	// alle Anforderungen aus 4.1 werden hierüber abgedeckt.
+	// Speichert Striche entweder für letzte oder diese Woche in die Datenbank.
+	// Gibt true zurück wenn erfolgreich.
 	@WebMethod
-	public boolean stricheln(String benutzer, String passwort,
-			int strichart, int strichzahl, boolean aktuelleWoche) {
+	public boolean stricheln(String benutzer, String passwort, int strichart,
+			int strichzahl, boolean aktuelleWoche) {
 		if (rightsManagement.vorgangMoeglich(benutzer, passwort, 5)) {
-			return stricheln.schreibeStrichInDatenbank(benutzer, strichart, aktuelleWoche,
-					strichzahl);
-		}else return false;
+			return stricheln.schreibeStrichInDatenbank(benutzer, strichart,
+					aktuelleWoche, strichzahl);
+		} else
+			return false;
 	}
 
-	//Methode nur für Admin. Anforderung 4.2.1: Erstellt neuen Benutzer.
-	//gibt true zurück wenn alles geklappt hat.
+	// Methode nur für Admin. Anforderung 4.2.1: Erstellt neuen Benutzer.
+	// gibt true zurück wenn alles geklappt hat.
 	@WebMethod
 	public boolean benutzerErstellen(String benutzer, String passwort,
 			String benutzername, String neuerBenutzerPasswort, int idOE) {
-		if(rightsManagement.vorgangMoeglich(benutzer, passwort, 0))
-		return benutzerVerwaltung.benutzerErstellen(benutzername, neuerBenutzerPasswort, idOE);
-		else return false;
+		if (rightsManagement.vorgangMoeglich(benutzer, passwort, 0))
+			return benutzerVerwaltung.benutzerErstellen(benutzername,
+					neuerBenutzerPasswort, idOE);
+		else
+			return false;
 	}
 
-	//Anforderung 4.2.2: Löscht den Benutzer mit der entsprechenden ID aus der Datenbank.
+	// Anforderung 4.2.2: Löscht den Benutzer mit der entsprechenden ID aus der
+	// Datenbank.
 	@WebMethod
-	public boolean benutzerLoeschen(String benutzer, String passwort, String zuLoeschenderBenutzer){
-		if(rightsManagement.vorgangMoeglich(benutzer, passwort, 0))
+	public boolean benutzerLoeschen(String benutzer, String passwort,
+			String zuLoeschenderBenutzer) {
+		if (rightsManagement.vorgangMoeglich(benutzer, passwort, 0))
 			return benutzerVerwaltung.benutzerLoeschen(zuLoeschenderBenutzer);
-			else return false;
+		else
+			return false;
 	}
 
-	//Anforderung 4.2.3: Ändert den Benutzer mit der entsprechenden ID zu der entsprechenden Organisationseinheit.
+	// Anforderung 4.2.3: Ändert den Benutzer mit der entsprechenden ID zu der
+	// entsprechenden Organisationseinheit.
 	@WebMethod
-	public boolean benutzerOrgaEinheitAendern(String benutzer, String passwort, 
-			String benutzername, String orgaEinheit){
-		if(rightsManagement.vorgangMoeglich(benutzer, passwort, 0))
-			return benutzerVerwaltung.orgaEinheitAendern(benutzername, orgaEinheit);
-			else return false;
+	public boolean benutzerOrgaEinheitAendern(String benutzer, String passwort,
+			String benutzername, String orgaEinheit) {
+		if (rightsManagement.vorgangMoeglich(benutzer, passwort, 0))
+			return benutzerVerwaltung.orgaEinheitAendern(benutzername,
+					orgaEinheit);
+		else
+			return false;
 	}
 
-	//Anforderung 4.2.4: Anmelden, bzw. Überprüfen des Benutzernamens und Passwort.
-	//Gibt true zurück wenn login geklappt hat, wahrscheinlich ändern wir es noch zum char
-	//dann kann der grund mit zurück gegeben werden.
+	// Anforderung 4.2.4: Anmelden, bzw. Überprüfen des Benutzernamens und
+	// Passwort.
+	// Gibt true zurück wenn login geklappt hat, wahrscheinlich ändern wir es
+	// noch zum char
+	// dann kann der grund mit zurück gegeben werden.
 	@WebMethod
 	public boolean login(String benutzer, String passwort) {
 		return rightsManagement.vorgangMoeglich(benutzer, passwort, 1);
 	}
 
-	//Anforderung 4.2.5: Setzt das Passwort zurück. 
+	// Anforderung 4.2.5: Setzt das Passwort zurück.
 	@WebMethod
 	public boolean neuesPasswortSetzen(String benutzer, String passwort,
 			String betroffenerBenutzer, String neuesPasswort) {
-		if(rightsManagement.vorgangMoeglich(benutzer, passwort, 0))
-			return benutzerVerwaltung.setPasswort(betroffenerBenutzer, neuesPasswort);
-			else return false;
+		if (rightsManagement.vorgangMoeglich(benutzer, passwort, 0))
+			return benutzerVerwaltung.setPasswort(betroffenerBenutzer,
+					neuesPasswort);
+		else
+			return false;
 	}
 
-	//Anforderung 4.2.6: Sperrt den Benutzer. Kein Rückgabewert.
+	// Anforderung 4.2.6: Sperrt den Benutzer. Kein Rückgabewert.
 	@WebMethod
 	public void passwortSperren(String benutzername) {
-			benutzerVerwaltung.passwortSperren(benutzername);
+		benutzerVerwaltung.passwortSperren(benutzername);
 	}
 
-	//Anforderung 4.4.2: Einsicht Gruppenleiter in seine Gruppe
-	//Anforderung 4.4.4: Einsicht für bestimmten Zeitraum
-	//Anforderung 4.4.5: Leiter einer Organisationseinheit kann Daten in der Ebene unter ihm sehen.
-	//Methode bis jetzt erst einmal nur Grundfunktionalität. Muss noch erweitert werden oder neue Methode.
+	// Anforderung 4.4.2: Einsicht Gruppenleiter in seine Gruppe
+	// Anforderung 4.4.4: Einsicht für bestimmten Zeitraum
+	// Anforderung 4.4.5: Leiter einer Organisationseinheit kann Daten in der
+	// Ebene unter ihm sehen.
+	// Methode bis jetzt erst einmal nur Grundfunktionalität. Muss noch
+	// erweitert werden oder neue Methode.
 	@WebMethod
-	public List<Statistik> getStatistik(String benutzer, String passwort, int kalendarwoche, int jahr) {
+	public List<Statistik> getStatistik(String benutzer, String passwort,
+			int kalendarwoche, int jahr) {
 		/*
 		 * TODO : Anstatt String[] als übergabewert die Klasse Statistik
-		 * übergeben. bei mehreren Statistiken :
-		 * List<Statistik> Der Server sucht die OE des Benutzers und gibt alle
-		 * Statistiken dazu aus.
+		 * übergeben. bei mehreren Statistiken : List<Statistik> Der Server
+		 * sucht die OE des Benutzers und gibt alle Statistiken dazu aus.
 		 */
 		if (rightsManagement.vorgangMoeglich(benutzer, passwort, 3)) {
 			return statistikausgabe.getStatistik(benutzer, kalendarwoche, jahr);
@@ -139,68 +154,82 @@ public class Webservice {
 		return null;
 	}
 
-	//Gibt ein Array aus char zurück, je nachdem welche Fenster angezeigt werden sollen.
+	// Gibt ein Array aus char zurück, je nachdem welche Fenster angezeigt
+	// werden sollen.
 	@WebMethod
 	public char[] anzeige(String benutzer, String passwort) {
 		/*
-		 * 'd'->Dash/Strichelfenster 
-		 * 'b'->Adminrechte
-		 * 's'->Statistikfenster
-		 * 
+		 * 'd'->Dash/Strichelfenster 'b'->Adminrechte 's'->Statistikfenster
 		 */
 		if (rightsManagement.vorgangMoeglich(benutzer, passwort, 2)) {
 			return rightsManagement.erlaubteAnzeigen();
-		}
-		else return null;
+		} else
+			return null;
 	}
 
-	//Gibt eine Liste von allen möglichen Stricharten zurück.
+	// Gibt eine Liste von allen möglichen Stricharten zurück.
 	@WebMethod
 	public List<String> getStrichelArten(String benutzer, String passwort) {
 		if (rightsManagement.vorgangMoeglich(benutzer, passwort, 4)) {
 			return stricheln.getMoeglicheStricharten();
-		}
-		else return null;
+		} else
+			return null;
 	}
-	
-	//Gibt eine Liste mit allen Benutzern zurück.
+
+	// Gibt eine Liste mit allen Benutzern zurück.
 	@WebMethod
 	public List<Benutzer> getBenutzer(String benutzer, String passwort) {
-		if(rightsManagement.vorgangMoeglich(benutzer, passwort, 0))
+		if (rightsManagement.vorgangMoeglich(benutzer, passwort, 0))
 			return benutzerVerwaltung.getAlleBenutzer();
-		else return null;
+		else
+			return null;
 	}
 
-	//Gibt eine Liste mit allen Organisationseinheiten zurück.
+	// Gibt eine Liste mit allen Organisationseinheiten zurück.
 	@WebMethod
-	public List<OrgaEinheit> getOrgaEinheit(String benutzer, String passwort) {
-		if(rightsManagement.vorgangMoeglich(benutzer, passwort, 0))
+	public List<OrgaEinheit> getOrgaEinheiten(String benutzer, String passwort) {
+		if (rightsManagement.vorgangMoeglich(benutzer, passwort, 0))
 			return orgaEinheitVerwaltung.getAlleOrgaEinheiten();
-		else return null;
+		else
+			return null;
 	}
 
-	//Organisationseinheit hinzufügen.
+	// Organisationseinheit hinzufügen.
 	@WebMethod
 	public boolean OrgaEinheitErstellen(String benutzer, String passwort,
 			int UeberOE, String OEbezeichnung, int Inhaberberechtigung,
 			int idInhaber, int Zustand) {
-		if(rightsManagement.vorgangMoeglich(benutzer, passwort, 0))
-			return orgaEinheitVerwaltung.neueOrgaEinheit(UeberOE, OEbezeichnung, 
-					Inhaberberechtigung, idInhaber, Zustand);
-		else return false;
+		if (rightsManagement.vorgangMoeglich(benutzer, passwort, 0))
+			return orgaEinheitVerwaltung.neueOrgaEinheit(UeberOE,
+					OEbezeichnung, Inhaberberechtigung, idInhaber, Zustand);
+		else
+			return false;
 	}
 
-	//Anforderung 4.2.10: Eine neue Strichbezeichnung hinzufügen.
+	// Anforderung 4.2.10: Eine neue Strichbezeichnung hinzufügen.
 	@WebMethod
 	public boolean neueStrichelart(String benutzer, String passwort,
 			String strichbezeichnung) {
-		if(rightsManagement.vorgangMoeglich(benutzer, passwort, 0))
+		if (rightsManagement.vorgangMoeglich(benutzer, passwort, 0))
 			return strichArtVerwaltung.strichArtHinzufuegen(strichbezeichnung);
-		else return false;
+		else
+			return false;
 	}
-	
-	//beendet den Access auf die Datenbank
-	private void dbZugriffBeenden(){
+
+	//Ändert die Bezeichnung von einer Strichelart.
+	@WebMethod
+	public boolean StrichelArtBezeichnungAendern(String benutzer,
+			String passwort, String strichelbezeichnungAlt,
+			String strichelbezeichnungNeu) {
+		if (rightsManagement.vorgangMoeglich(benutzer, passwort, 0))
+			return strichArtVerwaltung.strichArtBezeichnungAendern(
+					strichelbezeichnungAlt, strichelbezeichnungNeu);
+		else
+			return false;
+	}
+
+	// beendet den Access auf die Datenbank
+	private void dbZugriffBeenden() {
 		try {
 			dbZugriff.disconnect();
 		} catch (SQLException e) {
@@ -214,8 +243,8 @@ public class Webservice {
 	public static void main(String[] args) {
 
 		Webservice webservice = new Webservice();
-		Endpoint endpoint = Endpoint.publish(
-				Optionen.getWebserverURL(), webservice);
+		Endpoint endpoint = Endpoint.publish(Optionen.getWebserverURL(),
+				webservice);
 		// Hier wartet der Server
 		System.out.println("web service server running ... press key to stop");
 
