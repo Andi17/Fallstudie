@@ -22,10 +22,7 @@ public class Benutzer {
 
 	public Benutzer(ResultSet resultSet, JdbcAccess db) throws SQLException {
 		this.db = db;
-		this.Benutzername = resultSet.getString("Benutzername");
-		this.Passwort = resultSet.getString("Passwort");
-		this.AktuelleOE = resultSet.getInt("AktuelleOE");
-		this.Gesperrt = resultSet.getBoolean("Gesperrt");
+		werteSetzen(resultSet);
 	}
 
 	public Benutzer(String Benutzername, String Passwort, int aktuelleOE,
@@ -36,7 +33,12 @@ public class Benutzer {
 		this.AktuelleOE = aktuelleOE;
 		this.Gesperrt = Gesperrt;
 	}
-
+	private void werteSetzen(ResultSet resultSet) throws SQLException{
+		this.Benutzername = resultSet.getString("Benutzername");
+		this.Passwort = resultSet.getString("Passwort");
+		this.AktuelleOE = resultSet.getInt("AktuelleOE");
+		this.Gesperrt = resultSet.getBoolean("Gesperrt");
+	}
 	public String getBenutzername() {
 		return Benutzername;
 	}
