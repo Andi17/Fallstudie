@@ -13,12 +13,17 @@ public class Berechtigung {
 	private int idBerechtigung;
 	private String Berechtigungbez;
 
-	public Berechtigung(JdbcAccess db) {
+	public Berechtigung(ResultSet resultSet, JdbcAccess db) throws SQLException {
+		werteSetzen(resultSet);
 		this.db = db;
 	}
-
-	public Berechtigung(ResultSet resultSet, JdbcAccess db) throws SQLException {
-		this.db = db;
+	public Berechtigung(int idBerechtigung, String Berechtigungbez, JdbcAccess db) throws SQLException{
+		//TODO?
+		//einfügen von berechtigungen noch unnötig
+	}
+	
+	
+	public void werteSetzen(ResultSet resultSet) throws SQLException{
 		this.idBerechtigung = resultSet.getInt("idBerechtigung");
 		this.Berechtigungbez = resultSet.getString("Berechtigungbez");
 	}

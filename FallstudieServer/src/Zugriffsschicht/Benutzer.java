@@ -13,30 +13,30 @@ public class Benutzer {
 	private JdbcAccess db;
 	private String Benutzername;
 	private String Passwort;
-	private int AktuelleOE;
+	private int idOrgaEinheit;
 	private boolean Gesperrt;
-
-	public Benutzer(JdbcAccess db) {
-		this.db = db;
-	}
 
 	public Benutzer(ResultSet resultSet, JdbcAccess db) throws SQLException {
 		this.db = db;
 		werteSetzen(resultSet);
 	}
 
-	public Benutzer(String Benutzername, String Passwort, int aktuelleOE,
-			boolean Gesperrt, JdbcAccess db) {
-		this.db = db;
-		this.Benutzername = Benutzername;
-		this.Passwort = Passwort;
-		this.AktuelleOE = aktuelleOE;
-		this.Gesperrt = Gesperrt;
+	public Benutzer(String Benutzername, String Passwort, int idOrgaEinheit,
+			boolean Gesperrt, JdbcAccess db) throws SQLException{
+		db.executeUpdateStatement("INSERT INTO Benutzer (Benutzername, " +
+				"Passwort, idOrgaEinheit, Gesperrt) " +
+				"VALUES ( " + Benutzername + ", " + Passwort + ", " + idOrgaEinheit +
+				", " + Gesperrt + ")");
+		ResultSet resultSet = db.executeQueryStatement("SELECT * FROM Benutzer WHERE " +
+				"Benutzername = " + Benutzername);
+		resultSet.next();
+		werteSetzen(resultSet);
+		resultSet.close();
 	}
 	private void werteSetzen(ResultSet resultSet) throws SQLException{
 		this.Benutzername = resultSet.getString("Benutzername");
 		this.Passwort = resultSet.getString("Passwort");
-		this.AktuelleOE = resultSet.getInt("AktuelleOE");
+		this.idOrgaEinheit = resultSet.getInt("AktuelleOE");
 		this.Gesperrt = resultSet.getBoolean("Gesperrt");
 	}
 	public String getBenutzername() {
@@ -48,7 +48,7 @@ public class Benutzer {
 	}
 
 	public int getAktuelleOE() {
-		return AktuelleOE;
+		return idOrgaEinheit;
 	}
 
 	public boolean isGesperrt() {
@@ -68,7 +68,7 @@ public class Benutzer {
 	}
 
 	public void setAktuelleOE(int aktuelleOE) {
-		this.AktuelleOE = aktuelleOE;
+		this.idOrgaEinheit = aktuelleOE;
 	}
 
 	
