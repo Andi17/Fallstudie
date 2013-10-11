@@ -18,6 +18,7 @@ public class Rechte {
 
 	public Rechte(JdbcAccess db, Zugriffschicht dbZugriff) {
 		this.db = db;
+		this.dbZugriff = dbZugriff;
 	}
 
 	private boolean login(String Benutzername, String Passwort) {
@@ -25,84 +26,44 @@ public class Rechte {
 		 * Überprüfung ob die Logindaten übereinstimmen: Passt Passwort zu
 		 * Benutzername.
 		 */
-		Benutzer Ben = new Benutzer(db);
-		Ben.getBenutzerfromBenutzername(Benutzername);
-		if (Passwort.equals(Ben.getPasswort())) {
+		Benutzer benutzer = dbZugriff.getBenutzervonBenutzername(Benutzername);
+		if (benutzer!=null && benutzer.getPasswort().equals(Passwort)){
 			return true;
 		}
 		return false;
 	}
 
-	private int[] getRechte(String Benutzername) {
+	private int getRechtLeiter(String Benutzername) {
 		/*
 		 * Ermittelt sämtliche Rechte für den Benutzer Achtung: ebenfalls rechte
 		 * wenn man OE-Inhaber ist!
 		 */
-		int[] ret = null;
-		Benutzer Ben = new Benutzer(db);
-		Ben.getBenutzerfromBenutzername(Benutzername);
-		int IdBenutzer = Ben.getIdBenutzer();
-		boolean zuruekok = true;
-		List<OrgaEinheit> b = dbZugriff.getOEzuInhaber(IdBenutzer);
-		int[] retb = null;
-		if (b == null || b.isEmpty()) {
-			zuruekok = false;
-		} else {
-			retb = new int[b.size()];
-			int zaehlerb = 0;
-			for (OrgaEinheit B : b) {
-				retb[zaehlerb] = B.getInhaberberechtigung();
-				zaehlerb++;
-			}
+		Berechtigung BerechtigungLeiter = dbZugriff.getBerechtigungzuLeitername(Benutzername);
+		if (BerechtigungLeiter!=null){
+			return BerechtigungLeiter.getIdBerechtigung();
 		}
-
-		Collection<Berechtigung> a = new LinkedList<>();
-		int[] reta = null;
-		a = dbZugriff.getBerechtigungzuIdBenutzer(IdBenutzer);
-		if (a == null || a.isEmpty()) {
-			zuruekok = false;
-		} else {
-			reta = new int[a.size()];
-			int zaehler = 0;
-			for (Berechtigung B : a) {
-				reta[zaehler] = B.getIdBerechtigung();
-				zaehler++;
-			}
+		else return 0;
+		
+	}
+	private int getRechtMitarbeiter(String Benutzername){
+		Berechtigung BerechtigungMitarbeiter = dbZugriff.getBerechtigungzuMitarbeiter(Benutzername);
+		if (BerechtigungMitarbeiter!=null){
+			return BerechtigungMitarbeiter.getIdBerechtigung();
 		}
-		if (zuruekok) {
-			if (reta != null && retb != null) {
-				ret = new int[reta.length + retb.length];
-				for (int z = 0; z < reta.length; z++) {
-					ret[z] = reta[z];
-				}
-				for (int z = 0; z < retb.length; z++) {
-					ret[reta.length + z] = retb[z];
-				}
-			}
-		} else {
-			if (reta == null) {
-				ret = retb;
-			}
-			if (retb == null) {
-				ret = reta;
-			}
-		}
-
-		return ret;
+		else return 0;
 	}
 
 	private int[] getRechtemoeglich(int Vorgang) {
 		/*
 		 * gibt alle Rechte zum Webservice zurück.
 		 */
+		List<Berechtigung> BerechtigungListe = dbZugriff.getBerechtigungenZuWebmethode(Vorgang);
+		
 		int[] ret = null;
-		List<Berechtigung> a = dbZugriff
-				.getBerechtigungzuIdWebservice(Vorgang);
-		if (a == null || a.isEmpty()) {
-		} else {
-			ret = new int[a.size()];
+		if (BerechtigungListe!=null){
+			ret = new int[BerechtigungListe.size()];
 			int zaehler = 0;
-			for (Berechtigung B : a) {
+			for(Berechtigung B : BerechtigungListe){
 				ret[zaehler] = B.getIdBerechtigung();
 				zaehler++;
 			}
@@ -121,16 +82,13 @@ public class Rechte {
 				return true;
 			}
 			else {
-				int[] Rechte = this.getRechte(Benutzername);
-				int[] Rechtemoeglich = this.getRechtemoeglich(Vorgang);
-				if (Rechte != null && Rechtemoeglich != null) {
-					for (int i = 0; i < Rechte.length; i++) {
-						for (int a = 0; a < Rechtemoeglich.length; a++) {
-							if (Rechte[i] == Rechtemoeglich[a]) {
-								return true;
-							}
-						}
-					}
+				int LeiterRechte = this.getRechtLeiter(Benutzername);
+				int MitarbeiterRechte = this.getRechtMitarbeiter(Benutzername);
+				int[] MoeglicheRechte = this.getRechtemoeglich(Vorgang);
+				for(int i = 0; i < MoeglicheRechte.length;i++){
+					if (MoeglicheRechte[i] == MitarbeiterRechte || MoeglicheRechte[i] == LeiterRechte){
+						return true;
+					}					
 				}
 			}	
 		}
