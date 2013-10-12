@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="return" type="{http://Webservice/}orgaEinheit" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="return" type="{http://Webservice/}comOrgaEinheit" maxOccurs="unbounded" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -35,7 +35,7 @@ import javax.xml.bind.annotation.XmlType;
 public class GetOrgaEinheitenResponse {
 
     @XmlElement(name = "return")
-    protected List<OrgaEinheit> _return;
+    protected List<ComOrgaEinheit> _return;
 
     /**
      * Gets the value of the return property.
@@ -55,13 +55,13 @@ public class GetOrgaEinheitenResponse {
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link OrgaEinheit }
+     * {@link ComOrgaEinheit }
      * 
      * 
      */
-    public List<OrgaEinheit> getReturn() {
+    public List<ComOrgaEinheit> getReturn() {
         if (_return == null) {
-            _return = new ArrayList<OrgaEinheit>();
+            _return = new ArrayList<ComOrgaEinheit>();
         }
         return this._return;
     }

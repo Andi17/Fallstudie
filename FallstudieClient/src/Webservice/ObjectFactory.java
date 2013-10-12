@@ -303,27 +303,35 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link OrgaEinheit }
+     * Create an instance of {@link ComStatistik }
      * 
      */
-    public OrgaEinheit createOrgaEinheit() {
-        return new OrgaEinheit();
+    public ComStatistik createComStatistik() {
+        return new ComStatistik();
     }
 
     /**
-     * Create an instance of {@link Statistik }
+     * Create an instance of {@link ComBenutzer }
      * 
      */
-    public Statistik createStatistik() {
-        return new Statistik();
+    public ComBenutzer createComBenutzer() {
+        return new ComBenutzer();
     }
 
     /**
-     * Create an instance of {@link Benutzer }
+     * Create an instance of {@link ComStrichart }
      * 
      */
-    public Benutzer createBenutzer() {
-        return new Benutzer();
+    public ComStrichart createComStrichart() {
+        return new ComStrichart();
+    }
+
+    /**
+     * Create an instance of {@link ComOrgaEinheit }
+     * 
+     */
+    public ComOrgaEinheit createComOrgaEinheit() {
+        return new ComOrgaEinheit();
     }
 
     /**

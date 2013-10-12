@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="return" type="{http://Webservice/}benutzer" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="return" type="{http://Webservice/}comBenutzer" maxOccurs="unbounded" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -35,7 +35,7 @@ import javax.xml.bind.annotation.XmlType;
 public class GetBenutzerResponse {
 
     @XmlElement(name = "return")
-    protected List<Benutzer> _return;
+    protected List<ComBenutzer> _return;
 
     /**
      * Gets the value of the return property.
@@ -55,13 +55,13 @@ public class GetBenutzerResponse {
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link Benutzer }
+     * {@link ComBenutzer }
      * 
      * 
      */
-    public List<Benutzer> getReturn() {
+    public List<ComBenutzer> getReturn() {
         if (_return == null) {
-            _return = new ArrayList<Benutzer>();
+            _return = new ArrayList<ComBenutzer>();
         }
         return this._return;
     }

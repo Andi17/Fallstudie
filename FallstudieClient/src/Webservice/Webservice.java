@@ -125,14 +125,14 @@ public interface Webservice {
      * @param arg1
      * @param arg0
      * @return
-     *     returns java.util.List<Webservice.Statistik>
+     *     returns java.util.List<Webservice.ComStatistik>
      */
     @WebMethod
     @WebResult(targetNamespace = "")
     @RequestWrapper(localName = "getStatistik", targetNamespace = "http://Webservice/", className = "Webservice.GetStatistik")
     @ResponseWrapper(localName = "getStatistikResponse", targetNamespace = "http://Webservice/", className = "Webservice.GetStatistikResponse")
     @Action(input = "http://Webservice/Webservice/getStatistikRequest", output = "http://Webservice/Webservice/getStatistikResponse")
-    public List<Statistik> getStatistik(
+    public List<ComStatistik> getStatistik(
         @WebParam(name = "arg0", targetNamespace = "")
         String arg0,
         @WebParam(name = "arg1", targetNamespace = "")
@@ -165,14 +165,14 @@ public interface Webservice {
      * @param arg1
      * @param arg0
      * @return
-     *     returns java.util.List<Webservice.Benutzer>
+     *     returns java.util.List<Webservice.ComBenutzer>
      */
     @WebMethod
     @WebResult(targetNamespace = "")
     @RequestWrapper(localName = "getBenutzer", targetNamespace = "http://Webservice/", className = "Webservice.GetBenutzer")
     @ResponseWrapper(localName = "getBenutzerResponse", targetNamespace = "http://Webservice/", className = "Webservice.GetBenutzerResponse")
     @Action(input = "http://Webservice/Webservice/getBenutzerRequest", output = "http://Webservice/Webservice/getBenutzerResponse")
-    public List<Benutzer> getBenutzer(
+    public List<ComBenutzer> getBenutzer(
         @WebParam(name = "arg0", targetNamespace = "")
         String arg0,
         @WebParam(name = "arg1", targetNamespace = "")
@@ -267,14 +267,14 @@ public interface Webservice {
      * @param arg1
      * @param arg0
      * @return
-     *     returns java.util.List<java.lang.String>
+     *     returns java.util.List<Webservice.ComStrichart>
      */
     @WebMethod
     @WebResult(targetNamespace = "")
     @RequestWrapper(localName = "getStrichelArten", targetNamespace = "http://Webservice/", className = "Webservice.GetStrichelArten")
     @ResponseWrapper(localName = "getStrichelArtenResponse", targetNamespace = "http://Webservice/", className = "Webservice.GetStrichelArtenResponse")
     @Action(input = "http://Webservice/Webservice/getStrichelArtenRequest", output = "http://Webservice/Webservice/getStrichelArtenResponse")
-    public List<String> getStrichelArten(
+    public List<ComStrichart> getStrichelArten(
         @WebParam(name = "arg0", targetNamespace = "")
         String arg0,
         @WebParam(name = "arg1", targetNamespace = "")
@@ -285,14 +285,14 @@ public interface Webservice {
      * @param arg1
      * @param arg0
      * @return
-     *     returns java.util.List<Webservice.OrgaEinheit>
+     *     returns java.util.List<Webservice.ComOrgaEinheit>
      */
     @WebMethod
     @WebResult(targetNamespace = "")
     @RequestWrapper(localName = "getOrgaEinheiten", targetNamespace = "http://Webservice/", className = "Webservice.GetOrgaEinheiten")
     @ResponseWrapper(localName = "getOrgaEinheitenResponse", targetNamespace = "http://Webservice/", className = "Webservice.GetOrgaEinheitenResponse")
     @Action(input = "http://Webservice/Webservice/getOrgaEinheitenRequest", output = "http://Webservice/Webservice/getOrgaEinheitenResponse")
-    public List<OrgaEinheit> getOrgaEinheiten(
+    public List<ComOrgaEinheit> getOrgaEinheiten(
         @WebParam(name = "arg0", targetNamespace = "")
         String arg0,
         @WebParam(name = "arg1", targetNamespace = "")

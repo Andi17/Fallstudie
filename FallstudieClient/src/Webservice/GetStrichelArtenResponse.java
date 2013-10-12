@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="return" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="return" type="{http://Webservice/}comStrichart" maxOccurs="unbounded" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -35,7 +35,7 @@ import javax.xml.bind.annotation.XmlType;
 public class GetStrichelArtenResponse {
 
     @XmlElement(name = "return")
-    protected List<String> _return;
+    protected List<ComStrichart> _return;
 
     /**
      * Gets the value of the return property.
@@ -55,13 +55,13 @@ public class GetStrichelArtenResponse {
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link String }
+     * {@link ComStrichart }
      * 
      * 
      */
-    public List<String> getReturn() {
+    public List<ComStrichart> getReturn() {
         if (_return == null) {
-            _return = new ArrayList<String>();
+            _return = new ArrayList<ComStrichart>();
         }
         return this._return;
     }
