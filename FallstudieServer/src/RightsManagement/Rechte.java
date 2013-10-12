@@ -13,11 +13,10 @@ import Zugriffsschicht.Zugriffschicht;
 //Anforderung 4.2.8 wird hier realisiert.
 
 public class Rechte {
-	private JdbcAccess db;
 	private Zugriffschicht dbZugriff;
 
-	public Rechte(JdbcAccess db, Zugriffschicht dbZugriff) {
-		this.db = db;
+	public Rechte(Zugriffschicht dbZugriff) {
+
 		this.dbZugriff = dbZugriff;
 	}
 

@@ -50,8 +50,9 @@ public class Webservice {
 					Optionen.getJdbcuser(), Optionen.getJdbcpw());
 			jdbc.connect();
 			dbZugriff = new Zugriffschicht(jdbc);
-			rightsManagement = new Rechte(jdbc, dbZugriff);
+			rightsManagement = new Rechte(dbZugriff);
 			stricheln = new Stricheln(dbZugriff);
+			benutzerVerwaltung = new Benutzerverwaltung(dbZugriff);
 			statistikausgabe = new Statistikausgabe(dbZugriff);
 			orgaEinheitVerwaltung = new OrgaEinheitVerwaltung(dbZugriff);
 			strichArtVerwaltung = new StrichArtVerwaltung(dbZugriff);
@@ -78,7 +79,7 @@ public class Webservice {
 	@WebMethod
 	public boolean benutzerErstellen(String benutzer, String passwort,
 			String benutzername, String neuerBenutzerPasswort, int idOE) {
-		if (rightsManagement.vorgangMoeglich(benutzer, passwort, 0))
+		if (rightsManagement.vorgangMoeglich(benutzer, passwort, 101))
 			return benutzerVerwaltung.benutzerErstellen(benutzername,
 					neuerBenutzerPasswort, idOE);
 		else

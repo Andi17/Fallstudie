@@ -61,23 +61,23 @@ public class NeuerBenutzer extends JDialog {
 		}
 		{
 			txtOrgaEinheit = new JTextField();
-			txtOrgaEinheit.setBounds(217, 49, 134, 28);
+			txtOrgaEinheit.setBounds(217, 77, 134, 28);
 			contentPanel.add(txtOrgaEinheit);
 			txtOrgaEinheit.setColumns(10);
 		}
 		{
 			JLabel lblBenutzername = new JLabel("Benutzername:");
-			lblBenutzername.setBounds(101, 21, 104, 16);
+			lblBenutzername.setBounds(50, 21, 150, 16);
 			contentPanel.add(lblBenutzername);
 		}
 		{
 			JLabel lblOrgaEinheit = new JLabel("OrganisationsEinheit");
-			lblOrgaEinheit.setBounds(101, 77, 104, 16);
+			lblOrgaEinheit.setBounds(50, 77, 150, 16);
 			contentPanel.add(lblOrgaEinheit);
 		}
 		{
 			JLabel lblPasswort = new JLabel("Passwort:");
-			lblPasswort.setBounds(101, 83, 61, 16);
+			lblPasswort.setBounds(50, 49, 150, 16);
 			contentPanel.add(lblPasswort);
 		}
 		{

@@ -25,7 +25,7 @@ public class Zugriffschicht {
 			rueckgabe = new Benutzer(Benutzername, Passwort, idOrgaEinheit,
 					Gesperrt, db);
 		} catch (SQLException e) {
-			System.out.println(e);
+			System.out.println("Zugriffschicht: neuerBenutzerErstellen: "+e);
 		}
 		return rueckgabe;
 	}
@@ -107,7 +107,7 @@ public class Zugriffschicht {
 		Berechtigung rueckgabe = null;
 		try {
 			resultSet = db
-					.executeQueryStatement("SELECT b.* FROM OrgaEinheiten a, Berechtigung b WHERE"
+					.executeQueryStatement("SELECT b.* FROM OrgaEinheiten a, Berechtigungen b WHERE"
 							+ " a.idLeiterBerechtigung = b.idBerechtigung AND a.Leitername = '"
 							+ Benutzername + "'");
 			resultSet.next();
@@ -124,9 +124,9 @@ public class Zugriffschicht {
 		Berechtigung rueckgabe = null;
 		try {
 			resultSet = db
-					.executeQueryStatement("SELECT b.* FROM OrgaEinheiten a, Berechtigung b, Benutzer c WHERE"
+					.executeQueryStatement("SELECT b.* FROM OrgaEinheiten a, Berechtigungen b, Benutzer c WHERE"
 							+ " a.idMitarbeiterBerechtigung = b.idBerechtigung "
-							+ "AND c.idOrgeEinheit = a.idOrgaEinheit "
+							+ "AND c.idOrgaEinheit = a.idOrgaEinheit "
 							+ "AND c.Benutzername = '" + Benutzername + "'");
 			resultSet.next();
 			rueckgabe = new Berechtigung(resultSet, db);
@@ -142,7 +142,7 @@ public class Zugriffschicht {
 		List<Berechtigung> rueckgabe = new ArrayList<Berechtigung>();
 		try {
 			resultSet = db
-					.executeQueryStatement("SELECT a.* FROM Berechtigung a, Berechtigung_Webmethode b "
+					.executeQueryStatement("SELECT a.* FROM Berechtigungen a, Berechtigung_Webmethode b "
 							+ "WHERE a.idBerechtigung = b.idBerechtigung AND b.idWebmethode = '"
 							+ Webmethode + "'");
 			while (resultSet.next()) {
@@ -161,7 +161,7 @@ public class Zugriffschicht {
 		ResultSet resultSet;
 		try {
 			resultSet = db
-					.executeQueryStatement("SELECT * FROM Berechtigung WHERE idBerechtigung = '"
+					.executeQueryStatement("SELECT * FROM Berechtigungen WHERE idBerechtigung = '"
 							+ idBerechtigung + "'");
 			resultSet.next();
 			rueckgabe = new Berechtigung(resultSet, db);

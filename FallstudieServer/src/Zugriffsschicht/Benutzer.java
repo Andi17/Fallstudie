@@ -23,12 +23,16 @@ public class Benutzer {
 
 	public Benutzer(String Benutzername, String Passwort, int idOrgaEinheit,
 			boolean Gesperrt, JdbcAccess db) throws SQLException{
+		String GesperrtString = "1";
+		if (Gesperrt){
+			GesperrtString = "0";
+		}
 		db.executeUpdateStatement("INSERT INTO Benutzer (Benutzername, " +
 				"Passwort, idOrgaEinheit, Gesperrt) " +
-				"VALUES ( " + Benutzername + ", " + Passwort + ", " + idOrgaEinheit +
-				", " + Gesperrt + ")");
+				"VALUES ( '" + Benutzername + "', '" + Passwort + "', '" + idOrgaEinheit +
+				"', '" + GesperrtString + "')");
 		ResultSet resultSet = db.executeQueryStatement("SELECT * FROM Benutzer WHERE " +
-				"Benutzername = " + Benutzername);
+				"Benutzername = '" + Benutzername+"'");
 		resultSet.next();
 		werteSetzen(resultSet);
 		resultSet.close();
