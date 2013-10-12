@@ -12,7 +12,6 @@ import java.util.List;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
-import Webservice.Strichbezeichnung;
 import Webservice.Webservice;
 import Webservice.WebserviceService;
 
