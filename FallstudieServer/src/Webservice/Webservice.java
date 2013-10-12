@@ -14,6 +14,10 @@ import RightsManagement.Rechte;
 import Benutzerverwaltung.Benutzerverwaltung;
 import Benutzerverwaltung.OrgaEinheitVerwaltung;
 import Benutzerverwaltung.StrichArtVerwaltung;
+import Com.ComBenutzer;
+import Com.ComOrgaEinheit;
+import Com.ComStatistik;
+import Com.ComStrichart;
 import Optionen.Optionen;
 import Statistikausgabe.Statistikausgabe;
 import Stricheln.Stricheln;
@@ -143,7 +147,7 @@ public class Webservice {
 	// Methode bis jetzt erst einmal nur Grundfunktionalität. Muss noch
 	// erweitert werden oder neue Methode.
 	@WebMethod
-	public List<Statistik> getStatistik(String benutzer, String passwort,
+	public List<ComStatistik> getStatistik(String benutzer, String passwort,
 			int kalendarwoche, int jahr) {
 		/*
 		 * TODO : Anstatt String[] als übergabewert die Klasse Statistik
@@ -171,7 +175,7 @@ public class Webservice {
 
 	// Gibt eine Liste von allen möglichen Stricharten zurück.
 	@WebMethod
-	public List<String> getStrichelArten(String benutzer, String passwort) {
+	public List<ComStrichart> getStrichelArten(String benutzer, String passwort) {
 		if (rightsManagement.vorgangMoeglich(benutzer, passwort, 4)) {
 			return stricheln.getMoeglicheStricharten();
 		} else
@@ -180,7 +184,7 @@ public class Webservice {
 
 	// Gibt eine Liste mit allen Benutzern zurück.
 	@WebMethod
-	public List<Benutzer> getBenutzer(String benutzer, String passwort) {
+	public List<ComBenutzer> getBenutzer(String benutzer, String passwort) {
 		if (rightsManagement.vorgangMoeglich(benutzer, passwort, 0))
 			return benutzerVerwaltung.getAlleBenutzer();
 		else
@@ -189,7 +193,7 @@ public class Webservice {
 
 	// Gibt eine Liste mit allen Organisationseinheiten zurück.
 	@WebMethod
-	public List<OrgaEinheit> getOrgaEinheiten(String benutzer, String passwort) {
+	public List<ComOrgaEinheit> getOrgaEinheiten(String benutzer, String passwort) {
 		if (rightsManagement.vorgangMoeglich(benutzer, passwort, 0))
 			return orgaEinheitVerwaltung.getAlleOrgaEinheiten();
 		else

@@ -2,6 +2,7 @@ package Statistikausgabe;
 
 import java.util.List;
 
+import Com.ComStatistik;
 import Zugriffsschicht.Statistik;
 import Zugriffsschicht.Zugriffschicht;
 
@@ -15,7 +16,7 @@ public class Statistikausgabe {
 		this.dbZugriff = dbZugriff;
 	}
 	
-	public List<Statistik> getStatistik(String benutzername, int kalendarwoche, int jahr){
+	public List<ComStatistik> getStatistik(String benutzername, int kalendarwoche, int jahr){
 		return null;
 	}
 	

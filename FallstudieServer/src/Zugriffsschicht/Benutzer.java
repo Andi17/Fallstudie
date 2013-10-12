@@ -55,7 +55,7 @@ public class Benutzer {
 		return idOrgaEinheit;
 	}
 
-	public boolean isGesperrt() {
+	public boolean getGesperrt() {
 		return Gesperrt;
 	}
 

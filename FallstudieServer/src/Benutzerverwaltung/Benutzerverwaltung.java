@@ -1,8 +1,12 @@
 package Benutzerverwaltung;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import Com.ComBenutzer;
 import Optionen.Optionen;
 import Zugriffsschicht.Benutzer;
+import Zugriffsschicht.OrgaEinheit;
 import Zugriffsschicht.Zugriffschicht;
 
 public class Benutzerverwaltung {
@@ -38,9 +42,19 @@ public class Benutzerverwaltung {
 	}
 
 	// Rückgabe der verschiedenen Benutzer in einer Liste.
-	public List<Benutzer> getAlleBenutzer() {
+	public List<ComBenutzer> getAlleBenutzer() {
 		List<Benutzer> alleBenutzerListe = dbZugriff.getAlleBenutzer();
-		return alleBenutzerListe;
+		List<ComBenutzer> rueckgabe = new ArrayList<ComBenutzer>();
+		for (Benutzer benutzer : alleBenutzerListe){
+			OrgaEinheit orgaEinheit = dbZugriff.getOrgaEinheitZuidOrgaEinheit(benutzer.getAktuelleOE());
+			if (orgaEinheit == null){
+				rueckgabe.add(new ComBenutzer(benutzer.getBenutzername(), benutzer.getPasswort(), benutzer.getAktuelleOE(), "Keine Organisationseinheit", benutzer.getGesperrt()));
+			}
+			else{
+				rueckgabe.add(new ComBenutzer(benutzer.getBenutzername(), benutzer.getPasswort(), benutzer.getAktuelleOE(), orgaEinheit.getOrgaEinheitBez(), benutzer.getGesperrt()));	
+			}
+		}
+		return rueckgabe;
 	}
 
 	// Löscht den Benuttzer mit der entsprechenden ID.

@@ -2,6 +2,7 @@ package Stricheln;
 
 import java.util.List;
 
+import Com.ComStrichart;
 import Zugriffsschicht.Strichart;
 import Zugriffsschicht.Zugriffschicht;
 
@@ -13,7 +14,7 @@ public class Stricheln {
 		this.dbZugriff = dbZugriff;
 	}
 
-	public List<String> getMoeglicheStricharten() {
+	public List<ComStrichart> getMoeglicheStricharten() {
 		/*
 		 * Rückgabe aller Stricharten die anzeigbar sind
 		 *//*

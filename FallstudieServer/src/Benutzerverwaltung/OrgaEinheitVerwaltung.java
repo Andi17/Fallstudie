@@ -2,6 +2,7 @@ package Benutzerverwaltung;
 
 import java.util.List;
 
+import Com.ComOrgaEinheit;
 import Zugriffsschicht.OrgaEinheit;
 import Zugriffsschicht.Zugriffschicht;
 
@@ -14,7 +15,7 @@ public class OrgaEinheitVerwaltung {
 		this.dbZugriff = dbZugriff;
 	}
 	
-	public List<OrgaEinheit> getAlleOrgaEinheiten(){
+	public List<ComOrgaEinheit> getAlleOrgaEinheiten(){
 		/*
 		 * rückgabe der verschiedenen OEs. Eventuell übergabe einer OEklasse(
 		 * siehe statistik) Rückgabe von idOE(DB), OEname, aktueller Inhaber und
