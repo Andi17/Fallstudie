@@ -36,6 +36,8 @@ public class ObjectFactory {
     private final static QName _BenutzerErstellen_QNAME = new QName("http://Webservice/", "benutzerErstellen");
     private final static QName _BenutzerLoeschen_QNAME = new QName("http://Webservice/", "benutzerLoeschen");
     private final static QName _NeuesPasswortSetzen_QNAME = new QName("http://Webservice/", "neuesPasswortSetzen");
+    private final static QName _GibtesBenutzerschonResponse_QNAME = new QName("http://Webservice/", "gibtesBenutzerschonResponse");
+    private final static QName _GibtesBenutzerschon_QNAME = new QName("http://Webservice/", "gibtesBenutzerschon");
     private final static QName _Anzeige_QNAME = new QName("http://Webservice/", "anzeige");
     private final static QName _Stricheln_QNAME = new QName("http://Webservice/", "stricheln");
     private final static QName _BenutzerErstellenResponse_QNAME = new QName("http://Webservice/", "benutzerErstellenResponse");
@@ -87,6 +89,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link GibtesBenutzerschonResponse }
+     * 
+     */
+    public GibtesBenutzerschonResponse createGibtesBenutzerschonResponse() {
+        return new GibtesBenutzerschonResponse();
+    }
+
+    /**
      * Create an instance of {@link Stricheln }
      * 
      */
@@ -100,6 +110,14 @@ public class ObjectFactory {
      */
     public Anzeige createAnzeige() {
         return new Anzeige();
+    }
+
+    /**
+     * Create an instance of {@link GibtesBenutzerschon }
+     * 
+     */
+    public GibtesBenutzerschon createGibtesBenutzerschon() {
+        return new GibtesBenutzerschon();
     }
 
     /**
@@ -440,6 +458,24 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://Webservice/", name = "neuesPasswortSetzen")
     public JAXBElement<NeuesPasswortSetzen> createNeuesPasswortSetzen(NeuesPasswortSetzen value) {
         return new JAXBElement<NeuesPasswortSetzen>(_NeuesPasswortSetzen_QNAME, NeuesPasswortSetzen.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GibtesBenutzerschonResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://Webservice/", name = "gibtesBenutzerschonResponse")
+    public JAXBElement<GibtesBenutzerschonResponse> createGibtesBenutzerschonResponse(GibtesBenutzerschonResponse value) {
+        return new JAXBElement<GibtesBenutzerschonResponse>(_GibtesBenutzerschonResponse_QNAME, GibtesBenutzerschonResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GibtesBenutzerschon }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://Webservice/", name = "gibtesBenutzerschon")
+    public JAXBElement<GibtesBenutzerschon> createGibtesBenutzerschon(GibtesBenutzerschon value) {
+        return new JAXBElement<GibtesBenutzerschon>(_GibtesBenutzerschon_QNAME, GibtesBenutzerschon.class, null, value);
     }
 
     /**

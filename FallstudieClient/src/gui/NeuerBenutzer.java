@@ -41,48 +41,49 @@ public class NeuerBenutzer extends JDialog {
 		setTitle("Benutzer - Anlegen");
 		setResizable(false);
 		setBackground(Color.WHITE);
-		setBounds(100, 100, 460, 180);
+		setBounds(100, 100, 500, 200);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(Color.WHITE);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		{
-			txtPasswort = new JTextField();
-			txtPasswort.setBounds(217, 49, 134, 28);
-			contentPanel.add(txtPasswort);
-			txtPasswort.setColumns(10);
+			JLabel lblBenutzername = new JLabel("Benutzername:");
+			lblBenutzername.setBounds(50, 20, 150, 30);
+			contentPanel.add(lblBenutzername);
+		}
+		{
+			JLabel lblPasswort = new JLabel("Passwort:");
+			lblPasswort.setBounds(50, 50, 150, 30);
+			contentPanel.add(lblPasswort);
+		}
+		{
+			JLabel lblOrgaEinheit = new JLabel("OrganisationsEinheit");
+			lblOrgaEinheit.setBounds(50, 80, 150, 30);
+			contentPanel.add(lblOrgaEinheit);
 		}
 		{
 			txtBenutzername = new JTextField();
-			txtBenutzername.setBounds(217, 21, 134, 28);
+			txtBenutzername.setBounds(201, 20, 150, 30);
 			contentPanel.add(txtBenutzername);
 			txtBenutzername.setColumns(10);
 		}
 		{
+			txtPasswort = new JTextField();
+			txtPasswort.setBounds(201, 50, 150, 30);
+			contentPanel.add(txtPasswort);
+			txtPasswort.setColumns(10);
+		}
+		{
 			txtOrgaEinheit = new JTextField();
-			txtOrgaEinheit.setBounds(217, 77, 134, 28);
+			txtOrgaEinheit.setBounds(201, 80, 150, 30);
 			contentPanel.add(txtOrgaEinheit);
 			txtOrgaEinheit.setColumns(10);
 		}
-		{
-			JLabel lblBenutzername = new JLabel("Benutzername:");
-			lblBenutzername.setBounds(50, 21, 150, 16);
-			contentPanel.add(lblBenutzername);
-		}
-		{
-			JLabel lblOrgaEinheit = new JLabel("OrganisationsEinheit");
-			lblOrgaEinheit.setBounds(50, 77, 150, 16);
-			contentPanel.add(lblOrgaEinheit);
-		}
-		{
-			JLabel lblPasswort = new JLabel("Passwort:");
-			lblPasswort.setBounds(50, 49, 150, 16);
-			contentPanel.add(lblPasswort);
-		}
+
 		{
 			JButton okButton = new JButton("Best\u00E4tigen");
-			okButton.setBounds(222, 123, 109, 29);
+			okButton.setBounds(201, 120, 100, 30);
 			contentPanel.add(okButton);
 			okButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -91,11 +92,27 @@ public class NeuerBenutzer extends JDialog {
 
 					String neuerbenutzername = txtBenutzername.getText();
 					String neuespasswort = txtPasswort.getText();
+					int orgaEinheit = 0;
+					try{
+						orgaEinheit = Integer.parseInt(txtOrgaEinheit.getText());
+						if (port.gibtesBenutzerschon(Benutzername, Passwort, neuerbenutzername)){
+							txtBenutzername.setText("");
+							txtPasswort.setText("");
+							
+						}
+						else{
+							
+						
+						
+						NeuerBenutzerFrage NeuerBenutzerFrage = new NeuerBenutzerFrage(Benutzername, Passwort, port, txtBenutzername.getText(), txtPasswort.getText(), orgaEinheit);
+						NeuerBenutzerFrage.setVisible(true);
+						dispose();
+						}
+					}
+					catch (NumberFormatException a){
+						txtOrgaEinheit.setText("");
+					}
 					
-					
-					NeuerBenutzerFrage NeuerBenutzerFrage = new NeuerBenutzerFrage(Benutzername, Passwort, port, txtBenutzername.getText(), txtPasswort.getText(), Integer.parseInt(txtOrgaEinheit.getText()));
-					NeuerBenutzerFrage.setVisible(true);
-					dispose();
 				}
 			});
 			okButton.setActionCommand("OK");
@@ -103,7 +120,7 @@ public class NeuerBenutzer extends JDialog {
 		}
 		{
 			JButton cancelButton = new JButton("Abbrechen");
-			cancelButton.setBounds(343, 123, 111, 29);
+			cancelButton.setBounds(351, 120, 100, 30);
 			contentPanel.add(cancelButton);
 			cancelButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {

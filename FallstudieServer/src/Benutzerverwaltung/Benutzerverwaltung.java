@@ -78,4 +78,12 @@ public class Benutzerverwaltung {
 	public void passwortSperren(String benutzername) {
 
 	}
+
+	public boolean benutzerSchonVorhanden(String neuerBenutzername) {
+		Benutzer benutzer = dbZugriff.getBenutzervonBenutzername(neuerBenutzername);
+		if (benutzer != null){
+			return true;
+		}
+		return false;
+	}
 }

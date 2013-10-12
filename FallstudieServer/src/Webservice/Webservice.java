@@ -133,6 +133,15 @@ public class Webservice {
 		else
 			return false;
 	}
+	// Anforderung 4.2.5: Setzt das Passwort zurück.
+		@WebMethod
+		public boolean gibtesBenutzerschon(String benutzer, String passwort,
+				String neuerBenutzername) {
+			if (rightsManagement.vorgangMoeglich(benutzer, passwort, 101))
+				return benutzerVerwaltung.benutzerSchonVorhanden(neuerBenutzername);
+			else
+				return false;
+		}
 
 	// Anforderung 4.2.6: Sperrt den Benutzer. Kein Rückgabewert.
 	@WebMethod

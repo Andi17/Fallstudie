@@ -252,6 +252,27 @@ public interface Webservice {
 
     /**
      * 
+     * @param arg2
+     * @param arg1
+     * @param arg0
+     * @return
+     *     returns boolean
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "gibtesBenutzerschon", targetNamespace = "http://Webservice/", className = "Webservice.GibtesBenutzerschon")
+    @ResponseWrapper(localName = "gibtesBenutzerschonResponse", targetNamespace = "http://Webservice/", className = "Webservice.GibtesBenutzerschonResponse")
+    @Action(input = "http://Webservice/Webservice/gibtesBenutzerschonRequest", output = "http://Webservice/Webservice/gibtesBenutzerschonResponse")
+    public boolean gibtesBenutzerschon(
+        @WebParam(name = "arg0", targetNamespace = "")
+        String arg0,
+        @WebParam(name = "arg1", targetNamespace = "")
+        String arg1,
+        @WebParam(name = "arg2", targetNamespace = "")
+        String arg2);
+
+    /**
+     * 
      * @param arg0
      */
     @WebMethod

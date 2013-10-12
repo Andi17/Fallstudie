@@ -41,7 +41,7 @@ public class NeuerBenutzerFrage extends JDialog {
 	private void initialize(){
 		setTitle("Benutzer - Anlegen");
 		setBackground(Color.WHITE);
-		setBounds(100, 100, 460, 180);
+		setBounds(100, 100, 500, 200);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(Color.WHITE);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -67,7 +67,7 @@ public class NeuerBenutzerFrage extends JDialog {
 					}
 				}
 			});
-			okButton.setBounds(281, 123, 75, 29);
+			okButton.setBounds(100, 120, 100, 30);
 			contentPanel.add(okButton);
 			okButton.setActionCommand("OK");
 			getRootPane().setDefaultButton(okButton);
@@ -79,15 +79,27 @@ public class NeuerBenutzerFrage extends JDialog {
 					dispose();
 				}
 			});
-			cancelButton.setBounds(368, 123, 86, 29);
+			cancelButton.setBounds(300, 120, 100, 30);
 			contentPanel.add(cancelButton);
 			cancelButton.setActionCommand("Cancel");
 		}
 		{
-			JTextPane txtpnMchtenSieDie = new JTextPane();
-			txtpnMchtenSieDie.setText("M\u00F6chten Sie die \u00C4nderungen wirklich \u00FCbernehmen?");
-			txtpnMchtenSieDie.setBounds(75, 63, 379, 41);
-			contentPanel.add(txtpnMchtenSieDie);
+			JTextPane txtBenutzername = new JTextPane();
+			txtBenutzername.setText("Benutzername:         "+NeuerBenutzername);
+			txtBenutzername.setBounds(50, 30, 400, 30);
+			contentPanel.add(txtBenutzername);
+		}
+		{
+			JTextPane txtPasswort = new JTextPane();
+			txtPasswort.setText("Organisationseinheit: "+idOrgaEinheit);
+			txtPasswort.setBounds(50, 60, 400, 30);
+			contentPanel.add(txtPasswort);
+		}
+		{
+			JTextPane txtFrage = new JTextPane();
+			txtFrage.setText("Benutzer erstellen?");
+			txtFrage.setBounds(50, 90, 400, 30);
+			contentPanel.add(txtFrage);
 		}
 	}
 
