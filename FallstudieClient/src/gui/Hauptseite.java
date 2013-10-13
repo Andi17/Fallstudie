@@ -126,7 +126,7 @@ public class Hauptseite {
         JButton btnBenutzerLschen = new JButton("Benutzer l\u00F6schen");
         btnBenutzerLschen.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		LoescheBenutzer LoescheBenutzer = new LoescheBenutzer();
+        		LoescheBenutzer LoescheBenutzer = new LoescheBenutzer(Benutzername, Passwort, port);
         		LoescheBenutzer.setVisible(true);
         	}
         });

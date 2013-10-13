@@ -10,32 +10,40 @@ import javax.swing.JLabel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
+import java.util.List;
+
 import javax.swing.JComboBox;
+
+import Webservice.ComBenutzer;
+import Webservice.Webservice;
 
 @SuppressWarnings("serial")
 public class LoescheBenutzer extends JDialog {
+	
+	private String Benutzername;
+	private String Passwort;
+	private Webservice port;
+	
+	private String loeschenBenutzer;
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtBenutzername;
+	private String[] Combobezeichnung;
+	private JComboBox comboBoxBenutzername;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			LoescheBenutzer dialog = new LoescheBenutzer();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 
 	/**
 	 * Create the dialog.
 	 */
-	public LoescheBenutzer() {
-		setTitle("Benutzer - L\u00F6schen");
+	public LoescheBenutzer(String Benutzername, String Passwort,
+			Webservice port) {
+		this.Benutzername = Benutzername;
+		this.Passwort = Passwort;
+		this.port = port;
+		initialize();
+	}
+	public void initialize(){
+		setTitle("Benutzer - Loeschen");
 		setResizable(false);
 		setBackground(Color.WHITE);
 		setBounds(100, 100, 460, 180);
@@ -46,29 +54,30 @@ public class LoescheBenutzer extends JDialog {
 		contentPanel.setLayout(null);
 		{
 			txtBenutzername = new JTextField();
-			txtBenutzername.setBounds(197, 40, 134, 28);
+			txtBenutzername.setBounds(200, 30, 100, 30);
 			contentPanel.add(txtBenutzername);
 			txtBenutzername.setColumns(10);
 		}
 		{
 			JLabel lblBenutzername = new JLabel("Benutzername:");
-			lblBenutzername.setBounds(61, 46, 122, 16);
+			lblBenutzername.setBounds(50, 30, 150, 30);
 			contentPanel.add(lblBenutzername);
 		}
 		{
-			JButton okButton = new JButton("L\u00F6schen!");
-			okButton.setBounds(231, 123, 100, 29);
+			JButton okButton = new JButton("Loeschen!");
+			okButton.setBounds(200, 100, 100, 30);
 			contentPanel.add(okButton);
 			okButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					//TODO Aktion
 					// †bergabe von "benutzername" an "LoescheBenutzerFrage"
-					String benutzername = txtBenutzername.getText();
+					loeschenBenutzer = txtBenutzername.getText();
+					if ( port.gibtesBenutzerschon(Benutzername, Passwort, loeschenBenutzer)){
 					
-					
-					LoescheBenutzerFrage LoescheBenutzerFrage = new LoescheBenutzerFrage();
+					LoescheBenutzerFrage LoescheBenutzerFrage = new LoescheBenutzerFrage(Benutzername, Passwort, port, loeschenBenutzer);
 					LoescheBenutzerFrage.setVisible(true);
 					dispose();
+					}
 				}
 			});
 			okButton.setActionCommand("OK");
@@ -76,7 +85,7 @@ public class LoescheBenutzer extends JDialog {
 		}
 		{
 			JButton cancelButton = new JButton("Abbrechen");
-			cancelButton.setBounds(343, 123, 111, 29);
+			cancelButton.setBounds(300, 100, 100, 30);
 			contentPanel.add(cancelButton);
 			cancelButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -85,11 +94,23 @@ public class LoescheBenutzer extends JDialog {
 			});
 			cancelButton.setActionCommand("Cancel");
 		}
-		{
-			JComboBox comboBoxBenutzername = new JComboBox();
-			comboBoxBenutzername.setBounds(346, 42, 77, 27);
-			contentPanel.add(comboBoxBenutzername);
+		List<ComBenutzer> BenutzerListe = port.getBenutzer(Benutzername,
+				Passwort);
+		Combobezeichnung = new String[BenutzerListe.size()];
+		int zaehler = 0;
+		for (ComBenutzer Ben : BenutzerListe) {
+			Combobezeichnung[zaehler] = Ben.getBenutzername();
+			zaehler++;
 		}
+		comboBoxBenutzername = new JComboBox(Combobezeichnung);
+		comboBoxBenutzername.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				txtBenutzername.setText(Combobezeichnung[comboBoxBenutzername
+						.getSelectedIndex()]);
+			}
+		});
+		comboBoxBenutzername.setBounds(350, 30, 100, 30);
+		contentPanel.add(comboBoxBenutzername);
 	}
 
 }

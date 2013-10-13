@@ -60,6 +60,16 @@ public class Benutzerverwaltung {
 
 	// Löscht den Benuttzer mit der entsprechenden ID.
 	public boolean benutzerLoeschen(String benutzername) {
+		Benutzer benutzer = dbZugriff.getBenutzervonBenutzername(benutzername);
+		if(benutzer != null){
+		try{
+		benutzer.loeschen();
+		return true;
+		}
+		catch(SQLException e){
+			System.out.println(e);
+		}
+		}
 		return false;
 	}
 
