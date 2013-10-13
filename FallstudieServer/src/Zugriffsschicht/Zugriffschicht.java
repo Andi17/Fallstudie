@@ -167,7 +167,7 @@ public class Zugriffschicht {
 			rueckgabe = new Berechtigung(resultSet, db);
 			resultSet.close();
 		} catch (SQLException e) {
-			System.out.println(e);
+			System.out.println("Zugriffschicht/getBerechtigungzuidBerechtigung :"+e);
 		}
 		return rueckgabe;
 	}
@@ -188,13 +188,27 @@ public class Zugriffschicht {
 		}
 		return rueckgabe;
 	}
-
+	public List<OrgaEinheit> getOrgaEinheiten(){
+		ResultSet resultSet;
+		List<OrgaEinheit> rueckgabe = new ArrayList<OrgaEinheit>();
+		try {
+			resultSet = db
+					.executeQueryStatement("SELECT * FROM OrgaEinheiten");
+			while(resultSet.next()){
+			rueckgabe.add(new OrgaEinheit(resultSet, db));
+			}
+			resultSet.close();
+		} catch (SQLException e) {
+			System.out.println(e);
+		}
+		return rueckgabe;
+	}
 	public OrgaEinheit getOrgaEinheitZuidOrgaEinheit(int idOrgaEinheit){
 		ResultSet resultSet;
 		OrgaEinheit rueckgabe = null;
 		try {
 			resultSet = db
-					.executeQueryStatement("SELECT * FROM OrgaEinheit WHERE idOrgaEinheit = '"
+					.executeQueryStatement("SELECT * FROM OrgaEinheiten WHERE idOrgaEinheit = '"
 							+ idOrgaEinheit + "'");
 			resultSet.next();
 			rueckgabe = new OrgaEinheit(resultSet, db);
@@ -209,7 +223,7 @@ public class Zugriffschicht {
 		ResultSet resultSet;
 		try {
 			resultSet = db
-					.executeQueryStatement("SELECT * FROM OrgaEinheit WHERE Leitername = '"
+					.executeQueryStatement("SELECT * FROM OrgaEinheiten WHERE Leitername = '"
 							+ Leitername + "'");
 			resultSet.next();
 			rueckgabe = new OrgaEinheit(resultSet, db);

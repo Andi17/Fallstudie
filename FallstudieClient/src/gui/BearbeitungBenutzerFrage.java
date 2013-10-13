@@ -7,31 +7,40 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import javax.swing.JTextPane;
+
+import Webservice.Webservice;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
 public class BearbeitungBenutzerFrage extends JDialog {
 
-	private final JPanel contentPanel = new JPanel();
+	private String Benutzername;
+	private String Passwort;
+	private Webservice port;
+	private String NeuerBenutzername;
+	private String NeuesPasswort;
+	private int idOrgaEinheit;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			BearbeitungBenutzerFrage dialog = new BearbeitungBenutzerFrage();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+	private final JPanel contentPanel = new JPanel();
 
 	/**
 	 * Create the dialog.
 	 */
-	public BearbeitungBenutzerFrage() {
+	public BearbeitungBenutzerFrage(String Benutzername, String Passwort,
+			Webservice port, String NeuerBenutzername, String NeuesPasswort,
+			int idOrgaEinheit) {
+		this.Benutzername = Benutzername;
+		this.Passwort = Passwort;
+		this.port = port;
+		this.NeuerBenutzername = NeuerBenutzername;
+		this.NeuesPasswort = NeuesPasswort;
+		this.idOrgaEinheit = idOrgaEinheit;
+		initialize();
+	}
+
+	private void initialize() {
 		setTitle("Benutzer - Passwort \u00E4ndern");
 		setResizable(false);
 		setBackground(Color.WHITE);
@@ -45,17 +54,19 @@ public class BearbeitungBenutzerFrage extends JDialog {
 			JButton okButton = new JButton("Ja");
 			okButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					//TODO Aktion
-					//TODO Exception Abfrage durch RŸckgabewert der DB
+					// TODO Aktion
+					// TODO Exception Abfrage durch RŸckgabewert der DB
 					// Methodenname - †bergabewerte - RŸckgabewert
-					// neuesPasswortSetzen - String benutzer, String passwort, String betroffenerBenutzer, String neuesPasswort - boolean
-					
+					// neuesPasswortSetzen - String benutzer, String passwort,
+					// String betroffenerBenutzer, String neuesPasswort -
+					// boolean
+
 					ErfolgEingabe ErfolgEingabe = new ErfolgEingabe();
 					ErfolgEingabe.setVisible(true);
 					dispose();
 				}
 			});
-			okButton.setBounds(281, 123, 75, 29);
+			okButton.setBounds(100, 120, 100, 30);
 			contentPanel.add(okButton);
 			okButton.setActionCommand("OK");
 			getRootPane().setDefaultButton(okButton);
@@ -67,16 +78,35 @@ public class BearbeitungBenutzerFrage extends JDialog {
 					dispose();
 				}
 			});
-			cancelButton.setBounds(368, 123, 86, 29);
+			cancelButton.setBounds(300, 120, 100, 30);
 			contentPanel.add(cancelButton);
 			cancelButton.setActionCommand("Cancel");
 		}
 		{
-			JTextPane txtpnWollenSienderungen = new JTextPane();
-			txtpnWollenSienderungen.setEditable(false);
-			txtpnWollenSienderungen.setText("Wollen Sie \u00C4nderungen wirklich \u00FCbernehmen?");
-			txtpnWollenSienderungen.setBounds(85, 62, 301, 16);
-			contentPanel.add(txtpnWollenSienderungen);
+			JTextPane txtBenutzername = new JTextPane();
+			txtBenutzername.setText("Zu Aendernder Benutzer: "+NeuerBenutzername);
+			txtBenutzername.setBounds(50, 30, 400, 30);
+			contentPanel.add(txtBenutzername);
+		}
+		if (NeuesPasswort != null)
+		{
+			JTextPane txtPasswort = new JTextPane();
+			txtPasswort.setText("Passwort wird geaendert");
+			txtPasswort.setBounds(50, 60, 400, 30);
+			contentPanel.add(txtPasswort);
+		}
+		if (idOrgaEinheit != 0)
+		{
+			JTextPane txtPasswort = new JTextPane();
+			txtPasswort.setText("Organisationseinheit: "+idOrgaEinheit);
+			txtPasswort.setBounds(50, 90, 400, 30);
+			contentPanel.add(txtPasswort);
+		}
+		{
+			JTextPane txtFrage = new JTextPane();
+			txtFrage.setText("Benutzer aendern?");
+			txtFrage.setBounds(50, 90, 400, 30);
+			contentPanel.add(txtFrage);
 		}
 	}
 

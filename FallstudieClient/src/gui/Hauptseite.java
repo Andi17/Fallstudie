@@ -116,7 +116,7 @@ public class Hauptseite {
         JButton btnBenutzerBearbeiten = new JButton("Benutzer bearbeiten");
         btnBenutzerBearbeiten.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		BearbeitungBenutzer BearbeitungBenutzer = new BearbeitungBenutzer();
+        		BearbeitungBenutzer BearbeitungBenutzer = new BearbeitungBenutzer(Benutzername, Passwort, port);
         		BearbeitungBenutzer.setVisible(true);
         	}
         });

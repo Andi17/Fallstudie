@@ -17,4 +17,52 @@ public class ComStatistik {
 		this.Hierarchiestufe = Hierarchiestufe;
 	}
 
+	public String getOrgaEinheitBez() {
+		return OrgaEinheitBez;
+	}
+
+	public int getKalenderWoche() {
+		return KalenderWoche;
+	}
+
+	public int getJahr() {
+		return Jahr;
+	}
+
+	public String getStrichBez() {
+		return StrichBez;
+	}
+
+	public int getStrichzahl() {
+		return Strichzahl;
+	}
+
+	public int getHierarchiestufe() {
+		return Hierarchiestufe;
+	}
+
+	public void setOrgaEinheitBez(String orgaEinheitBez) {
+		OrgaEinheitBez = orgaEinheitBez;
+	}
+
+	public void setKalenderWoche(int kalenderWoche) {
+		KalenderWoche = kalenderWoche;
+	}
+
+	public void setJahr(int jahr) {
+		Jahr = jahr;
+	}
+
+	public void setStrichBez(String strichBez) {
+		StrichBez = strichBez;
+	}
+
+	public void setStrichzahl(int strichzahl) {
+		Strichzahl = strichzahl;
+	}
+
+	public void setHierarchiestufe(int hierarchiestufe) {
+		Hierarchiestufe = hierarchiestufe;
+	}
+
 }

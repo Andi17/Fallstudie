@@ -9,4 +9,20 @@ public class ComBerechtigung {
 		this.BerechtigungBez = BerechtigungBez;
 	}
 
+	public int getIdBerechtigung() {
+		return idBerechtigung;
+	}
+
+	public String getBerechtigungBez() {
+		return BerechtigungBez;
+	}
+
+	public void setIdBerechtigung(int idBerechtigung) {
+		this.idBerechtigung = idBerechtigung;
+	}
+
+	public void setBerechtigungBez(String berechtigungBez) {
+		BerechtigungBez = berechtigungBez;
+	}
+
 }

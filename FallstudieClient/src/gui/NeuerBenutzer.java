@@ -2,17 +2,20 @@ package gui;
 
 import java.awt.BorderLayout;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 
+import Webservice.ComOrgaEinheit;
 import Webservice.Webservice;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
+import java.util.List;
 
 @SuppressWarnings("serial")
 public class NeuerBenutzer extends JDialog {
@@ -25,6 +28,9 @@ public class NeuerBenutzer extends JDialog {
 	private JTextField txtBenutzername;
 	private JTextField txtPasswort;
 	private JTextField txtOrgaEinheit;
+	private JComboBox comboBoxOrgaEinheit;
+	private String[] CoboBezeichnungOrgaEinheit;
+	private List<ComOrgaEinheit> OrgaEinheitListe;
 
 
 
@@ -101,7 +107,7 @@ public class NeuerBenutzer extends JDialog {
 							
 						}
 						else{
-							
+
 						
 						
 						NeuerBenutzerFrage NeuerBenutzerFrage = new NeuerBenutzerFrage(Benutzername, Passwort, port, txtBenutzername.getText(), txtPasswort.getText(), orgaEinheit);
@@ -111,6 +117,11 @@ public class NeuerBenutzer extends JDialog {
 					}
 					catch (NumberFormatException a){
 						txtOrgaEinheit.setText("");
+						if (port.gibtesBenutzerschon(Benutzername, Passwort, neuerbenutzername)){
+							txtBenutzername.setText("");
+							txtPasswort.setText("");
+							
+						}
 					}
 					
 				}
@@ -129,6 +140,21 @@ public class NeuerBenutzer extends JDialog {
 			});
 			cancelButton.setActionCommand("Cancel");
 		}
+		OrgaEinheitListe = port.getOrgaEinheiten(Benutzername, Passwort);
+		CoboBezeichnungOrgaEinheit = new String[OrgaEinheitListe.size()];
+		int zaehler2 = 0;
+		for (ComOrgaEinheit Orga : OrgaEinheitListe){
+			CoboBezeichnungOrgaEinheit[zaehler2] = Orga.getOrgaEinheitBez();
+			zaehler2++;
+		}
+		comboBoxOrgaEinheit = new JComboBox(CoboBezeichnungOrgaEinheit);
+		comboBoxOrgaEinheit.addActionListener(new  ActionListener() {
+				public void actionPerformed(ActionEvent c) {
+					txtOrgaEinheit.setText(""+OrgaEinheitListe.get(comboBoxOrgaEinheit.getSelectedIndex()).getIdOrgaEinheit());
+				}
+			});
+		comboBoxOrgaEinheit.setBounds(350, 80, 100, 30);
+		contentPanel.add(comboBoxOrgaEinheit);
 	
 	}
 

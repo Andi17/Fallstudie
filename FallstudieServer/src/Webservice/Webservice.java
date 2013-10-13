@@ -194,7 +194,7 @@ public class Webservice {
 	// Gibt eine Liste mit allen Benutzern zurück.
 	@WebMethod
 	public List<ComBenutzer> getBenutzer(String benutzer, String passwort) {
-		if (rightsManagement.vorgangMoeglich(benutzer, passwort, 0))
+		if (rightsManagement.vorgangMoeglich(benutzer, passwort, 101))
 			return benutzerVerwaltung.getAlleBenutzer();
 		else
 			return null;
@@ -203,7 +203,7 @@ public class Webservice {
 	// Gibt eine Liste mit allen Organisationseinheiten zurück.
 	@WebMethod
 	public List<ComOrgaEinheit> getOrgaEinheiten(String benutzer, String passwort) {
-		if (rightsManagement.vorgangMoeglich(benutzer, passwort, 0))
+		if (rightsManagement.vorgangMoeglich(benutzer, passwort, 101))
 			return orgaEinheitVerwaltung.getAlleOrgaEinheiten();
 		else
 			return null;

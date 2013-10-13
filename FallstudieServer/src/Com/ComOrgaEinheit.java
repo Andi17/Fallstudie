@@ -24,4 +24,77 @@ public class ComOrgaEinheit {
 		this.MitarbeiterBerechtigungBez = MitarbeiterBerechtigungBez;
 		this.HierarchieStufe = HierarchieStufe;
 	}
+
+	public int getIdOrgaEinheit() {
+		return idOrgaEinheit;
+	}
+
+	public int getUeberOrgaEinheit() {
+		return UeberOrgaEinheit;
+	}
+
+	public String getOrgaEinheitBez() {
+		return OrgaEinheitBez;
+	}
+
+	public String getLeitername() {
+		return Leitername;
+	}
+
+	public int getIdLeiterBerechtigung() {
+		return idLeiterBerechtigung;
+	}
+
+	public String getLeiterBerechtigungBez() {
+		return LeiterBerechtigungBez;
+	}
+
+	public int getIdMitarbeiterBerechtigung() {
+		return idMitarbeiterBerechtigung;
+	}
+
+	public String getMitarbeiterBerechtigungBez() {
+		return MitarbeiterBerechtigungBez;
+	}
+
+	public int getHierarchieStufe() {
+		return HierarchieStufe;
+	}
+
+	public void setIdOrgaEinheit(int idOrgaEinheit) {
+		this.idOrgaEinheit = idOrgaEinheit;
+	}
+
+	public void setUeberOrgaEinheit(int ueberOrgaEinheit) {
+		UeberOrgaEinheit = ueberOrgaEinheit;
+	}
+
+	public void setOrgaEinheitBez(String orgaEinheitBez) {
+		OrgaEinheitBez = orgaEinheitBez;
+	}
+
+	public void setLeitername(String leitername) {
+		Leitername = leitername;
+	}
+
+	public void setIdLeiterBerechtigung(int idLeiterBerechtigung) {
+		this.idLeiterBerechtigung = idLeiterBerechtigung;
+	}
+
+	public void setLeiterBerechtigungBez(String leiterBerechtigungBez) {
+		LeiterBerechtigungBez = leiterBerechtigungBez;
+	}
+
+	public void setIdMitarbeiterBerechtigung(int idMitarbeiterBerechtigung) {
+		this.idMitarbeiterBerechtigung = idMitarbeiterBerechtigung;
+	}
+
+	public void setMitarbeiterBerechtigungBez(String mitarbeiterBerechtigungBez) {
+		MitarbeiterBerechtigungBez = mitarbeiterBerechtigungBez;
+	}
+
+	public void setHierarchieStufe(int hierarchieStufe) {
+		HierarchieStufe = hierarchieStufe;
+	}
+	
 }
