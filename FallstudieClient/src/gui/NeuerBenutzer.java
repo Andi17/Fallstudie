@@ -55,41 +55,41 @@ public class NeuerBenutzer extends JDialog {
 		contentPanel.setLayout(null);
 		{
 			JLabel lblBenutzername = new JLabel("Benutzername:");
-			lblBenutzername.setBounds(50, 20, 150, 30);
+			lblBenutzername.setBounds(30, 20, 150, 30);
 			contentPanel.add(lblBenutzername);
 		}
 		{
 			JLabel lblPasswort = new JLabel("Passwort:");
-			lblPasswort.setBounds(50, 50, 150, 30);
+			lblPasswort.setBounds(30, 50, 150, 30);
 			contentPanel.add(lblPasswort);
 		}
 		{
-			JLabel lblOrgaEinheit = new JLabel("OrganisationsEinheit");
-			lblOrgaEinheit.setBounds(50, 80, 150, 30);
+			JLabel lblOrgaEinheit = new JLabel("Organisationseinheit:");
+			lblOrgaEinheit.setBounds(30, 80, 150, 30);
 			contentPanel.add(lblOrgaEinheit);
 		}
 		{
 			txtBenutzername = new JTextField();
-			txtBenutzername.setBounds(201, 20, 150, 30);
+			txtBenutzername.setBounds(175, 20, 150, 26);
 			contentPanel.add(txtBenutzername);
 			txtBenutzername.setColumns(10);
 		}
 		{
 			txtPasswort = new JTextField();
-			txtPasswort.setBounds(201, 50, 150, 30);
+			txtPasswort.setBounds(175, 50, 150, 26);
 			contentPanel.add(txtPasswort);
 			txtPasswort.setColumns(10);
 		}
 		{
 			txtOrgaEinheit = new JTextField();
-			txtOrgaEinheit.setBounds(201, 80, 150, 30);
+			txtOrgaEinheit.setBounds(175, 80, 150, 26);
 			contentPanel.add(txtOrgaEinheit);
 			txtOrgaEinheit.setColumns(10);
 		}
 
 		{
 			JButton okButton = new JButton("Best\u00E4tigen");
-			okButton.setBounds(201, 120, 100, 30);
+			okButton.setBounds(265, 120, 100, 30);
 			contentPanel.add(okButton);
 			okButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -131,7 +131,7 @@ public class NeuerBenutzer extends JDialog {
 		}
 		{
 			JButton cancelButton = new JButton("Abbrechen");
-			cancelButton.setBounds(351, 120, 100, 30);
+			cancelButton.setBounds(370, 120, 100, 30);
 			contentPanel.add(cancelButton);
 			cancelButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -153,7 +153,7 @@ public class NeuerBenutzer extends JDialog {
 					txtOrgaEinheit.setText(""+OrgaEinheitListe.get(comboBoxOrgaEinheit.getSelectedIndex()).getIdOrgaEinheit());
 				}
 			});
-		comboBoxOrgaEinheit.setBounds(350, 80, 100, 30);
+		comboBoxOrgaEinheit.setBounds(330, 80, 140, 26);
 		contentPanel.add(comboBoxOrgaEinheit);
 	
 	}
