@@ -1,5 +1,6 @@
 package Benutzerverwaltung;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,13 +65,33 @@ public class Benutzerverwaltung {
 
 	// Ändert die OrgaEinheit. Muss aus dem String die entsprechende ID
 	// herrauslesen.
-	public boolean orgaEinheitAendern(String benutzername, String orgaEinheit) {
+	public boolean orgaEinheitAendern(String betroffenerBenutzer, int idorgaEinheit) {
+		Benutzer benutzer =dbZugriff.getBenutzervonBenutzername(betroffenerBenutzer);
+		if (benutzer != null){
+			try{
+			benutzer.setidOrgaEinheit(idorgaEinheit);
+			return true;
+			}
+			catch (SQLException e){
+				System.out.println(e);
+			}
+		}
 		return false;
 	}
 
 	// setzt das Passwort des Benutzers mit der entsprechenden benutzerID auf
 	// das neue Passwort
-	public boolean setPasswort(String benutzername, String neuesPasswort) {
+	public boolean setPasswort(String betroffenerBenutzer, String neuesPasswort) {
+		Benutzer benutzer =dbZugriff.getBenutzervonBenutzername(betroffenerBenutzer);
+		if (benutzer != null){
+			try{
+			benutzer.setPasswort(neuesPasswort);
+			return true;
+			}
+			catch (SQLException e){
+				System.out.println(e);
+			}
+		}
 		return false;
 	}
 
@@ -83,6 +104,21 @@ public class Benutzerverwaltung {
 		Benutzer benutzer = dbZugriff.getBenutzervonBenutzername(neuerBenutzername);
 		if (benutzer != null){
 			return true;
+		}
+		return false;
+	}
+
+	public boolean Benutzernameaendern(String betroffenerBenutzer,
+			String neuerBenutzername) {
+		Benutzer benutzer =dbZugriff.getBenutzervonBenutzername(betroffenerBenutzer);
+		if (benutzer != null){
+			try{
+			benutzer.setBenutzername(neuerBenutzername);
+			return true;
+			}
+			catch (SQLException e){
+				System.out.println(e);
+			}
 		}
 		return false;
 	}

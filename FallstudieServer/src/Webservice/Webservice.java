@@ -105,10 +105,10 @@ public class Webservice {
 	// entsprechenden Organisationseinheit.
 	@WebMethod
 	public boolean benutzerOrgaEinheitAendern(String benutzer, String passwort,
-			String benutzername, String orgaEinheit) {
-		if (rightsManagement.vorgangMoeglich(benutzer, passwort, 0))
+			String benutzername, int idorgaEinheit) {
+		if (rightsManagement.vorgangMoeglich(benutzer, passwort, 101))
 			return benutzerVerwaltung.orgaEinheitAendern(benutzername,
-					orgaEinheit);
+					idorgaEinheit);
 		else
 			return false;
 	}
@@ -127,12 +127,22 @@ public class Webservice {
 	@WebMethod
 	public boolean neuesPasswortSetzen(String benutzer, String passwort,
 			String betroffenerBenutzer, String neuesPasswort) {
-		if (rightsManagement.vorgangMoeglich(benutzer, passwort, 0))
+		if (rightsManagement.vorgangMoeglich(benutzer, passwort, 101))
 			return benutzerVerwaltung.setPasswort(betroffenerBenutzer,
 					neuesPasswort);
 		else
 			return false;
 	}
+	// Anforderung Arni: Aendert Benutzername.
+		@WebMethod
+		public boolean benutzernameAendern(String benutzer, String passwort,
+				String betroffenerBenutzer, String neuerBenutzername) {
+			if (rightsManagement.vorgangMoeglich(benutzer, passwort, 101))
+				return benutzerVerwaltung.Benutzernameaendern(betroffenerBenutzer,
+						neuerBenutzername);
+			else
+				return false;
+		}
 	// Anforderung 4.2.5: Setzt das Passwort zurück.
 		@WebMethod
 		public boolean gibtesBenutzerschon(String benutzer, String passwort,

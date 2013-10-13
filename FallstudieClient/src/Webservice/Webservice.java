@@ -65,7 +65,7 @@ public interface Webservice {
         @WebParam(name = "arg2", targetNamespace = "")
         String arg2,
         @WebParam(name = "arg3", targetNamespace = "")
-        String arg3);
+        int arg3);
 
     /**
      * 
@@ -241,6 +241,30 @@ public interface Webservice {
     @ResponseWrapper(localName = "neuesPasswortSetzenResponse", targetNamespace = "http://Webservice/", className = "Webservice.NeuesPasswortSetzenResponse")
     @Action(input = "http://Webservice/Webservice/neuesPasswortSetzenRequest", output = "http://Webservice/Webservice/neuesPasswortSetzenResponse")
     public boolean neuesPasswortSetzen(
+        @WebParam(name = "arg0", targetNamespace = "")
+        String arg0,
+        @WebParam(name = "arg1", targetNamespace = "")
+        String arg1,
+        @WebParam(name = "arg2", targetNamespace = "")
+        String arg2,
+        @WebParam(name = "arg3", targetNamespace = "")
+        String arg3);
+
+    /**
+     * 
+     * @param arg3
+     * @param arg2
+     * @param arg1
+     * @param arg0
+     * @return
+     *     returns boolean
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "benutzernameAendern", targetNamespace = "http://Webservice/", className = "Webservice.BenutzernameAendern")
+    @ResponseWrapper(localName = "benutzernameAendernResponse", targetNamespace = "http://Webservice/", className = "Webservice.BenutzernameAendernResponse")
+    @Action(input = "http://Webservice/Webservice/benutzernameAendernRequest", output = "http://Webservice/Webservice/benutzernameAendernResponse")
+    public boolean benutzernameAendern(
         @WebParam(name = "arg0", targetNamespace = "")
         String arg0,
         @WebParam(name = "arg1", targetNamespace = "")

@@ -63,15 +63,20 @@ public class Benutzer {
 		Gesperrt = gesperrt;
 	}
 
-	public void setBenutzername(String benutzername) {
+	public void setBenutzername(String benutzername) throws SQLException{
+
+		db.executeUpdateStatement("UPDATE Benutzer SET Benutzername = '" + benutzername+"' WHERE Benutzername = '"+Benutzername+"'");
 		this.Benutzername = benutzername;
+
 	}
 
-	public void setPasswort(String passwort) {
+	public void setPasswort(String passwort) throws SQLException{
+		db.executeUpdateStatement("UPDATE Benutzer SET Passwort = '" + passwort+"' WHERE Benutzername = '"+Benutzername+"'");
 		this.Passwort = passwort;
 	}
 
-	public void setAktuelleOE(int aktuelleOE) {
+	public void setidOrgaEinheit(int aktuelleOE) throws SQLException{
+		db.executeUpdateStatement("UPDATE Benutzer SET idOrgaEinheit = '" + aktuelleOE+"' WHERE Benutzername = '"+Benutzername+"'");
 		this.idOrgaEinheit = aktuelleOE;
 	}
 
