@@ -95,7 +95,7 @@ public class Webservice {
 	@WebMethod
 	public boolean benutzerLoeschen(String benutzer, String passwort,
 			String zuLoeschenderBenutzer) {
-		if (rightsManagement.vorgangMoeglich(benutzer, passwort, 0))
+		if (rightsManagement.vorgangMoeglich(benutzer, passwort, 101))
 			return benutzerVerwaltung.benutzerLoeschen(zuLoeschenderBenutzer);
 		else
 			return false;

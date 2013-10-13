@@ -80,5 +80,10 @@ public class Benutzer {
 		this.idOrgaEinheit = aktuelleOE;
 	}
 
+	public void loeschen() throws SQLException {
+		db.executeUpdateStatement("DELETE FROM Benutzer WHERE Benutzername = '"+Benutzername+"'");
+		
+	}
+
 	
 }
