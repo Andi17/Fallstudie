@@ -76,36 +76,14 @@ public class BearbeitungOrgaEinheit extends JDialog {
 						} else {
 							idOrgaEinheit = Integer.parseInt(txtIdOrgaEinheit.getText());
 						}
-						if (false == port.gibtesOrgaEinheitschon(Benutzername,
+						if (false == port.gibtEsOrgaEinheitSchon(Benutzername,
 								Passwort, neuerOrgaEinheitName)) {
-							txtBenutzername.setText("");
-							txtPasswort.setText("");
+
 						} else {
-							if (false == port.gibtesBenutzerschon(Benutzername,
-									Passwort, neuerBenutzername)) {
-								if ((txtneuerBenutzername.getText().equals(""))
-										&& (txtPasswort.getText().equals(""))
-										&& (txtIdOrgaEinheit.getText().equals(""))) {}
-								else{
-									BearbeitungBenutzerFrage BearbeitungBenutzerFrage = new BearbeitungBenutzerFrage(
-											Benutzername, Passwort, port,
-											benutzername, passwort,
-											neuerBenutzername, idOrgaEinheit);
-									BearbeitungBenutzerFrage.setVisible(true);
-									dispose();
-								}
-							} else {
-								txtneuerBenutzername.setText("");
-							}
+							
 						}
 					} catch (NumberFormatException a) {
-						if (!port.gibtesBenutzerschon(Benutzername, Passwort,
-								benutzername)) {
-							txtBenutzername.setText("");
-							txtPasswort.setText("");
 
-						}
-						txtIdOrgaEinheit.setText("");
 					}
 				}
 			});

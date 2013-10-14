@@ -27,6 +27,27 @@ public interface Webservice {
 
     /**
      * 
+     * @param arg2
+     * @param arg1
+     * @param arg0
+     * @return
+     *     returns boolean
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "gibtEsStrichelBezeichnungSchon", targetNamespace = "http://Webservice/", className = "Webservice.GibtEsStrichelBezeichnungSchon")
+    @ResponseWrapper(localName = "gibtEsStrichelBezeichnungSchonResponse", targetNamespace = "http://Webservice/", className = "Webservice.GibtEsStrichelBezeichnungSchonResponse")
+    @Action(input = "http://Webservice/Webservice/gibtEsStrichelBezeichnungSchonRequest", output = "http://Webservice/Webservice/gibtEsStrichelBezeichnungSchonResponse")
+    public boolean gibtEsStrichelBezeichnungSchon(
+        @WebParam(name = "arg0", targetNamespace = "")
+        String arg0,
+        @WebParam(name = "arg1", targetNamespace = "")
+        String arg1,
+        @WebParam(name = "arg2", targetNamespace = "")
+        String arg2);
+
+    /**
+     * 
      * @param arg1
      * @param arg0
      * @return
@@ -69,27 +90,24 @@ public interface Webservice {
 
     /**
      * 
-     * @param arg3
      * @param arg2
      * @param arg1
      * @param arg0
      * @return
      *     returns boolean
      */
-    @WebMethod(operationName = "StrichelArtBezeichnungAendern")
+    @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "StrichelArtBezeichnungAendern", targetNamespace = "http://Webservice/", className = "Webservice.StrichelArtBezeichnungAendern")
-    @ResponseWrapper(localName = "StrichelArtBezeichnungAendernResponse", targetNamespace = "http://Webservice/", className = "Webservice.StrichelArtBezeichnungAendernResponse")
-    @Action(input = "http://Webservice/Webservice/StrichelArtBezeichnungAendernRequest", output = "http://Webservice/Webservice/StrichelArtBezeichnungAendernResponse")
-    public boolean strichelArtBezeichnungAendern(
+    @RequestWrapper(localName = "gibtEsOrgaEinheitSchon", targetNamespace = "http://Webservice/", className = "Webservice.GibtEsOrgaEinheitSchon")
+    @ResponseWrapper(localName = "gibtEsOrgaEinheitSchonResponse", targetNamespace = "http://Webservice/", className = "Webservice.GibtEsOrgaEinheitSchonResponse")
+    @Action(input = "http://Webservice/Webservice/gibtEsOrgaEinheitSchonRequest", output = "http://Webservice/Webservice/gibtEsOrgaEinheitSchonResponse")
+    public boolean gibtEsOrgaEinheitSchon(
         @WebParam(name = "arg0", targetNamespace = "")
         String arg0,
         @WebParam(name = "arg1", targetNamespace = "")
         String arg1,
         @WebParam(name = "arg2", targetNamespace = "")
-        String arg2,
-        @WebParam(name = "arg3", targetNamespace = "")
-        String arg3);
+        String arg2);
 
     /**
      * 
@@ -396,5 +414,29 @@ public interface Webservice {
         String arg1,
         @WebParam(name = "arg2", targetNamespace = "")
         String arg2);
+
+    /**
+     * 
+     * @param arg3
+     * @param arg2
+     * @param arg1
+     * @param arg0
+     * @return
+     *     returns boolean
+     */
+    @WebMethod(operationName = "StrichelArtBezeichnungAendern")
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "StrichelArtBezeichnungAendern", targetNamespace = "http://Webservice/", className = "Webservice.StrichelArtBezeichnungAendern")
+    @ResponseWrapper(localName = "StrichelArtBezeichnungAendernResponse", targetNamespace = "http://Webservice/", className = "Webservice.StrichelArtBezeichnungAendernResponse")
+    @Action(input = "http://Webservice/Webservice/StrichelArtBezeichnungAendernRequest", output = "http://Webservice/Webservice/StrichelArtBezeichnungAendernResponse")
+    public boolean strichelArtBezeichnungAendern(
+        @WebParam(name = "arg0", targetNamespace = "")
+        String arg0,
+        @WebParam(name = "arg1", targetNamespace = "")
+        String arg1,
+        @WebParam(name = "arg2", targetNamespace = "")
+        String arg2,
+        @WebParam(name = "arg3", targetNamespace = "")
+        String arg3);
 
 }

@@ -75,7 +75,7 @@ public class NeueOrgaEinheit extends JDialog {
 					neueOrgaEinheit = "";
 					try{
 						neueOrgaEinheit = txtNeueOrgaEinheit.getText();
-						if (port.gibtesOrgaEinheitschon(Benutzername, Passwort, neueOrgaEinheit)){
+						if (port.gibtEsOrgaEinheitSchon(Benutzername, Passwort, neueOrgaEinheit)){
 							txtNeueOrgaEinheit.setText("");
 							txtNeueOrgaEinheitLeiter.setText("");
 							txtUeberOrgaEinheit.setText("");
