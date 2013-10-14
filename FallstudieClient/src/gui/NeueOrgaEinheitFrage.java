@@ -10,28 +10,35 @@ import java.awt.event.ActionEvent;
 import java.awt.Color;
 import javax.swing.JTextPane;
 
+import Webservice.Webservice;
+
 @SuppressWarnings("serial")
 public class NeueOrgaEinheitFrage extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
+	private Webservice port;
+	private String Benutzername;
+	private String Passwort;
+	private String NeueOrgaEinheitName;
+	private int UeberOrgaNr;
+	private int NeueOrgaEinheitLeiter;
+	private int RechteLeiter;
+	private int RechteMitarbeiter;
+	
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			NeueOrgaEinheitFrage dialog = new NeueOrgaEinheitFrage();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	public NeueOrgaEinheitFrage(String Benutzername, String Passwort, Webservice port, String NeueOrgaEinheitName, int NeueOrgaEinheitLeiter, int UeberOrgaNr, int RechteLeiter, int RechteMitarbeiter) {
+	this.Benutzername = Benutzername;
+	this.Passwort = Passwort;
+	this.port = port;
+	this.NeueOrgaEinheitName = NeueOrgaEinheitName;
+	this.NeueOrgaEinheitLeiter = NeueOrgaEinheitLeiter;
+	this.UeberOrgaNr = UeberOrgaNr;
+	this.RechteLeiter = RechteLeiter;
+	this.RechteMitarbeiter = RechteMitarbeiter;
+	initialize();
+	
 	}
-
-	/**
-	 * Create the dialog.
-	 */
-	public NeueOrgaEinheitFrage() {
+	public void initialize(){
 		setTitle("Organisationseinheit - Anlegen");
 		setBackground(Color.WHITE);
 		setBounds(100, 100, 480, 180);
@@ -50,10 +57,16 @@ public class NeueOrgaEinheitFrage extends JDialog {
 					//TODO Exception Abfrage durch RŸckgabewert der DB
 					// Methodenname - †bergabewerte - RŸckgabewete
 					// getOrgaEinheiten - String benutzer, String passwort - List<OrgaEinheit>
-					
-					ErfolgEingabe erfein = new ErfolgEingabe();
-					erfein.setVisible(true);
-					dispose();
+					if(port.orgaEinheitErstellen(Benutzername, Passwort, UeberOrgaNr, NeueOrgaEinheitName, NeueOrgaEinheitLeiter, RechteLeiter, RechteMitarbeiter)){
+						ErfolgEingabe ErfolgEingabe = new ErfolgEingabe();
+						ErfolgEingabe.setVisible(true);
+						dispose();
+						}
+						else{
+			        		AnwendungAbbruch frmAnwendungAbbruch = new AnwendungAbbruch();
+			    			frmAnwendungAbbruch.setVisible(true); 
+			    			dispose();
+						}
 				}
 			});
 			okButton.setActionCommand("OK");
