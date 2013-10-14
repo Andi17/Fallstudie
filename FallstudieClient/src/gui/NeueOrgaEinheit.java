@@ -34,6 +34,10 @@ public class NeueOrgaEinheit extends JDialog {
 	private JComboBox comboBoxBenutzername;
 	
 	private String neueOrgaEinheit;
+	private String NeueOrgaEinheitLeiter;
+	private int ueberOrgaEinheit;
+	private int rechteLeiter;
+	private int rechteMitarbeiter;
 
 	/**
 	 * Create the dialog.
@@ -79,24 +83,40 @@ public class NeueOrgaEinheit extends JDialog {
 					// †bergabe von "orgaEinheit" an "NeueOrgaEinheit"
 					
 					neueOrgaEinheit = txtNeueOrgaEinheit.getText();	
-					port.orgaEinheitErstellen(arg0, arg1, arg2, arg3, arg4, arg5, arg6)
+					NeueOrgaEinheitLeiter = txtNeueOrgaEinheitLeiter.getText();
+					boolean intparse = true;
 					try{
-						neueOrgaEinheit = txtNeueOrgaEinheit.getText();
-						if (port.gibtEsOrgaEinheitSchon(Benutzername, Passwort, neueOrgaEinheit)){
-							txtNeueOrgaEinheit.setText("");
-							txtNeueOrgaEinheitLeiter.setText("");
-							txtUeberOrgaEinheit.setText("");
-						}
-						else{											
-							NeueOrgaEinheitFrage NeueOrgaEinheitFrage = new NeueOrgaEinheitFrage(Benutzername, Passwort, port, txtNeueOrgaEinheit.getText(), Integer.parseInt(txtNeueOrgaEinheitLeiter.getText()), Integer.parseInt(txtUeberOrgaEinheit.getText()), Integer.parseInt(txtRechteLeiter.getText()), Integer.parseInt(txtRechteMitarbeiter.getText()));
-							NeueOrgaEinheitFrage.setVisible(true);
-							dispose();
-						}
+					ueberOrgaEinheit = Integer.parseInt(txtUeberOrgaEinheit.getText());
 					}
 					catch (NumberFormatException a){
-						txtNeueOrgaEinheit.setText("");
+						txtUeberOrgaEinheit.setText("");
+						intparse = false;
 					}
+					try{
+						rechteLeiter = Integer.parseInt(txtRechteLeiter.getText());
+					}
+					catch(NumberFormatException a){
+						txtRechteLeiter.setText("");
+						intparse = false;
+					}
+					try{
+						rechteMitarbeiter = Integer.parseInt(txtRechteMitarbeiter.getText());
+					}
+					catch(NumberFormatException a){
+						txtRechteMitarbeiter.setText("");
+						intparse = false;
+					}
+					if(intparse == true&&txtRechteMitarbeiter.getText()!=""&&txtRechteLeiter.getText()!=""&&txtUeberOrgaEinheit.getText()!=""&&txtNeueOrgaEinheitLeiter.getText()!=""&&txtNeueOrgaEinheit.getText()!=""){
+					
+								System.out.println("Fail");					
+						//	NeueOrgaEinheitFrage NeueOrgaEinheitFrage = new NeueOrgaEinheitFrage(Benutzername, Passwort, port, txtNeueOrgaEinheit.getText(), Integer.parseInt(txtNeueOrgaEinheitLeiter.getText()), Integer.parseInt(txtUeberOrgaEinheit.getText()), Integer.parseInt(txtRechteLeiter.getText()), Integer.parseInt(txtRechteMitarbeiter.getText()));
+						//	NeueOrgaEinheitFrage.setVisible(true);
+							dispose();
+						}
 				}
+					
+
+				
 			});
 			okButton.setActionCommand("OK");
 			getRootPane().setDefaultButton(okButton);
