@@ -6,6 +6,9 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTextPane;
+
+import Webservice.Webservice;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
@@ -13,25 +16,24 @@ import java.awt.Color;
 @SuppressWarnings("serial")
 public class NeueStrichkategorieFrage extends JDialog {
 
+	private String Benutzername;
+	private String Passwort;
+	private Webservice port;
+	private String NeueStrichKategorie;
+	
 	private final JPanel contentPanel = new JPanel();
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			NeueStrichkategorieFrage dialog = new NeueStrichkategorieFrage();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	
+	public NeueStrichkategorieFrage(String Benutzername, String Passwort, Webservice port, String NeueStrichKategorie) {
+		this.Benutzername = Benutzername;
+		this.Passwort = Passwort;
+		this.port = port;
+		this.NeueStrichKategorie = NeueStrichKategorie;	
+		initialize();
 	}
-
 	/**
 	 * Create the dialog.
 	 */
-	public NeueStrichkategorieFrage() {
+	public void initialize() {
 		setTitle("Strichkategorie - Anlegen");
 		setResizable(false);
 		setBackground(Color.WHITE);
@@ -58,10 +60,16 @@ public class NeueStrichkategorieFrage extends JDialog {
 					//TODO Exception Abfrage durch RŸckgabewert der DB
 					// Methodenname - †bergabewerte - RŸckgabewerte
 					// neueStrichelart - String benutzer, String passwort, String strichbezeichnung - boolean
-					
-					ErfolgEingabe erfein = new ErfolgEingabe();
-					erfein.setVisible(true);
-					dispose();
+					if(port.neueStrichelart(Benutzername, Passwort, NeueStrichKategorie)){
+						ErfolgEingabe ErfolgEingabe = new ErfolgEingabe();
+						ErfolgEingabe.setVisible(true);
+						dispose();
+						}
+						else{
+			        		AnwendungAbbruch frmAnwendungAbbruch = new AnwendungAbbruch();
+			    			frmAnwendungAbbruch.setVisible(true); 
+			    			dispose();
+						}
 				}
 			});
 			okButton.setActionCommand("OK");
@@ -79,5 +87,7 @@ public class NeueStrichkategorieFrage extends JDialog {
 			cancelButton.setActionCommand("Cancel");
 		}
 	}
+
+
 
 }

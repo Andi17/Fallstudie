@@ -10,29 +10,34 @@ import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 
+import Webservice.Webservice;
+
 @SuppressWarnings("serial")
 public class NeueStrichkategorie extends JDialog {
 
+	
+	private String Benutzername;
+	private String Passwort;
+	private Webservice port;
+	
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtStrichkategorie;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		try {
-			NeueStrichkategorie dialog = new NeueStrichkategorie();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	public NeueStrichkategorie(String Benutzername, String Passwort,
+			Webservice port) {
+		this.Benutzername = Benutzername;
+		this.Passwort = Passwort;
+		this.port = port;
+		initialize();
 	}
 
 	/**
 	 * Create the dialog.
 	 */
-	public NeueStrichkategorie() {
+	public void initialize() {
 		setTitle("Strichkategorie - Anlegen");
 		//TODO Inhalt
 		setResizable(false);
@@ -49,11 +54,22 @@ public class NeueStrichkategorie extends JDialog {
 				public void actionPerformed(ActionEvent e) {
 					//TODO Aktion
 					// †bergabe von "strichkategorie" an "NeueStrichkategorieFrage"
-					String strichkategorie = txtStrichkategorie.getText();
-					
-					
-					NeueStrichkategorieFrage SystemKonfigurationFrage = new NeueStrichkategorieFrage();
-					SystemKonfigurationFrage.setVisible(true);
+					String neueStrichkategorie = txtStrichkategorie.getText();
+					try{
+						if (port.gibtesStrichKategorieschon(Benutzername, Passwort, neueStrichkategorie)){
+							txtStrichkategorie.setText("");
+							
+						}
+						else{
+										
+						NeueStrichkategorieFrage NeueStrichkategorieFrage = new NeueStrichkategorieFrage(Benutzername, Passwort, port, txtStrichkategorie.getText());
+						NeueStrichkategorieFrage.setVisible(true);
+						dispose();
+						}
+					}
+					catch (NumberFormatException a){
+						txtStrichkategorie.setText("");
+					}
 				}
 			});
 			okButton.setActionCommand("OK");
@@ -82,5 +98,7 @@ public class NeueStrichkategorie extends JDialog {
 			txtStrichkategorie.setColumns(10);
 		}
 	}
+
+	
 
 }

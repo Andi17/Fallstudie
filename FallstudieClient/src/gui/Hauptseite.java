@@ -136,22 +136,22 @@ public class Hauptseite {
         JButton btnNeueOrganisationseinheit = new JButton("Organisationseinheit anlegen");
         btnNeueOrganisationseinheit.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		NeueOrgaEinheit  NeueOrgaEinheit = new NeueOrgaEinheit();
+        		NeueOrgaEinheit  NeueOrgaEinheit = new NeueOrgaEinheit(Benutzername, Passwort, port);
         		NeueOrgaEinheit.setVisible(true);
         	}
         });
         btnNeueOrganisationseinheit.setBounds(6, 125, 208, 40);
         panelAdministration.add(btnNeueOrganisationseinheit);
         
-        JButton btnOrgaeinheitInaktivSetzen = new JButton("Organisationseinheit Inaktiv setzen");
-        btnOrgaeinheitInaktivSetzen.addActionListener(new ActionListener() {
+        JButton btnOrgaeinheitndern = new JButton("Organisationseinheit \u00E4ndern");
+        btnOrgaeinheitndern.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		OrgaEinheitInaktiv OrgaEinheitInaktiv = new OrgaEinheitInaktiv();
-        		OrgaEinheitInaktiv.setVisible(true);
+        		BearbeitungOrgaEinheit BearbeitungOrgaEinheit = new BearbeitungOrgaEinheit(Benutzername, Passwort, port);
+        		BearbeitungOrgaEinheit.setVisible(true);
         		}
         });
-        btnOrgaeinheitInaktivSetzen.setBounds(226, 125, 236, 40);
-        panelAdministration.add(btnOrgaeinheitInaktivSetzen);
+        btnOrgaeinheitndern.setBounds(226, 125, 208, 40);
+        panelAdministration.add(btnOrgaeinheitndern);
         
         JButton button = new JButton("?");
         button.addActionListener(new ActionListener() {
@@ -163,25 +163,25 @@ public class Hauptseite {
         button.setBounds(698, 244, 29, 29);
         panelAdministration.add(button);
         
-        JButton btnStrichkategorienHinzufgen = new JButton("Strichkategorien anlegen");
-        btnStrichkategorienHinzufgen.addActionListener(new ActionListener() {
+        JButton btnStrichkategorieAnlegen = new JButton("Strichkategorie anlegen");
+        btnStrichkategorieAnlegen.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		NeueStrichkategorie StrichkategorieHinzu = new NeueStrichkategorie();
+        		NeueStrichkategorie StrichkategorieHinzu = new NeueStrichkategorie(Benutzername, Passwort, port);
         		StrichkategorieHinzu.setVisible(true);
         	}
         });
-        btnStrichkategorienHinzufgen.setBounds(6, 211, 180, 40);
-        panelAdministration.add(btnStrichkategorienHinzufgen);
+        btnStrichkategorieAnlegen.setBounds(6, 211, 180, 40);
+        panelAdministration.add(btnStrichkategorieAnlegen);
         
-        JButton btnOrganisationseinheitWechseln = new JButton("Organisationseinheit wechseln");
-        btnOrganisationseinheitWechseln.addActionListener(new ActionListener() {
+        JButton btnStrichkategoriendern = new JButton("Strichkategorie \u00E4ndern");
+        btnStrichkategoriendern.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		BearbeitungBenutzerOrgaEinheit BearbeitungBenutzerOrgaEinheit = new BearbeitungBenutzerOrgaEinheit();
-        		BearbeitungBenutzerOrgaEinheit.setVisible(true);
+        		BearbeitungStrichkategorie BearbeitungStrichkategorie = new BearbeitungStrichkategorie();
+        		BearbeitungStrichkategorie.setVisible(true);
         	}
         });
-        btnOrganisationseinheitWechseln.setBounds(448, 34, 216, 40);
-        panelAdministration.add(btnOrganisationseinheitWechseln);
+        btnStrichkategoriendern.setBounds(198, 211, 180, 40);
+        panelAdministration.add(btnStrichkategoriendern);
  
         // JTabbedPane wird unserem Dialog hinzugefügt
         frmElasticoElektronische.getContentPane().add(tabpane);

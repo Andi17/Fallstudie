@@ -41,7 +41,7 @@ public class NeuerBenutzerFrage extends JDialog {
 	private void initialize(){
 		setTitle("Benutzer - Anlegen");
 		setBackground(Color.WHITE);
-		setBounds(100, 100, 500, 200);
+		setBounds(100, 100, 500, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(Color.WHITE);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -67,7 +67,7 @@ public class NeuerBenutzerFrage extends JDialog {
 					}
 				}
 			});
-			okButton.setBounds(100, 120, 100, 30);
+			okButton.setBounds(103, 220, 100, 30);
 			contentPanel.add(okButton);
 			okButton.setActionCommand("OK");
 			getRootPane().setDefaultButton(okButton);
@@ -79,7 +79,7 @@ public class NeuerBenutzerFrage extends JDialog {
 					dispose();
 				}
 			});
-			cancelButton.setBounds(300, 120, 100, 30);
+			cancelButton.setBounds(303, 220, 100, 30);
 			contentPanel.add(cancelButton);
 			cancelButton.setActionCommand("Cancel");
 		}
@@ -98,7 +98,7 @@ public class NeuerBenutzerFrage extends JDialog {
 		{
 			JTextPane txtFrage = new JTextPane();
 			txtFrage.setText("Benutzer erstellen?");
-			txtFrage.setBounds(50, 90, 400, 30);
+			txtFrage.setBounds(193, 122, 117, 30);
 			contentPanel.add(txtFrage);
 		}
 	}
