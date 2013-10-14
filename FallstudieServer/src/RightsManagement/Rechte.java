@@ -1,18 +1,21 @@
 package RightsManagement;
 
-import java.util.Collection;
-import java.util.LinkedList;
 import java.util.List;
 
-import jdbc.JdbcAccess;
 import Zugriffsschicht.Benutzer;
 import Zugriffsschicht.Berechtigung;
-import Zugriffsschicht.OrgaEinheit;
 import Zugriffsschicht.Zugriffschicht;
 
 //Anforderung 4.2.8 wird hier realisiert.
 
 public class Rechte {
+	
+	public static int alleBenutzer = 1;
+	public static int nurAdmin = 2;
+	public static int stricheln = 3;
+	public static int nurEigeneGruppenEinsehbar = 4;
+	public static int alleGruppenEinsehbar = 5;
+	
 	private Zugriffschicht dbZugriff;
 
 	public Rechte(Zugriffschicht dbZugriff) {

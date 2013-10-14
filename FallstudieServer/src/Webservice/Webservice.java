@@ -222,11 +222,11 @@ public class Webservice {
 	// Organisationseinheit hinzufügen.
 	@WebMethod
 	public boolean OrgaEinheitErstellen(String benutzer, String passwort,
-			int UeberOE, String OEbezeichnung, int Inhaberberechtigung,
-			int idInhaber, int Zustand) {
+			int idUeberOrgaEinheit, String OrgaEinheitBez, String Leitername,
+			int idLeiterBerechtigung, boolean Zustand, int idMitarbeiterBerechtigung) {
 		if (rightsManagement.vorgangMoeglich(benutzer, passwort, 0))
-			return orgaEinheitVerwaltung.neueOrgaEinheit(UeberOE,
-					OEbezeichnung, Inhaberberechtigung, idInhaber, Zustand);
+			return orgaEinheitVerwaltung.neueOrgaEinheit(idUeberOrgaEinheit,
+					OrgaEinheitBez, Leitername, idLeiterBerechtigung, Zustand, idMitarbeiterBerechtigung);
 		else
 			return false;
 	}

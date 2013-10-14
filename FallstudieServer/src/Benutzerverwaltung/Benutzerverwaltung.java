@@ -47,13 +47,7 @@ public class Benutzerverwaltung {
 		List<Benutzer> alleBenutzerListe = dbZugriff.getAlleBenutzer();
 		List<ComBenutzer> rueckgabe = new ArrayList<ComBenutzer>();
 		for (Benutzer benutzer : alleBenutzerListe){
-			OrgaEinheit orgaEinheit = dbZugriff.getOrgaEinheitZuidOrgaEinheit(benutzer.getAktuelleOE());
-			if (orgaEinheit == null){
-				rueckgabe.add(new ComBenutzer(benutzer.getBenutzername(), benutzer.getPasswort(), benutzer.getAktuelleOE(), "Keine Organisationseinheit", benutzer.getGesperrt()));
-			}
-			else{
-				rueckgabe.add(new ComBenutzer(benutzer.getBenutzername(), benutzer.getPasswort(), benutzer.getAktuelleOE(), orgaEinheit.getOrgaEinheitBez(), benutzer.getGesperrt()));	
-			}
+				rueckgabe.add(new ComBenutzer(benutzer.getBenutzername(), benutzer.getPasswort(), benutzer.getAktuelleOE(), benutzer.getOrgaEinheitBezeichnung(), benutzer.getGesperrt()));
 		}
 		return rueckgabe;
 	}

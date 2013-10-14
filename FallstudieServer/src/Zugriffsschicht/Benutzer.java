@@ -11,13 +11,15 @@ import jdbc.JdbcAccess;
 
 public class Benutzer {
 	private JdbcAccess db;
+	private Zugriffschicht dbZugriff;
 	private String Benutzername;
 	private String Passwort;
 	private int idOrgaEinheit;
 	private boolean Gesperrt;
 
-	public Benutzer(ResultSet resultSet, JdbcAccess db) throws SQLException {
+	public Benutzer(ResultSet resultSet, JdbcAccess db, Zugriffschicht dbZugriff) throws SQLException {
 		this.db = db;
+		this.dbZugriff = dbZugriff;
 		werteSetzen(resultSet);
 	}
 
@@ -43,6 +45,13 @@ public class Benutzer {
 		this.idOrgaEinheit = resultSet.getInt("idOrgaEinheit");
 		this.Gesperrt = resultSet.getBoolean("Gesperrt");
 	}
+	
+	public String getOrgaEinheitBezeichnung(){
+		OrgaEinheit orgaEinheit = dbZugriff.getOrgaEinheitZuidOrgaEinheit(this.idOrgaEinheit);
+		if(orgaEinheit!=null)return orgaEinheit.getOrgaEinheitBez();
+		else return "Keine Organisationseinheit";
+	}
+	
 	public String getBenutzername() {
 		return Benutzername;
 	}
