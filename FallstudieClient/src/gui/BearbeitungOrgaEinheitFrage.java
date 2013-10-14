@@ -82,36 +82,11 @@ public class BearbeitungOrgaEinheitFrage extends JDialog {
 					boolean rechteLeitergeaendert = true;
 					boolean rechteMitarbeitergeaendert = true;
 					
-					if (NeuesPasswort != null) {
-						neueOrgaEinheitgeaendert = port.neuesPasswortSetzen(
-								Benutzername, Passwort, aenderungBenutzername,
-								NeuesPasswort);
-					}
-					if (NeuesPasswort != null) {
-						neueOrgaEinheitLeitergeaendert = port.neuesPasswortSetzen(
-								Benutzername, Passwort, aenderungBenutzername,
-								NeuesPasswort);
-					}
-					if (NeuesPasswort != null) {
-						ueberOrgaEinheitgeaendert = port.neuesPasswortSetzen(
-								Benutzername, Passwort, aenderungBenutzername,
-								NeuesPasswort);
-					}
-					if (idOrgaEinheit != 0) {
-						rechteLeitergeaendert = port.benutzerOrgaEinheitAendern(
-								Benutzername, Passwort, aenderungBenutzername,
-								idOrgaEinheit);
-					}
-					if (NeuerBenutzername != null) {
-						rechteMitarbeitergeaendert = port.benutzernameAendern(Benutzername,
-								Passwort, aenderungBenutzername,
-								NeuerBenutzername);
-					}
-					if (passwortgeaendert && orgageaendert && neuername) {
+					
 						ErfolgEingabe ErfolgEingabe = new ErfolgEingabe();
 						ErfolgEingabe.setVisible(true);
 						dispose();
-					}
+					
 				}
 			});
 		}

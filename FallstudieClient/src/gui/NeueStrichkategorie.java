@@ -56,7 +56,7 @@ public class NeueStrichkategorie extends JDialog {
 					// †bergabe von "strichkategorie" an "NeueStrichkategorieFrage"
 					String neueStrichkategorie = txtStrichkategorie.getText();
 					try{
-						if (port.gibtesStrichKategorieschon(Benutzername, Passwort, neueStrichkategorie)){
+						if (port.gibtEsStrichelBezeichnungSchon(Benutzername, Passwort, neueStrichkategorie)){
 							txtStrichkategorie.setText("");
 							
 						}
