@@ -21,6 +21,7 @@ public class BearbeitungOrgaEinheit extends JDialog {
 	private String Benutzername;
 	private String Passwort;
 	private Webservice port;
+	
 	private int idOrgaEinheit;
 	private String aktuellerOrgaEinheitName;
 	private String neuerOrgaEinheitName;
@@ -45,7 +46,7 @@ public class BearbeitungOrgaEinheit extends JDialog {
 		setTitle("Organisationseinheit - Deaktivieren");
 		setResizable(false);
 		setBackground(Color.WHITE);
-		setBounds(100, 100, 460, 180);
+		setBounds(100, 100, 700, 500);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(Color.WHITE);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));

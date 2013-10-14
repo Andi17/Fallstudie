@@ -2,17 +2,20 @@ package gui;
 
 import java.awt.BorderLayout;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import Webservice.ComBenutzer;
 import Webservice.Webservice;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
+import java.util.List;
 
 @SuppressWarnings("serial")
 public class NeueOrgaEinheit extends JDialog {
@@ -27,6 +30,10 @@ public class NeueOrgaEinheit extends JDialog {
 	private JTextField txtUeberOrgaEinheit;
 	private JTextField txtRechteLeiter;
 	private JTextField txtRechteMitarbeiter;
+	private String[] Combobezeichnung;
+	private JComboBox comboBoxBenutzername;
+	
+	private String neueOrgaEinheit;
 
 	/**
 	 * Create the dialog.
@@ -45,7 +52,7 @@ public class NeueOrgaEinheit extends JDialog {
 		setTitle("Organisationseinheit - Anlegen");
 		setResizable(false);
 		setBackground(Color.WHITE);
-		setBounds(100, 100, 481, 224);
+		setBounds(100, 100, 700, 500);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(Color.WHITE);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -71,8 +78,8 @@ public class NeueOrgaEinheit extends JDialog {
 					//TODO Aktion
 					// †bergabe von "orgaEinheit" an "NeueOrgaEinheit"
 					
-					String neueOrgaEinheit = txtNeueOrgaEinheit.getText();			
-					neueOrgaEinheit = "";
+					neueOrgaEinheit = txtNeueOrgaEinheit.getText();	
+					port.orgaEinheitErstellen(arg0, arg1, arg2, arg3, arg4, arg5, arg6)
 					try{
 						neueOrgaEinheit = txtNeueOrgaEinheit.getText();
 						if (port.gibtEsOrgaEinheitSchon(Benutzername, Passwort, neueOrgaEinheit)){
@@ -123,7 +130,7 @@ public class NeueOrgaEinheit extends JDialog {
 			contentPanel.add(lblOrganisationseinheitsleiter);
 		}
 		{
-			JLabel lblbergeordneteOrganisationseinheit = new JLabel("\u00DCbergeordnete OrganisationseinheitsID:");
+			JLabel lblbergeordneteOrganisationseinheit = new JLabel("Uebergeordnete OrganisationseinheitsID:");
 			lblbergeordneteOrganisationseinheit.setBounds(6, 69, 255, 16);
 			contentPanel.add(lblbergeordneteOrganisationseinheit);
 		}
@@ -133,6 +140,7 @@ public class NeueOrgaEinheit extends JDialog {
 			contentPanel.add(txtRechteLeiter);
 			txtRechteLeiter.setColumns(10);
 		}
+
 		{
 			txtRechteMitarbeiter = new JTextField();
 			txtRechteMitarbeiter.setBounds(273, 124, 134, 28);
@@ -149,6 +157,24 @@ public class NeueOrgaEinheit extends JDialog {
 			lblRechteDerMitarbeiter.setBounds(108, 130, 153, 16);
 			contentPanel.add(lblRechteDerMitarbeiter);
 		}
+		List<ComBenutzer> BenutzerListe = port.getBenutzer(Benutzername,
+				Passwort);
+		Combobezeichnung = new String[BenutzerListe.size()];
+		int zaehler = 0;
+		for (ComBenutzer Ben : BenutzerListe) {
+			
+			Combobezeichnung[zaehler] = Ben.getBenutzername();
+			zaehler++;
+		}
+		comboBoxBenutzername = new JComboBox(Combobezeichnung);
+		comboBoxBenutzername.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				txtNeueOrgaEinheitLeiter.setText(Combobezeichnung[comboBoxBenutzername
+						.getSelectedIndex()]);
+			}
+		});
+		comboBoxBenutzername.setBounds(450, 30, 100, 30);
+		contentPanel.add(comboBoxBenutzername);
 	}
 
 }
