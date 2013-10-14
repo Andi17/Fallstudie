@@ -396,49 +396,5 @@ public interface Webservice {
         String arg1,
         @WebParam(name = "arg2", targetNamespace = "")
         String arg2);
-    
-    
-    /**
-     * 
-     * @param arg2
-     * @param arg1
-     * @param arg0
-     * @return
-     *     returns boolean
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "gibtesOrgaEinheitschon", targetNamespace = "http://Webservice/", className = "Webservice.GibtesOrgaEinheitschon")
-    @ResponseWrapper(localName = "gibtesOrgaEinheitschonResponse", targetNamespace = "http://Webservice/", className = "Webservice.GibtesOrgaEinheitschon")
-    @Action(input = "http://Webservice/Webservice/gibtesOrgaEinheitschonRequest", output = "http://Webservice/Webservice/gibtesOrgaEinheitschon")
-    public boolean gibtesOrgaEinheitschon(
-        @WebParam(name = "arg0", targetNamespace = "")
-        String arg0,
-        @WebParam(name = "arg1", targetNamespace = "")
-        String arg1,
-        @WebParam(name = "arg2", targetNamespace = "")
-        String arg2);
-    
-    
-    /**
-     * 
-     * @param arg2
-     * @param arg1
-     * @param arg0
-     * @return
-     *     returns boolean
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "gibtesStrichKategorieschon", targetNamespace = "http://Webservice/", className = "Webservice.GibtesStrichKategorieschon")
-    @ResponseWrapper(localName = "gibtesStrichKategorieschonResponse", targetNamespace = "http://Webservice/", className = "Webservice.GibtesStrichKategorieschon")
-    @Action(input = "http://Webservice/Webservice/gibtesStrichKategorieschonRequest", output = "http://Webservice/Webservice/gibtesStrichKategorieschon")
-    public boolean gibtesStrichKategorieschon(
-        @WebParam(name = "arg0", targetNamespace = "")
-        String arg0,
-        @WebParam(name = "arg1", targetNamespace = "")
-        String arg1,
-        @WebParam(name = "arg2", targetNamespace = "")
-        String arg2);
 
 }
