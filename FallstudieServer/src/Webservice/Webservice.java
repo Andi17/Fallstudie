@@ -230,6 +230,14 @@ public class Webservice {
 		else
 			return false;
 	}
+	
+	@WebMethod
+	public boolean gibtEsOrgaEinheitSchon(String benutzer, String passwort,
+			String orgaEinheitBezeichnung){
+		if (rightsManagement.vorgangMoeglich(benutzer, passwort, 1))
+		return orgaEinheitVerwaltung.gibtEsOrgaEinheit(orgaEinheitBezeichnung);
+		else return false;
+	}
 
 	// Anforderung 4.2.10: Eine neue Strichbezeichnung hinzufügen.
 	@WebMethod
@@ -251,6 +259,14 @@ public class Webservice {
 					strichelbezeichnungAlt, strichelbezeichnungNeu);
 		else
 			return false;
+	}
+	
+	@WebMethod
+	public boolean gibtEsStrichelBezeichnungSchon(String benutzer, String passwort,
+			String strichelBezeichnungBezeichnung){
+		if (rightsManagement.vorgangMoeglich(benutzer, passwort, 1))
+		return strichArtVerwaltung.gibtEsStrichelBezeichnung(strichelBezeichnungBezeichnung);
+		else return false;
 	}
 
 	// beendet den Access auf die Datenbank

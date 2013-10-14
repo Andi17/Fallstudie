@@ -78,5 +78,9 @@ public class OrgaEinheitVerwaltung {
 		 */
 		return false;
 	}
+	
+	public boolean gibtEsOrgaEinheit(String bezeichnung){
+		return false;
+	}
 
 }

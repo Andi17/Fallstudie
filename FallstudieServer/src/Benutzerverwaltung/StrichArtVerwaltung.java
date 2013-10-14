@@ -19,4 +19,9 @@ private Zugriffschicht dbZugriff;
 		return false;
 	}
 
+	public boolean gibtEsStrichelBezeichnung(
+			String strichelBezeichnungBezeichnung) {
+		return false;
+	}
+
 }
