@@ -17,6 +17,7 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="hierarchiestufe" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="idOrgaEinheit" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="jahr" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="kalenderWoche" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="orgaEinheitBez" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
@@ -33,6 +34,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "comStatistik", propOrder = {
     "hierarchiestufe",
+    "idOrgaEinheit",
     "jahr",
     "kalenderWoche",
     "orgaEinheitBez",
@@ -42,6 +44,7 @@ import javax.xml.bind.annotation.XmlType;
 public class ComStatistik {
 
     protected int hierarchiestufe;
+    protected int idOrgaEinheit;
     protected int jahr;
     protected int kalenderWoche;
     protected String orgaEinheitBez;
@@ -62,6 +65,22 @@ public class ComStatistik {
      */
     public void setHierarchiestufe(int value) {
         this.hierarchiestufe = value;
+    }
+
+    /**
+     * Gets the value of the idOrgaEinheit property.
+     * 
+     */
+    public int getIdOrgaEinheit() {
+        return idOrgaEinheit;
+    }
+
+    /**
+     * Sets the value of the idOrgaEinheit property.
+     * 
+     */
+    public void setIdOrgaEinheit(int value) {
+        this.idOrgaEinheit = value;
     }
 
     /**

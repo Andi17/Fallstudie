@@ -176,8 +176,8 @@ public class Hauptseite {
         JButton btnStrichkategoriendern = new JButton("Strichkategorie \u00E4ndern");
         btnStrichkategoriendern.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		BearbeitungStrichkategorie BearbeitungStrichkategorie = new BearbeitungStrichkategorie();
-        		BearbeitungStrichkategorie.setVisible(true);
+       // 		BearbeitungStrichkategorie BearbeitungStrichkategorie = new BearbeitungStrichkategorie();
+        //		BearbeitungStrichkategorie.setVisible(true);
         	}
         });
         btnStrichkategoriendern.setBounds(198, 211, 180, 40);

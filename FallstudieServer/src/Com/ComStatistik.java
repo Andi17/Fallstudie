@@ -1,6 +1,7 @@
 package Com;
 
 public class ComStatistik {
+	private int idOrgaEinheit;
 	private String OrgaEinheitBez;
 	private int KalenderWoche;
 	private int Jahr;
@@ -8,13 +9,22 @@ public class ComStatistik {
 	private int Strichzahl;
 	private int Hierarchiestufe;
 	
-	public ComStatistik(String OrgaEinheitBez, int KalenderWoche, int Jahr, String StrichBez, int Strichzahl, int Hierarchiestufe){
+	public ComStatistik(int idOrgaEinheit, String OrgaEinheitBez, int KalenderWoche, int Jahr, String StrichBez, int Strichzahl, int Hierarchiestufe){
+		this.idOrgaEinheit = idOrgaEinheit;
 		this.OrgaEinheitBez = OrgaEinheitBez;
 		this.KalenderWoche = KalenderWoche;
 		this.Jahr = Jahr;
 		this.StrichBez = StrichBez;
 		this.Strichzahl = Strichzahl;
 		this.Hierarchiestufe = Hierarchiestufe;
+	}
+
+	public int getIdOrgaEinheit() {
+		return idOrgaEinheit;
+	}
+
+	public void setIdOrgaEinheit(int idOrgaEinheit) {
+		this.idOrgaEinheit = idOrgaEinheit;
 	}
 
 	public String getOrgaEinheitBez() {
