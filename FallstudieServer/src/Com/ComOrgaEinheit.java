@@ -12,8 +12,9 @@ public class ComOrgaEinheit {
 	private int HierarchieStufe;
 
 	public ComOrgaEinheit(int idOrgaEinheit, int UeberOrgaEinheit,
-			String OrgaEinheitBez, String Leitername, int idLeiterBerechtigung, String LeiterBerechtigungBez,
-			int idMitarbeiterBerechtigung, String MitarbeiterBerechtigungBez, int HierarchieStufe) {
+			String OrgaEinheitBez, String Leitername, int idLeiterBerechtigung,
+			String LeiterBerechtigungBez, int idMitarbeiterBerechtigung,
+			String MitarbeiterBerechtigungBez, int HierarchieStufe) {
 		this.idOrgaEinheit = idOrgaEinheit;
 		this.UeberOrgaEinheit = UeberOrgaEinheit;
 		this.OrgaEinheitBez = OrgaEinheitBez;
@@ -96,5 +97,5 @@ public class ComOrgaEinheit {
 	public void setHierarchieStufe(int hierarchieStufe) {
 		HierarchieStufe = hierarchieStufe;
 	}
-	
+
 }
