@@ -1,5 +1,4 @@
 package gui;
-
 import java.awt.BorderLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -9,12 +8,9 @@ import javax.swing.JTextPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
-
 @SuppressWarnings("serial")
 public class PasswortVergessen extends JDialog {
-
 	private final JPanel contentPanel = new JPanel();
-
 	/**
 	 * Launch the application.
 	 */
@@ -27,31 +23,32 @@ public class PasswortVergessen extends JDialog {
 			e.printStackTrace();
 		}
 	}
-
 	/**
 	 * Create the dialog.
 	 */
 	public PasswortVergessen() {
 		setTitle("Passwort vergessen");
 		setResizable(false);
-		setBackground(Color.WHITE);
-		setBounds(100, 100, 460, 180);
+		setBackground(new Color(255, 250, 240));
+		setBounds(100, 100, 460, 160);
 		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBackground(Color.WHITE);
+		contentPanel.setBackground(new Color(255, 250, 240));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		{
 			JTextPane txtpnSolltenSieIhr = new JTextPane();
+			txtpnSolltenSieIhr.setBackground(new Color(255, 250, 240));
 			txtpnSolltenSieIhr.setEditable(false);
 			//TODO Inhalt
-			txtpnSolltenSieIhr.setText("Sollten Sie Ihr Passwort vergessen haben, kontaktieren Sie bitte Ihren Systemadministrator.  TODO");
-			txtpnSolltenSieIhr.setBounds(6, 6, 438, 104);
+			txtpnSolltenSieIhr.setText("Sollten Sie Ihr Passwort vergessen haben, kontaktieren Sie bitte Ihren Systemadministrator.");
+			txtpnSolltenSieIhr.setBounds(64, 20, 353, 32);
 			contentPanel.add(txtpnSolltenSieIhr);
 		}
 		{
 			JButton okButton = new JButton("OK");
-			okButton.setBounds(379, 123, 75, 29);
+			okButton.setBackground(Color.ORANGE);
+			okButton.setBounds(180, 81, 100, 30);
 			contentPanel.add(okButton);
 			okButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -62,5 +59,4 @@ public class PasswortVergessen extends JDialog {
 			getRootPane().setDefaultButton(okButton);
 		}
 	}
-
 }

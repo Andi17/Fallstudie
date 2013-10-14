@@ -12,9 +12,7 @@ import java.awt.Color;
 
 @SuppressWarnings("serial")
 public class AnmeldungFalschHilfe extends JDialog {
-
 	private final JPanel contentPanel = new JPanel();
-
 	/**
 	 * Launch the application.
 	 */
@@ -27,32 +25,32 @@ public class AnmeldungFalschHilfe extends JDialog {
 			e.printStackTrace();
 		}
 	}
-
 	/**
 	 * Create the dialog.
 	 */
 	public AnmeldungFalschHilfe() {
 		setTitle("Login - Fehlgeschlagen - Hilfe");
 		setResizable(false);
-		setBackground(Color.WHITE);
+		setBackground(new Color(255, 250, 240));
 		setBounds(100, 100, 460, 180);
 		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBackground(Color.WHITE);
+		contentPanel.setBackground(new Color(255, 250, 240));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		{
 			JTextPane txtpnDerGrundFr = new JTextPane();
 			txtpnDerGrundFr.setEditable(false);
-			txtpnDerGrundFr.setBackground(Color.WHITE);
+			txtpnDerGrundFr.setBackground(new Color(255, 250, 240));
 			//TODO Inhalt
 			txtpnDerGrundFr.setText("Der Grund f\u00FCr eine fehlerhafte Anmeldung kann sein, dass es Ihren Benutzernamen nicht gibt, oder dass das Passwort nicht zu Ihrem Benutzernamen passt. Achten Sie bei einer erneuten Eingabe auch auf Gro\u00DF- und Kleinschreibung.");
-			txtpnDerGrundFr.setBounds(6, 6, 438, 77);
+			txtpnDerGrundFr.setBounds(29, 21, 425, 77);
 			contentPanel.add(txtpnDerGrundFr);
 		}
 		{
 			JButton okButton = new JButton("OK");
-			okButton.setBounds(379, 123, 75, 29);
+			okButton.setBounds(192, 100, 100, 30);
+			okButton.setBackground(Color.WHITE);
 			contentPanel.add(okButton);
 			okButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -63,5 +61,4 @@ public class AnmeldungFalschHilfe extends JDialog {
 			getRootPane().setDefaultButton(okButton);
 		}
 	}
-
 }

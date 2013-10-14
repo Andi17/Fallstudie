@@ -1,5 +1,4 @@
 package gui;
-
 import java.awt.BorderLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -9,13 +8,9 @@ import javax.swing.JLabel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
-
-
 @SuppressWarnings("serial")
 public class AnwendungAbbruch extends JDialog {
-
 	private final JPanel contentPanel = new JPanel();
-
 	/**
 	 * Launch the application.
 	 */
@@ -28,28 +23,28 @@ public class AnwendungAbbruch extends JDialog {
 			e.printStackTrace();
 		}
 	}
-
 	/**
 	 * Create the dialog.
 	 */
 	public AnwendungAbbruch() {
 		setTitle("Elastico - Beenden");
 		setResizable(false);
-		setBackground(Color.WHITE);
-		setBounds(100, 100, 460, 180);
+		setBackground(new Color(255, 250, 240));
+		setBounds(100, 100, 460, 150);
 		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBackground(Color.WHITE);
+		contentPanel.setBackground(new Color(255, 250, 240));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		{
 			JLabel lblWollenSieDie = new JLabel("M\u00F6chten Sie Elastico wirklich beenden?");
-			lblWollenSieDie.setBounds(89, 57, 303, 16);
+			lblWollenSieDie.setBounds(120, 25, 245, 16);
 			contentPanel.add(lblWollenSieDie);
 		}
 		{
 			JButton okButton = new JButton("Ja");
-			okButton.setBounds(292, 123, 75, 29);
+			okButton.setBounds(120, 68, 100, 30);
+			okButton.setBackground(Color.ORANGE);
 			contentPanel.add(okButton);
 			okButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -61,7 +56,8 @@ public class AnwendungAbbruch extends JDialog {
 		}
 		{
 			JButton cancelButton = new JButton("Nein");
-			cancelButton.setBounds(379, 123, 75, 29);
+			cancelButton.setBounds(245, 68, 100, 30);
+			cancelButton.setBackground(Color.WHITE);
 			contentPanel.add(cancelButton);
 			cancelButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -71,5 +67,4 @@ public class AnwendungAbbruch extends JDialog {
 			cancelButton.setActionCommand("Nein");
 		}
 	}
-
 }

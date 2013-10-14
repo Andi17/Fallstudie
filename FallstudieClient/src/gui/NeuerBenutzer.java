@@ -49,7 +49,7 @@ public class NeuerBenutzer extends JDialog {
 		setBackground(Color.WHITE);
 		setBounds(100, 100, 500, 200);
 		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBackground(Color.WHITE);
+		contentPanel.setBackground(new Color (255, 250, 240));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
@@ -90,6 +90,7 @@ public class NeuerBenutzer extends JDialog {
 		{
 			JButton okButton = new JButton("Best\u00E4tigen");
 			okButton.setBounds(265, 120, 100, 30);
+			okButton.setBackground(Color.ORANGE);
 			contentPanel.add(okButton);
 			okButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {

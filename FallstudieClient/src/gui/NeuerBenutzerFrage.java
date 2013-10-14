@@ -1,11 +1,15 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
+
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
 import java.awt.Color;
+
 import javax.swing.JTextPane;
 
 import Webservice.Webservice;
@@ -41,9 +45,9 @@ public class NeuerBenutzerFrage extends JDialog {
 	private void initialize(){
 		setTitle("Benutzer - Anlegen");
 		setBackground(Color.WHITE);
-		setBounds(100, 100, 500, 300);
+		setBounds(100, 100, 500, 250);
 		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBackground(Color.WHITE);
+		contentPanel.setBackground(new Color (255, 250, 240));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
@@ -67,9 +71,10 @@ public class NeuerBenutzerFrage extends JDialog {
 					}
 				}
 			});
-			okButton.setBounds(103, 220, 100, 30);
+			okButton.setBounds(100, 150, 100, 30);
+			okButton.setBackground(Color.ORANGE);
 			contentPanel.add(okButton);
-			okButton.setActionCommand("OK");
+			okButton.setActionCommand("Ja");
 			getRootPane().setDefaultButton(okButton);
 		}
 		{
@@ -79,26 +84,29 @@ public class NeuerBenutzerFrage extends JDialog {
 					dispose();
 				}
 			});
-			cancelButton.setBounds(303, 220, 100, 30);
+			cancelButton.setBounds(300, 150, 100, 30);
 			contentPanel.add(cancelButton);
 			cancelButton.setActionCommand("Cancel");
 		}
 		{
 			JTextPane txtBenutzername = new JTextPane();
-			txtBenutzername.setText("Benutzername:         "+NeuerBenutzername);
-			txtBenutzername.setBounds(50, 30, 400, 30);
+			txtBenutzername.setText("Benutzername:                  "+NeuerBenutzername);
+			txtBenutzername.setEditable(false);
+			txtBenutzername.setBounds(30, 20, 400, 30);
 			contentPanel.add(txtBenutzername);
 		}
 		{
 			JTextPane txtPasswort = new JTextPane();
-			txtPasswort.setText("Organisationseinheit: "+idOrgaEinheit);
-			txtPasswort.setBounds(50, 60, 400, 30);
+			txtPasswort.setText("Organisationseinheit:      "+idOrgaEinheit);
+			txtPasswort.setEditable(false);
+			txtPasswort.setBounds(30, 50, 400, 30);
 			contentPanel.add(txtPasswort);
 		}
 		{
 			JTextPane txtFrage = new JTextPane();
 			txtFrage.setText("Benutzer erstellen?");
-			txtFrage.setBounds(193, 122, 117, 30);
+			txtFrage.setBounds(180, 100, 200, 50);
+			txtFrage.setFont(new Font( "Times New Roman", Font.BOLD, 16));
 			contentPanel.add(txtFrage);
 		}
 	}

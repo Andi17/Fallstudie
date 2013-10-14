@@ -1,5 +1,4 @@
 package gui;
-
 import java.awt.BorderLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -11,12 +10,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 import java.util.List;
-
 import javax.swing.JComboBox;
-
 import Webservice.ComBenutzer;
 import Webservice.Webservice;
-
 @SuppressWarnings("serial")
 public class LoescheBenutzer extends JDialog {
 	
@@ -25,13 +21,10 @@ public class LoescheBenutzer extends JDialog {
 	private Webservice port;
 	
 	private String loeschenBenutzer;
-
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtBenutzername;
 	private String[] Combobezeichnung;
 	private JComboBox comboBoxBenutzername;
-
-
 	/**
 	 * Create the dialog.
 	 */
@@ -43,34 +36,35 @@ public class LoescheBenutzer extends JDialog {
 		initialize();
 	}
 	public void initialize(){
-		setTitle("Benutzer - Loeschen");
+		setTitle("Benutzer - L\u00F6schen");
 		setResizable(false);
-		setBackground(Color.WHITE);
-		setBounds(100, 100, 460, 180);
+		setBackground(new Color(255, 250, 240));
+		setBounds(100, 100, 480, 155);
 		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBackground(Color.WHITE);
+		contentPanel.setBackground(new Color(255, 250, 240));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		{
 			txtBenutzername = new JTextField();
-			txtBenutzername.setBounds(200, 30, 100, 30);
+			txtBenutzername.setBounds(150, 19, 150, 26);
 			contentPanel.add(txtBenutzername);
 			txtBenutzername.setColumns(10);
 		}
 		{
 			JLabel lblBenutzername = new JLabel("Benutzername:");
-			lblBenutzername.setBounds(50, 30, 150, 30);
+			lblBenutzername.setBounds(30, 18, 150, 30);
 			contentPanel.add(lblBenutzername);
 		}
 		{
-			JButton okButton = new JButton("Loeschen!");
-			okButton.setBounds(200, 100, 100, 30);
+			JButton okButton = new JButton("L\u00F6schen");
+			okButton.setBackground(Color.ORANGE);
+			okButton.setBounds(240, 85, 100, 30);
 			contentPanel.add(okButton);
 			okButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					//TODO Aktion
-					// †bergabe von "benutzername" an "LoescheBenutzerFrage"
+					// Übergabe von "benutzername" an "LoescheBenutzerFrage"
 					loeschenBenutzer = txtBenutzername.getText();
 					if ( port.gibtesBenutzerschon(Benutzername, Passwort, loeschenBenutzer)){
 					
@@ -85,7 +79,7 @@ public class LoescheBenutzer extends JDialog {
 		}
 		{
 			JButton cancelButton = new JButton("Abbrechen");
-			cancelButton.setBounds(300, 100, 100, 30);
+			cancelButton.setBounds(350, 85, 100, 30);
 			contentPanel.add(cancelButton);
 			cancelButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -109,8 +103,7 @@ public class LoescheBenutzer extends JDialog {
 						.getSelectedIndex()]);
 			}
 		});
-		comboBoxBenutzername.setBounds(350, 30, 100, 30);
+		comboBoxBenutzername.setBounds(310, 19, 140, 26);
 		contentPanel.add(comboBoxBenutzername);
 	}
-
 }

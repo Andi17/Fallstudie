@@ -1,5 +1,4 @@
 package gui;
-
 import java.awt.BorderLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -9,12 +8,9 @@ import javax.swing.JTextPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
-
 @SuppressWarnings("serial")
 public class AnmeldungFalsch extends JDialog {
-
 	private final JPanel contentPanel = new JPanel();
-
 	/**
 	 * Launch the application.
 	 */
@@ -27,31 +23,31 @@ public class AnmeldungFalsch extends JDialog {
 			e.printStackTrace();
 		}
 	}
-
 	/**
 	 * Create the dialog.
 	 */
 	public AnmeldungFalsch() {
 		setTitle("Login - Fehlgeschlagen");
 		setResizable(false);
-		setBackground(Color.WHITE);
+		setBackground(new Color(255, 250, 240));
 		setBounds(100, 100, 460, 180);
 		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBackground(Color.WHITE);
+		contentPanel.setBackground(new Color(255, 250, 240));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		{
 			JTextPane txtpnDieAnmeldungWar = new JTextPane();
 			txtpnDieAnmeldungWar.setEditable(false);
-			txtpnDieAnmeldungWar.setBackground(Color.WHITE);
-			txtpnDieAnmeldungWar.setBounds(6, 6, 438, 89);
+			txtpnDieAnmeldungWar.setBackground(new Color(255, 250, 240));
+			txtpnDieAnmeldungWar.setBounds(60, 0, 378, 89);
 			//TODO Inhalt
 			txtpnDieAnmeldungWar.setText("\n\n    Die Anmeldung war fehlerhaft. Versuchen Sie es erneut\n    oder wenden Sie sich an Ihren Systemadministrator.");
 			contentPanel.add(txtpnDieAnmeldungWar);
 		}
 		JButton okButton = new JButton("OK");
-		okButton.setBounds(379, 123, 75, 29);
+		okButton.setBounds(180, 90, 100, 30);
+		okButton.setBackground(Color.WHITE);
 		contentPanel.add(okButton);
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -62,7 +58,8 @@ public class AnmeldungFalsch extends JDialog {
 		getRootPane().setDefaultButton(okButton);
 		{
 			JButton button = new JButton("?");
-			button.setBounds(6, 123, 29, 29);
+			button.setBounds(385, 115, 60, 30);
+			button.setBackground(new Color(135, 200, 235));
 			contentPanel.add(button);
 			button.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -72,5 +69,4 @@ public class AnmeldungFalsch extends JDialog {
 			});
 		}
 	}
-
 }

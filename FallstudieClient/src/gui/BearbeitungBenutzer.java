@@ -1,5 +1,4 @@
 package gui;
-
 import java.awt.BorderLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -11,25 +10,19 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 import java.util.List;
-
 import javax.swing.JComboBox;
-
 import Webservice.ComBenutzer;
 import Webservice.ComOrgaEinheit;
 import Webservice.Webservice;
-
 @SuppressWarnings("serial")
 public class BearbeitungBenutzer extends JDialog {
-
 	private String Benutzername;
 	private String Passwort;
 	private Webservice port;
-
 	private int idOrgaEinheit;
 	private String benutzername;
 	private String neuerBenutzername;
 	private String passwort;
-
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtPasswort;
 	private JTextField txtBenutzername;
@@ -40,7 +33,6 @@ public class BearbeitungBenutzer extends JDialog {
 	private JComboBox comboBoxOrgaEinheit;
 	private String[] CoboBezeichnungOrgaEinheit;
 	private List<ComOrgaEinheit> OrgaEinheitListe;
-
 	/**
 	 * Create the dialog.
 	 */
@@ -51,72 +43,70 @@ public class BearbeitungBenutzer extends JDialog {
 		this.port = port;
 		initialize();
 	}
-
 	private void initialize() {
-
-		setTitle("Benutzer - Passwort \u00E4ndern");
-		setBackground(Color.WHITE);
+		setTitle("Benutzer - Bearbeiten");
+		setBackground(new Color(255, 250, 240));
 		setResizable(false);
-		setBounds(100, 100, 500, 200);
+		setBounds(100, 100, 520, 240);
 		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBackground(Color.WHITE);
+		contentPanel.setBackground(new Color(255, 250, 240));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
-
 		{
 			JLabel lblBenutzername = new JLabel("Benutzername:");
-			lblBenutzername.setBounds(50, 30, 200, 30);
+			lblBenutzername.setBounds(30, 20, 150, 30);
 			contentPanel.add(lblBenutzername);
 		}
 		{
-			JLabel lblBenutzername = new JLabel("Benutzername:");
-			lblBenutzername.setBounds(50, 60, 200, 30);
+			JLabel lblBenutzername = new JLabel("Neuer Benutzername:");
+			lblBenutzername.setBounds(30, 50, 150, 30);
 			contentPanel.add(lblBenutzername);
 		}
 		{
 			JLabel lblNeuesPasswort = new JLabel("Neues Passwort:");
-			lblNeuesPasswort.setBounds(50, 90, 200, 30);
+			lblNeuesPasswort.setBounds(30, 80, 150, 30);
 			contentPanel.add(lblNeuesPasswort);
 		}
 		{
-			JLabel lblNeuesPasswort = new JLabel("Neue OrganisationsEinheit:");
-			lblNeuesPasswort.setBounds(50, 120, 200, 30);
+			JLabel lblNeuesPasswort = new JLabel("Neue Organisationseinheit:");
+			lblNeuesPasswort.setBounds(30, 110, 175, 30);
 			contentPanel.add(lblNeuesPasswort);
 		}
-
 		{
 			txtBenutzername = new JTextField();
-			txtBenutzername.setBounds(250, 30, 100, 30);
+			txtBenutzername.setBounds(200, 20, 142, 26);
 			contentPanel.add(txtBenutzername);
 			txtBenutzername.setColumns(1);
 		}
 		{
 			txtneuerBenutzername = new JTextField();
-			txtneuerBenutzername.setBounds(250, 60, 100, 30);
+			txtneuerBenutzername.setBounds(200, 50, 142, 26);
 			contentPanel.add(txtneuerBenutzername);
 			txtneuerBenutzername.setColumns(10);
 		}
 		{
 			txtPasswort = new JTextField();
-			txtPasswort.setBounds(250, 90, 100, 30);
+			txtPasswort.setBounds(200, 80, 142, 26);
 			contentPanel.add(txtPasswort);
 			txtPasswort.setColumns(10);
 		}
 		{
 			txtOrgaEinheit = new JTextField();
-			txtOrgaEinheit.setBounds(250, 120, 100, 30);
+			txtOrgaEinheit.setBounds(200, 110, 142, 26);
 			contentPanel.add(txtOrgaEinheit);
 			txtOrgaEinheit.setColumns(1);
 		}
 		{
 			JButton okButton = new JButton("\u00C4ndern");
-			okButton.setBounds(50, 150, 100, 30);
+			okButton.setBackground(new Color(255, 255, 255));
+			okButton.setBounds(280, 162, 100, 30);
+			okButton.setBackground(Color.ORANGE);
 			contentPanel.add(okButton);
 			okButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					// TODO Aktion
-					// †bergeben von "benutzername" und "passwort" an
+					// Übergeben von "benutzername" und "passwort" an
 					// "BearbeitungBenutzerFrage"
 					benutzername = txtBenutzername.getText();
 					passwort = txtPasswort.getText();
@@ -155,7 +145,6 @@ public class BearbeitungBenutzer extends JDialog {
 								benutzername)) {
 							txtBenutzername.setText("");
 							txtPasswort.setText("");
-
 						}
 						txtOrgaEinheit.setText("");
 					}
@@ -166,7 +155,8 @@ public class BearbeitungBenutzer extends JDialog {
 		}
 		{
 			JButton cancelButton = new JButton("Abbrechen");
-			cancelButton.setBounds(350, 150, 100, 30);
+			cancelButton.setBackground(new Color(255, 255, 255));
+			cancelButton.setBounds(394, 162, 100, 30);
 			contentPanel.add(cancelButton);
 			cancelButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -190,7 +180,7 @@ public class BearbeitungBenutzer extends JDialog {
 						.getSelectedIndex()]);
 			}
 		});
-		comboBoxBenutzername.setBounds(350, 30, 100, 30);
+		comboBoxBenutzername.setBounds(350,20, 142, 26);
 		contentPanel.add(comboBoxBenutzername);
 		OrgaEinheitListe = port.getOrgaEinheiten(Benutzername, Passwort);
 		CoboBezeichnungOrgaEinheit = new String[OrgaEinheitListe.size()];
@@ -208,7 +198,7 @@ public class BearbeitungBenutzer extends JDialog {
 								.getIdOrgaEinheit());
 			}
 		});
-		comboBoxOrgaEinheit.setBounds(350, 120, 100, 30);
+		comboBoxOrgaEinheit.setBounds(350, 110, 142, 26);
 		contentPanel.add(comboBoxOrgaEinheit);
 	}
 }
