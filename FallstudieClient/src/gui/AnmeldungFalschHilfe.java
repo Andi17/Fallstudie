@@ -50,7 +50,7 @@ public class AnmeldungFalschHilfe extends JDialog {
 		{
 			JButton okButton = new JButton("OK");
 			okButton.setBounds(192, 100, 100, 30);
-			okButton.setBackground(Color.WHITE);
+			okButton.setBackground(Color.ORANGE);
 			contentPanel.add(okButton);
 			okButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {

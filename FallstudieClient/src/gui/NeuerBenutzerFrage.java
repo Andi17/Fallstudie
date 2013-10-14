@@ -46,6 +46,7 @@ public class NeuerBenutzerFrage extends JDialog {
 		setTitle("Benutzer - Anlegen");
 		setBackground(Color.WHITE);
 		setBounds(100, 100, 500, 250);
+		setResizable (false);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(new Color (255, 250, 240));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
