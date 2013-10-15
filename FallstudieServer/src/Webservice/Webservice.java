@@ -171,7 +171,7 @@ public class Webservice {
 	public boolean OrgaEinheitErstellen(String benutzer, String passwort,
 			int idUeberOrgaEinheit, String OrgaEinheitBez, String Leitername,
 			int idLeiterBerechtigung, int idMitarbeiterBerechtigung) {
-		if (rightsManagement.vorgangMoeglich(benutzer, passwort, 0))
+		if (rightsManagement.vorgangMoeglich(benutzer, passwort, Rechte.alleBenutzer))
 			return orgaEinheitVerwaltung.neueOrgaEinheit(idUeberOrgaEinheit,
 					OrgaEinheitBez, Leitername, idLeiterBerechtigung, Optionen.isInitialbelegungOrgaEinheitZustand(), idMitarbeiterBerechtigung);
 		else

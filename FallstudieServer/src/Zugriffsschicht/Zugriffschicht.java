@@ -103,7 +103,19 @@ public class Zugriffschicht {
 	 * Berechtigung
 	 */
 	public List<Berechtigung> getAlleBerechtigungen(){
-		return null;
+		ResultSet resultSet;
+		List<Berechtigung> rueckgabe = new ArrayList<Berechtigung>();
+		try {
+			resultSet = db.executeQueryStatement("SELECT * FROM Berechtigungen ORDER BY Berechtigungbez");
+			while (resultSet.next()) {
+				rueckgabe.add(new Berechtigung(resultSet, db));
+			}
+			resultSet.close();
+		} catch (SQLException e) {
+			System.out.println(e);
+			return null;
+		}
+		return rueckgabe;
 	}
 	
 	public Berechtigung getBerechtigungzuLeitername(String Benutzername) {
@@ -255,6 +267,16 @@ public class Zugriffschicht {
 	/*
 	 * Strichart
 	 */
+	public Strichart neueStrichartErstellen(String strichbezeichnung, boolean zustand){
+		Strichart rueckgabe = null;
+		try {
+			rueckgabe = new Strichart(strichbezeichnung, zustand, db);
+		} catch (SQLException e) {
+			System.out.println("Zugriffschicht: neuerBenutzerErstellen: "+e);
+		}
+		return rueckgabe;
+	}
+	
 	public List<Strichart> getAlleMoeglichenStricharten() {
 		ResultSet resultSet;
 		List<Strichart> listeStricharten = new ArrayList<Strichart>();
