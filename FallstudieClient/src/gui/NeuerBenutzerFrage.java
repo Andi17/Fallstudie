@@ -86,6 +86,7 @@ public class NeuerBenutzerFrage extends JDialog {
 				}
 			});
 			cancelButton.setBounds(300, 150, 100, 30);
+			cancelButton.setBackground (Color.WHITE);
 			contentPanel.add(cancelButton);
 			cancelButton.setActionCommand("Cancel");
 		}
@@ -94,6 +95,7 @@ public class NeuerBenutzerFrage extends JDialog {
 			txtBenutzername.setText("Benutzername:                  "+NeuerBenutzername);
 			txtBenutzername.setEditable(false);
 			txtBenutzername.setBounds(30, 20, 400, 30);
+			txtBenutzername.setBackground(new Color(255,250,240));
 			contentPanel.add(txtBenutzername);
 		}
 		{
@@ -101,6 +103,7 @@ public class NeuerBenutzerFrage extends JDialog {
 			txtPasswort.setText("Organisationseinheit:      "+idOrgaEinheit);
 			txtPasswort.setEditable(false);
 			txtPasswort.setBounds(30, 50, 400, 30);
+			txtPasswort.setBackground(new Color(255,250,240));
 			contentPanel.add(txtPasswort);
 		}
 		{
