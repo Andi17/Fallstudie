@@ -36,7 +36,7 @@ public class Zugriffschicht {
 			resultSet = db
 					.executeQueryStatement("SELECT * FROM Benutzer WHERE Benutzername = '"
 							+ Benutzername + "'");
-			resultSet.next();
+			if(resultSet.next())
 			rueckgabe = new Benutzer(resultSet, db, this);
 			resultSet.close();
 		} catch (SQLException e) {
@@ -110,7 +110,7 @@ public class Zugriffschicht {
 					.executeQueryStatement("SELECT b.* FROM OrgaEinheiten a, Berechtigungen b WHERE"
 							+ " a.idLeiterBerechtigung = b.idBerechtigung AND a.Leitername = '"
 							+ Benutzername + "'");
-			resultSet.next();
+			if(resultSet.next())
 			rueckgabe = new Berechtigung(resultSet, db);
 			resultSet.close();
 		} catch (SQLException e) {
@@ -125,7 +125,7 @@ public class Zugriffschicht {
 		try {
 			resultSet = db
 					.executeQueryStatement("SELECT b.* FROM Berechtigungen b, OrgaEinheiten c, Benutzer a WHERE b.idBerechtigung = c.idMitarbeiterBerechtigung AND c.idOrgaEinheit = a.idOrgaEinheit AND a.Benutzername = '" + Benutzername+ "'");
-			resultSet.next();
+			if(resultSet.next())
 			rueckgabe = new Berechtigung(resultSet, db);
 			resultSet.close();
 		} catch (SQLException e) {
@@ -160,7 +160,7 @@ public class Zugriffschicht {
 			resultSet = db
 					.executeQueryStatement("SELECT * FROM Berechtigungen WHERE idBerechtigung = '"
 							+ idBerechtigung + "'");
-			resultSet.next();
+			if(resultSet.next())
 			rueckgabe = new Berechtigung(resultSet, db);
 			resultSet.close();
 		} catch (SQLException e) {
@@ -186,16 +186,19 @@ public class Zugriffschicht {
 		return rueckgabe;
 	}
 	
-	public OrgaEinheit getOrgaEinheitvonBezeichnung(String bezeichnung) throws SQLException{
-		ResultSet resultSet = db.executeQueryStatement("SELECT * FROM OrgaEinheiten WHERE OrgaEinheitBez = '" + bezeichnung + "'");
-		if(resultSet.next())return new OrgaEinheit(resultSet, db, this);
-		else return null;
-	}
-	
-	public  OrgaEinheit getHoechsteOrgaEinheit() throws SQLException{
-		ResultSet resultSet = db.executeQueryStatement("SELECT * FROM OrgaEinheiten WHERE idUeberOrgaEinheit = 1");
-		if(resultSet.next())return new OrgaEinheit(resultSet, db, this);
-		else return null;
+	public OrgaEinheit getOrgaEinheitvonBezeichnung(String bezeichnung){
+		OrgaEinheit rueckgabe = null;
+		try {
+			ResultSet resultSet = db.executeQueryStatement("SELECT * FROM OrgaEinheiten WHERE OrgaEinheitBez = '" + bezeichnung + "'");
+
+			if(resultSet.next())
+				rueckgabe = new OrgaEinheit(resultSet, db, this);
+			resultSet.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return rueckgabe;
 	}
 	
 	public List<OrgaEinheit> getOrgaEinheiten(){
@@ -220,7 +223,7 @@ public class Zugriffschicht {
 			resultSet = db
 					.executeQueryStatement("SELECT * FROM OrgaEinheiten WHERE idOrgaEinheit = '"
 							+ idOrgaEinheit + "'");
-			resultSet.next();
+			if(resultSet.next())
 			rueckgabe = new OrgaEinheit(resultSet, db, this);
 			resultSet.close();
 		} catch (SQLException e) {
@@ -235,7 +238,7 @@ public class Zugriffschicht {
 			resultSet = db
 					.executeQueryStatement("SELECT * FROM OrgaEinheiten WHERE Leitername = '"
 							+ Leitername + "'");
-			resultSet.next();
+			if(resultSet.next())
 			rueckgabe = new OrgaEinheit(resultSet, db, this);
 			resultSet.close();
 		} catch (SQLException e) {

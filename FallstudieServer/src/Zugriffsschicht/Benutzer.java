@@ -12,7 +12,7 @@ import jdbc.JdbcAccess;
 public class Benutzer {
 	private JdbcAccess db;
 	private Zugriffschicht dbZugriff;
-	private String Benutzername;
+	private String benutzername;
 	private String Passwort;
 	private int idOrgaEinheit;
 	private boolean Gesperrt;
@@ -40,7 +40,7 @@ public class Benutzer {
 		resultSet.close();
 	}
 	private void werteSetzen(ResultSet resultSet) throws SQLException{
-		this.Benutzername = resultSet.getString("Benutzername");
+		this.benutzername = resultSet.getString("Benutzername");
 		this.Passwort = resultSet.getString("Passwort");
 		this.idOrgaEinheit = resultSet.getInt("idOrgaEinheit");
 		this.Gesperrt = resultSet.getBoolean("Gesperrt");
@@ -53,7 +53,7 @@ public class Benutzer {
 	}
 	
 	public String getBenutzername() {
-		return Benutzername;
+		return benutzername;
 	}
 
 	public String getPasswort() {
@@ -72,25 +72,26 @@ public class Benutzer {
 		Gesperrt = gesperrt;
 	}
 
-	public void setBenutzername(String benutzername) throws SQLException{
+	public void setBenutzername(String neuerBenutzername) throws SQLException{
 
-		db.executeUpdateStatement("UPDATE Benutzer SET Benutzername = '" + benutzername+"' WHERE Benutzername = '"+Benutzername+"'");
-		this.Benutzername = benutzername;
+		db.executeUpdateStatement("UPDATE Benutzer SET Benutzername = '" + neuerBenutzername+"' WHERE Benutzername = '"+benutzername+"'");
+		db.executeUpdateStatement("UPDATE OrgaEinheit SET Leitername = '" + neuerBenutzername + "' WHERE Leitername = '" + benutzername + "'");
+		this.benutzername = neuerBenutzername;
 
 	}
 
 	public void setPasswort(String passwort) throws SQLException{
-		db.executeUpdateStatement("UPDATE Benutzer SET Passwort = '" + passwort+"' WHERE Benutzername = '"+Benutzername+"'");
+		db.executeUpdateStatement("UPDATE Benutzer SET Passwort = '" + passwort+"' WHERE Benutzername = '"+benutzername+"'");
 		this.Passwort = passwort;
 	}
 
 	public void setidOrgaEinheit(int aktuelleOE) throws SQLException{
-		db.executeUpdateStatement("UPDATE Benutzer SET idOrgaEinheit = '" + aktuelleOE+"' WHERE Benutzername = '"+Benutzername+"'");
+		db.executeUpdateStatement("UPDATE Benutzer SET idOrgaEinheit = '" + aktuelleOE+"' WHERE Benutzername = '"+benutzername+"'");
 		this.idOrgaEinheit = aktuelleOE;
 	}
 
 	public void loeschen() throws SQLException {
-		db.executeUpdateStatement("DELETE FROM Benutzer WHERE Benutzername = '"+Benutzername+"'");
+		db.executeUpdateStatement("DELETE FROM Benutzer WHERE Benutzername = '"+benutzername+"'");
 		
 	}
 

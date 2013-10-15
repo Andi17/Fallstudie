@@ -1,4 +1,4 @@
-package Benutzerverwaltung;
+package Administration;
 
 public class Verschluesselung {
 	
