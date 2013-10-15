@@ -34,25 +34,26 @@ public class HauptseiteHilfe extends JDialog {
 	public HauptseiteHilfe() {
 		setTitle("Hauptseite - Hilfe");
 		setResizable(false);
-		setBackground(Color.WHITE);
-		setBounds(100, 100, 460, 180);
+		setBackground(new Color(255, 250, 240));
+		setBounds(100, 100, 460, 310);
 		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBackground(Color.WHITE);
+		contentPanel.setBackground(new Color(255, 250, 240));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		{
 			JTextPane txtpnTodo = new JTextPane();
 			//TODO Inhalt
-			txtpnTodo.setText("TODO");
+			txtpnTodo.setText("Diese Hilfe bezieht sich auf das generelle Fenster und nicht auf die einzelnen Tabs.\n\rSie k\u00F6nnen je nach Benutzerrecht die Tabs \u201EStricheln\u201C, \u201EStatistik\u201C oder \u201EAdministration\u201C ausw\u00E4hlen. Diese haben jeweils ihre eigenen Hilfeseiten.\n\rLinks unten neben dem \u201EHilfe\u201C-Button  k\u00F6nnen Sie \u00FCberpr\u00FCfen als welche Person Sie zurzeit eingeloggt sind. Sollte hier nicht Ihr Name stehen beenden Sie bitte die Anwendung und starten diese neu.\n\rDer Button \u201EBeenden\u201C f\u00FChrt dazu, dass die Anwendung \u201EELASTICO\u201C beendet wird.\r");
 			txtpnTodo.setEditable(false);
-			txtpnTodo.setBackground(Color.WHITE);
-			txtpnTodo.setBounds(6, 6, 438, 111);
+			txtpnTodo.setBackground(new Color(255, 250, 240));
+			txtpnTodo.setBounds(6, 6, 438, 208);
 			contentPanel.add(txtpnTodo);
 		}
 		{
 			JButton okButton = new JButton("OK");
-			okButton.setBounds(379, 123, 75, 29);
+			okButton.setBounds(189, 236, 100, 30);
+			okButton.setBackground(Color.WHITE);
 			contentPanel.add(okButton);
 			okButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
