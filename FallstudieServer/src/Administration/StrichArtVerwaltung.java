@@ -1,4 +1,4 @@
-package Benutzerverwaltung;
+package Administration;
 
 import Zugriffsschicht.Zugriffschicht;
 

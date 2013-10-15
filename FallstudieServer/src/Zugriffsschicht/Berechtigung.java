@@ -17,10 +17,11 @@ public class Berechtigung {
 		werteSetzen(resultSet);
 		this.db = db;
 	}
+	/*
 	public Berechtigung(int idBerechtigung, String Berechtigungbez, JdbcAccess db) throws SQLException{
 		//TODO?
 		//einfügen von berechtigungen noch unnötig
-	}
+	}*/
 	
 	
 	public void werteSetzen(ResultSet resultSet) throws SQLException{

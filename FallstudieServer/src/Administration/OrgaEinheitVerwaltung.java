@@ -1,4 +1,4 @@
-package Benutzerverwaltung;
+package Administration;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -87,11 +87,7 @@ public class OrgaEinheitVerwaltung {
 	// Gibt true zurück wenn es schon eine OrgaEinheit mit der Bezeichnung gibt.
 	public boolean gibtEsOrgaEinheit(String bezeichnung) {
 		OrgaEinheit orgaEinheit = null;
-		try {
-			orgaEinheit = dbZugriff.getOrgaEinheitvonBezeichnung(bezeichnung);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		orgaEinheit = dbZugriff.getOrgaEinheitvonBezeichnung(bezeichnung);
 		if (orgaEinheit == null)
 			return false;
 		else

@@ -1,4 +1,4 @@
-package Benutzerverwaltung;
+package Administration;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -7,7 +7,6 @@ import java.util.List;
 import Com.ComBenutzer;
 import Optionen.Optionen;
 import Zugriffsschicht.Benutzer;
-import Zugriffsschicht.OrgaEinheit;
 import Zugriffsschicht.Zugriffschicht;
 
 public class Benutzerverwaltung {
@@ -114,7 +113,7 @@ public class Benutzerverwaltung {
 
 	public boolean Benutzernameaendern(String betroffenerBenutzer,
 			String neuerBenutzername) {
-		Benutzer benutzer =dbZugriff.getBenutzervonBenutzername(betroffenerBenutzer);
+		Benutzer benutzer = dbZugriff.getBenutzervonBenutzername(betroffenerBenutzer);
 		if (benutzer != null){
 			try{
 			benutzer.setBenutzername(neuerBenutzername);
