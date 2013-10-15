@@ -133,6 +133,7 @@ public class NeuerBenutzer extends JDialog {
 		{
 			JButton cancelButton = new JButton("Abbrechen");
 			cancelButton.setBounds(370, 120, 100, 30);
+			cancelButton.setBackground(Color.WHITE);
 			contentPanel.add(cancelButton);
 			cancelButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {

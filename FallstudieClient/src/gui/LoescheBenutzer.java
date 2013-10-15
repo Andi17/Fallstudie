@@ -80,6 +80,7 @@ public class LoescheBenutzer extends JDialog {
 		{
 			JButton cancelButton = new JButton("Abbrechen");
 			cancelButton.setBounds(350, 85, 100, 30);
+			cancelButton.setBackground(Color.WHITE);
 			contentPanel.add(cancelButton);
 			cancelButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
