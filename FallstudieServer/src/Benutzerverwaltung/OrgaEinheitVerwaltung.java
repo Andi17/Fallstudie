@@ -17,67 +17,58 @@ public class OrgaEinheitVerwaltung {
 		this.dbZugriff = dbZugriff;
 	}
 
-	// TODO HierarchieStufe  für Statistik einbauen!!!!!!
-	//Noch unvollständig!!!!
+	// Gibt alle OrgaEinheiten zurück.
 	public List<ComOrgaEinheit> getAlleOrgaEinheiten() {
-		/*
-		 * List<OrgaEinheit> ListOrga = dbZugriff.getOrgaEinheiten();
-		 * List<ComOrgaEinheit> rueckgabe = new ArrayList<ComOrgaEinheit>(); for
-		 * (OrgaEinheit orga : ListOrga) { Berechtigung Leiterber = dbZugriff
-		 * .getBerechtigungzuidBerechtigung(orga .getIdLeiterBerechtigung());
-		 * Berechtigung Mitarbeiterber = dbZugriff
-		 * .getBerechtigungzuidBerechtigung(orga
-		 * .getIdMitarbeiterBerechtigung()); if (Leiterber != null) { if
-		 * (Mitarbeiterber != null) { rueckgabe.add(new
-		 * ComOrgaEinheit(orga.getIdOrgaEinheit(), orga.getIdUeberOrgaEinheit(),
-		 * orga .getOrgaEinheitBez(), orga.getLeitername(),
-		 * orga.getIdLeiterBerechtigung(), Leiterber .getBerechtigungbez(), orga
-		 * .getIdMitarbeiterBerechtigung(), Mitarbeiterber.getBerechtigungbez(),
-		 * 0)); } else { rueckgabe.add(new
-		 * ComOrgaEinheit(orga.getIdOrgaEinheit(), orga.getIdUeberOrgaEinheit(),
-		 * orga .getOrgaEinheitBez(), orga.getLeitername(),
-		 * orga.getIdLeiterBerechtigung(), Leiterber .getBerechtigungbez(), orga
-		 * .getIdMitarbeiterBerechtigung(), "Keine Berechtigung", 0)); } } else
-		 * { if (Mitarbeiterber != null) { rueckgabe.add(new
-		 * ComOrgaEinheit(orga.getIdOrgaEinheit(), orga.getIdUeberOrgaEinheit(),
-		 * orga .getOrgaEinheitBez(), orga.getLeitername(),
-		 * orga.getIdLeiterBerechtigung(), "Keine Berechtigung", orga
-		 * .getIdMitarbeiterBerechtigung(), Mitarbeiterber.getBerechtigungbez(),
-		 * 0)); } else { rueckgabe.add(new
-		 * ComOrgaEinheit(orga.getIdOrgaEinheit(), orga.getIdUeberOrgaEinheit(),
-		 * orga .getOrgaEinheitBez(), orga.getLeitername(),
-		 * orga.getIdLeiterBerechtigung(), "Keine Berechtigung", orga
-		 * .getIdMitarbeiterBerechtigung(), "Keine Berechtigung", 0)); } } }
-		 * return rueckgabe;
-		 */
+
+		List<OrgaEinheit> ListOrga = dbZugriff.getOrgaEinheiten();
 		List<ComOrgaEinheit> rueckgabe = new ArrayList<ComOrgaEinheit>();
-		try {
-			boolean wiederholen = true;
-			int hierarchieEbene = 1;
-			OrgaEinheit hoechsteOrgaEinheit = dbZugriff
-					.getHoechsteOrgaEinheit();
-			rueckgabe
-					.add(new ComOrgaEinheit(hoechsteOrgaEinheit
-							.getIdOrgaEinheit(), hoechsteOrgaEinheit
-							.getIdUeberOrgaEinheit(), hoechsteOrgaEinheit
-							.getOrgaEinheitBez(), hoechsteOrgaEinheit
-							.getLeitername(), hoechsteOrgaEinheit
-							.getIdLeiterBerechtigung(), hoechsteOrgaEinheit
-							.getLeiterBerechtigungBezeichnung(),
-							hoechsteOrgaEinheit.getIdMitarbeiterBerechtigung(),
-							hoechsteOrgaEinheit
-									.getMitarbeiterBerechtigungBezeichnung(),
-							hierarchieEbene));
-			while (wiederholen) {
-
+		for (OrgaEinheit orga : ListOrga) {
+			Berechtigung Leiterber = dbZugriff
+					.getBerechtigungzuidBerechtigung(orga
+							.getIdLeiterBerechtigung());
+			Berechtigung Mitarbeiterber = dbZugriff
+					.getBerechtigungzuidBerechtigung(orga
+							.getIdMitarbeiterBerechtigung());
+			if (Leiterber != null) {
+				if (Mitarbeiterber != null) {
+					rueckgabe.add(new ComOrgaEinheit(orga.getIdOrgaEinheit(),
+							orga.getIdUeberOrgaEinheit(), orga
+									.getOrgaEinheitBez(), orga.getLeitername(),
+							orga.getIdLeiterBerechtigung(), Leiterber
+									.getBerechtigungbez(), orga
+									.getIdMitarbeiterBerechtigung(),
+							Mitarbeiterber.getBerechtigungbez()));
+				} else {
+					rueckgabe.add(new ComOrgaEinheit(orga.getIdOrgaEinheit(),
+							orga.getIdUeberOrgaEinheit(), orga
+									.getOrgaEinheitBez(), orga.getLeitername(),
+							orga.getIdLeiterBerechtigung(), Leiterber
+									.getBerechtigungbez(), orga
+									.getIdMitarbeiterBerechtigung(),
+							"Keine Berechtigung"));
+				}
+			} else {
+				if (Mitarbeiterber != null) {
+					rueckgabe.add(new ComOrgaEinheit(orga.getIdOrgaEinheit(),
+							orga.getIdUeberOrgaEinheit(), orga
+									.getOrgaEinheitBez(), orga.getLeitername(),
+							orga.getIdLeiterBerechtigung(),
+							"Keine Berechtigung", orga
+									.getIdMitarbeiterBerechtigung(),
+							Mitarbeiterber.getBerechtigungbez()));
+				} else {
+					rueckgabe.add(new ComOrgaEinheit(orga.getIdOrgaEinheit(),
+							orga.getIdUeberOrgaEinheit(), orga
+									.getOrgaEinheitBez(), orga.getLeitername(),
+							orga.getIdLeiterBerechtigung(),
+							"Keine Berechtigung", orga
+									.getIdMitarbeiterBerechtigung(),
+							"Keine Berechtigung"));
+				}
 			}
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
+		return rueckgabe;
 
-		return null;
 	}
 
 	// fügt neue OrgaEinheit hinzu, gibt true zurück wenn geklappt

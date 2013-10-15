@@ -203,7 +203,7 @@ public class Zugriffschicht {
 		List<OrgaEinheit> rueckgabe = new ArrayList<OrgaEinheit>();
 		try {
 			resultSet = db
-					.executeQueryStatement("SELECT * FROM OrgaEinheiten");
+					.executeQueryStatement("SELECT * FROM OrgaEinheiten ORDER BY OrgaEinheitBez");
 			while(resultSet.next()){
 			rueckgabe.add(new OrgaEinheit(resultSet, db, this));
 			}

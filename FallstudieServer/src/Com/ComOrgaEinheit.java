@@ -9,12 +9,11 @@ public class ComOrgaEinheit {
 	private String LeiterBerechtigungBez;
 	private int idMitarbeiterBerechtigung;
 	private String MitarbeiterBerechtigungBez;
-	private int HierarchieStufe;
 
 	public ComOrgaEinheit(int idOrgaEinheit, int UeberOrgaEinheit,
 			String OrgaEinheitBez, String Leitername, int idLeiterBerechtigung,
 			String LeiterBerechtigungBez, int idMitarbeiterBerechtigung,
-			String MitarbeiterBerechtigungBez, int HierarchieStufe) {
+			String MitarbeiterBerechtigungBez) {
 		this.idOrgaEinheit = idOrgaEinheit;
 		this.UeberOrgaEinheit = UeberOrgaEinheit;
 		this.OrgaEinheitBez = OrgaEinheitBez;
@@ -23,7 +22,6 @@ public class ComOrgaEinheit {
 		this.LeiterBerechtigungBez = LeiterBerechtigungBez;
 		this.idMitarbeiterBerechtigung = idMitarbeiterBerechtigung;
 		this.MitarbeiterBerechtigungBez = MitarbeiterBerechtigungBez;
-		this.HierarchieStufe = HierarchieStufe;
 	}
 
 	public int getIdOrgaEinheit() {
@@ -58,10 +56,6 @@ public class ComOrgaEinheit {
 		return MitarbeiterBerechtigungBez;
 	}
 
-	public int getHierarchieStufe() {
-		return HierarchieStufe;
-	}
-
 	public void setIdOrgaEinheit(int idOrgaEinheit) {
 		this.idOrgaEinheit = idOrgaEinheit;
 	}
@@ -93,9 +87,4 @@ public class ComOrgaEinheit {
 	public void setMitarbeiterBerechtigungBez(String mitarbeiterBerechtigungBez) {
 		MitarbeiterBerechtigungBez = mitarbeiterBerechtigungBez;
 	}
-
-	public void setHierarchieStufe(int hierarchieStufe) {
-		HierarchieStufe = hierarchieStufe;
-	}
-
 }
