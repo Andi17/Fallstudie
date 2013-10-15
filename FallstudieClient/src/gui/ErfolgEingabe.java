@@ -45,7 +45,7 @@ public class ErfolgEingabe extends JDialog {
 		contentPanel.add(txtpnIhreEingabeWurde);
 		{
 			JButton okButton = new JButton("OK");
-			okButton.setBackground(Color.ORANGE);
+			okButton.setBackground(Color.WHITE);
 			okButton.setBounds(180, 78, 100, 30);
 			contentPanel.add(okButton);
 			okButton.addActionListener(new ActionListener() {
