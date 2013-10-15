@@ -1,10 +1,13 @@
 package gui;
 import java.awt.BorderLayout;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTextPane;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
@@ -40,14 +43,14 @@ public class AnmeldungFalsch extends JDialog {
 			JTextPane txtpnDieAnmeldungWar = new JTextPane();
 			txtpnDieAnmeldungWar.setEditable(false);
 			txtpnDieAnmeldungWar.setBackground(new Color(255, 250, 240));
-			txtpnDieAnmeldungWar.setBounds(60, 0, 378, 89);
+			txtpnDieAnmeldungWar.setBounds(60, 10, 378, 75);
 			//TODO Inhalt
-			txtpnDieAnmeldungWar.setText("\n\n    Die Anmeldung war fehlerhaft. Versuchen Sie es erneut\n    oder wenden Sie sich an Ihren Systemadministrator.");
+			txtpnDieAnmeldungWar.setText("\n    Die Anmeldung war fehlerhaft. Versuchen Sie es erneut\n    oder wenden Sie sich an Ihren Systemadministrator.");
 			contentPanel.add(txtpnDieAnmeldungWar);
 		}
 		JButton okButton = new JButton("OK");
 		okButton.setBounds(180, 90, 100, 30);
-		okButton.setBackground(Color.ORANGE);
+		okButton.setBackground(Color.WHITE);
 		contentPanel.add(okButton);
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -57,9 +60,11 @@ public class AnmeldungFalsch extends JDialog {
 		okButton.setActionCommand("OK");
 		getRootPane().setDefaultButton(okButton);
 		{
-			JButton button = new JButton("?");
-			button.setBounds(385, 115, 60, 30);
-			button.setBackground(new Color(135, 200, 235));
+			JButton button = new JButton("");
+			button.setIcon(new ImageIcon(Login.class.getResource("/gui/images/IconFragezeichenTransparentFertig3030.png")));
+			button.setBorderPainted(false);
+			button.setBounds(415, 115, 30, 30);
+			button.setBackground(new Color(255, 250, 240));
 			contentPanel.add(button);
 			button.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {

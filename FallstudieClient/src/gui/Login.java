@@ -93,9 +93,11 @@ public class Login extends JDialog {
 			contentPanel.add(lblNewLabel);
 		}
 		{
-			JButton button = new JButton("?");
-			button.setBounds(360, 169, 60, 30);
-			button.setBackground(new Color(135, 206, 235));
+			JButton button = new JButton("");
+			button.setIcon(new ImageIcon(Login.class.getResource("/gui/images/IconFragezeichenTransparentFertig3030.png")));
+			button.setBorderPainted(false);
+			button.setBounds(400, 169, 30, 30);
+			button.setBackground(new Color(255,250,240));
 			contentPanel.add(button);
 			JButton anmeldenButton = new JButton("Anmelden");
 			anmeldenButton.setBounds(30, 119, 100, 30);

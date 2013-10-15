@@ -42,12 +42,12 @@ public class PasswortVergessen extends JDialog {
 			txtpnSolltenSieIhr.setEditable(false);
 			//TODO Inhalt
 			txtpnSolltenSieIhr.setText("Sollten Sie Ihr Passwort vergessen haben, kontaktieren Sie bitte Ihren Systemadministrator.");
-			txtpnSolltenSieIhr.setBounds(64, 20, 353, 32);
+			txtpnSolltenSieIhr.setBounds(64, 20, 353, 35);
 			contentPanel.add(txtpnSolltenSieIhr);
 		}
 		{
 			JButton okButton = new JButton("OK");
-			okButton.setBackground(Color.ORANGE);
+			okButton.setBackground(Color.WHITE);
 			okButton.setBounds(180, 81, 100, 30);
 			contentPanel.add(okButton);
 			okButton.addActionListener(new ActionListener() {
