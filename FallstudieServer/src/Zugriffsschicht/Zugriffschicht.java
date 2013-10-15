@@ -119,12 +119,12 @@ public class Zugriffschicht {
 		return rueckgabe;
 	}
 
-	public Berechtigung getBerechtigungzuMitarbeiter(int mitarbeiterBerechtigung) {
+	public Berechtigung getBerechtigungzuMitarbeiter(String Benutzername) {
 		ResultSet resultSet;
 		Berechtigung rueckgabe = null;
 		try {
 			resultSet = db
-					.executeQueryStatement("SELECT * FROM Berechtigungen WHERE idBerechtigung = " + mitarbeiterBerechtigung);
+					.executeQueryStatement("SELECT b.* FROM Berechtigungen b, OrgaEinheiten c, Benutzer a WHERE b.idBerechtigung = c.idMitarbeiterBerechtigung AND c.idOrgaEinheit = a.idOrgaEinheit AND a.Benutzername = '" + Benutzername+ "'");
 			resultSet.next();
 			rueckgabe = new Berechtigung(resultSet, db);
 			resultSet.close();

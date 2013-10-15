@@ -17,7 +17,7 @@ public class OrgaEinheitVerwaltung {
 		this.dbZugriff = dbZugriff;
 	}
 
-	// TODO HierarchieStufe einbauen!!!!!!
+	// TODO HierarchieStufe  für Statistik einbauen!!!!!!
 	//Noch unvollständig!!!!
 	public List<ComOrgaEinheit> getAlleOrgaEinheiten() {
 		/*

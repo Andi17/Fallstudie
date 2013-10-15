@@ -78,11 +78,7 @@ public class OrgaEinheit {
 		else return "Keine Berechtigung";
 	}
 	
-	public String getMitarbeiterBerechtigungBezeichnung(){
-		Berechtigung berechtigung = dbZugriff.getBerechtigungzuMitarbeiter(idMitarbeiterBerechtigung);
-		if(berechtigung!=null)return berechtigung.getBerechtigungbez();
-		else return "Keine Berechtigung";
-	}
+	
 
 	public int getIdOrgaEinheit() {
 		return idOrgaEinheit;
@@ -140,6 +136,11 @@ public class OrgaEinheit {
 	public void setIdMitarbeiterBerechtigung(int idMitarbeiterBerechtigung) throws SQLException {
 		db.executeUpdateStatement("UPDATE OrgaEinheit SET idMitarbeiterBerechtigung = " + idMitarbeiterBerechtigung +" WHERE idOrgaEinheit = " + idOrgaEinheit);
 		this.idMitarbeiterBerechtigung = idMitarbeiterBerechtigung;
+	}
+
+	public String getMitarbeiterBerechtigungBezeichnung() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

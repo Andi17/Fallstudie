@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import Webservice.ComBenutzer;
+import Webservice.ComOrgaEinheit;
 import Webservice.Webservice;
 
 import java.awt.event.ActionListener;
@@ -32,6 +33,10 @@ public class NeueOrgaEinheit extends JDialog {
 	private JTextField txtRechteMitarbeiter;
 	private String[] Combobezeichnung;
 	private JComboBox comboBoxBenutzername;
+	private String[] CoboBezeichnungOrgaEinheit;
+	private List<ComOrgaEinheit> OrgaEinheitListe;
+	private JComboBox comboBoxOrgaEinheit;
+	
 	
 	private String neueOrgaEinheit;
 	private String NeueOrgaEinheitLeiter;
@@ -107,7 +112,7 @@ public class NeueOrgaEinheit extends JDialog {
 						intparse = false;
 					}
 					if(intparse == true&&txtRechteMitarbeiter.getText()!=""&&txtRechteLeiter.getText()!=""&&txtUeberOrgaEinheit.getText()!=""&&txtNeueOrgaEinheitLeiter.getText()!=""&&txtNeueOrgaEinheit.getText()!=""){
-					
+						if (port.gibtEsOrgaEinheitSchon(Benutzername, Passwort, neueOrgaEinheit)==false&&port.gibtesBenutzerschon(Benutzername, Passwort, NeueOrgaEinheitLeiter)==true)
 								System.out.println("Fail");					
 						//	NeueOrgaEinheitFrage NeueOrgaEinheitFrage = new NeueOrgaEinheitFrage(Benutzername, Passwort, port, txtNeueOrgaEinheit.getText(), Integer.parseInt(txtNeueOrgaEinheitLeiter.getText()), Integer.parseInt(txtUeberOrgaEinheit.getText()), Integer.parseInt(txtRechteLeiter.getText()), Integer.parseInt(txtRechteMitarbeiter.getText()));
 						//	NeueOrgaEinheitFrage.setVisible(true);
@@ -195,6 +200,24 @@ public class NeueOrgaEinheit extends JDialog {
 		});
 		comboBoxBenutzername.setBounds(450, 30, 100, 30);
 		contentPanel.add(comboBoxBenutzername);
+		OrgaEinheitListe = port.getOrgaEinheiten(Benutzername, Passwort);
+		CoboBezeichnungOrgaEinheit = new String[OrgaEinheitListe.size()];
+		int zaehler2 = 0;
+		for (ComOrgaEinheit Orga : OrgaEinheitListe) {
+			CoboBezeichnungOrgaEinheit[zaehler2] = Orga.getOrgaEinheitBez();
+			zaehler2++;
+		}
+		comboBoxOrgaEinheit = new JComboBox(CoboBezeichnungOrgaEinheit);
+		comboBoxOrgaEinheit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent c) {
+				txtUeberOrgaEinheit.setText(""
+						+ OrgaEinheitListe.get(
+								comboBoxOrgaEinheit.getSelectedIndex())
+								.getIdOrgaEinheit());
+			}
+		});
+		comboBoxOrgaEinheit.setBounds(350, 110, 142, 26);
+		contentPanel.add(comboBoxOrgaEinheit);
 	}
 
 }
