@@ -102,6 +102,10 @@ public class Zugriffschicht {
 	/*
 	 * Berechtigung
 	 */
+	public List<Berechtigung> getAlleBerechtigungen(){
+		return null;
+	}
+	
 	public Berechtigung getBerechtigungzuLeitername(String Benutzername) {
 		ResultSet resultSet;
 		Berechtigung rueckgabe = null;
